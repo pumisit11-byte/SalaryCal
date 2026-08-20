@@ -231,7 +231,7 @@
     <h1>Salary & OT Calculator</h1>
 
     <!-- Section 1 -->
-    <div class="section-title">1. เงินเดือน & โอที</div>
+    <div class="section-title">1. เงินเดือน & รายรับอื่นๆ</div>
     <div class="input-grid">
         <div class="input-card">
             <label>เงินเดือน (บาท)</label>
@@ -248,6 +248,14 @@
         <div class="input-card">
             <label>เบี้ยเลี้ยง (บาท/วัน)</label>
             <input type="number" id="travel" inputmode="decimal" placeholder="0" oninput="calculate()">
+        </div>
+        <div class="input-card">
+            <label>ค่ากะกลางคืน (บาท/วัน)</label>
+            <input type="number" id="night_shift" inputmode="decimal" placeholder="0" oninput="calculate()">
+        </div>
+        <div class="input-card">
+            <label>ค่าภาษา (บาท)</label>
+            <input type="number" id="lang_allowance" inputmode="decimal" placeholder="0" oninput="calculate()">
         </div>
         <div class="input-card">
             <label>OT x1.0 (ชม.)</label>
@@ -280,6 +288,10 @@
             <span class="value" id="lbl_salary">-</span>
         </div>
         <div class="summary-item">
+            <span>ค่าภาษา</span>
+            <span class="value" id="lbl_lang">-</span>
+        </div>
+        <div class="summary-item">
             <span>รวมค่า OT</span>
             <span class="value" id="lbl_ot">-</span>
         </div>
@@ -287,6 +299,10 @@
         <div class="summary-item">
             <span>เบี้ยเลี้ยงเดินทาง</span>
             <span class="value" id="lbl_travel">-</span>
+        </div>
+        <div class="summary-item">
+            <span>ค่ากะกลางคืน</span>
+            <span class="value" id="lbl_night">-</span>
         </div>
         <div class="summary-item bold">
             <span>รวมรายรับทั้งหมด</span>
@@ -349,6 +365,8 @@
 
         const workDays = getNum('work_days');
         const travelPerDay = getNum('travel');
+        const nightPerDay = getNum('night_shift');
+        const langAllowance = getNum('lang_allowance');
 
         const ot1 = getNum('ot1');
         const ot15 = getNum('ot15');
@@ -364,9 +382,10 @@
         const totalOt = moneyOt1 + moneyOt15 + moneyOt2 + moneyOt3;
 
         const totalTravel = workDays * travelPerDay;
+        const totalNight = workDays * nightPerDay;
         const socialSecurity = Math.min(salary * 0.05, 875.0);
 
-        const totalIncome = salary + totalOt + totalTravel;
+        const totalIncome = salary + totalOt + totalTravel + totalNight + langAllowance;
         const incomeAfterSs = totalIncome - socialSecurity;
 
         let totalExpense = 0;
@@ -382,10 +401,12 @@
         const remainingMoney = incomeAfterSs - totalExpense;
 
         document.getElementById('lbl_salary').innerText = formatNum(salary);
+        document.getElementById('lbl_lang').innerText = formatNum(langAllowance);
         document.getElementById('lbl_ot').innerText = formatNum(totalOt);
         document.getElementById('lbl_ot_detail').innerText = 
             `x1: ${formatNum(moneyOt1)} | x1.5: ${formatNum(moneyOt15)} | x2: ${formatNum(moneyOt2)} | x3: ${formatNum(moneyOt3)}`;
         document.getElementById('lbl_travel').innerText = formatNum(totalTravel);
+        document.getElementById('lbl_night').innerText = formatNum(totalNight);
         document.getElementById('lbl_total_income').innerText = formatNum(totalIncome);
         document.getElementById('lbl_ss').innerText = '-' + formatNum(socialSecurity);
         document.getElementById('lbl_after_ss').innerText = formatNum(incomeAfterSs);
@@ -402,7 +423,7 @@
     }
 
     function clearSummary() {
-        ['lbl_salary','lbl_ot','lbl_ot_detail','lbl_travel','lbl_total_income','lbl_ss','lbl_after_ss','lbl_expense'].forEach(id => {
+        ['lbl_salary','lbl_lang','lbl_ot','lbl_ot_detail','lbl_travel','lbl_night','lbl_total_income','lbl_ss','lbl_after_ss','lbl_expense'].forEach(id => {
             document.getElementById(id).innerText = '-';
         });
         const remBox = document.getElementById('lbl_remaining');
