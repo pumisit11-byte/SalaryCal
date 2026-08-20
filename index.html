@@ -42,16 +42,51 @@
             max-width: 500px;
             background: var(--card-bg);
             border-radius: 20px;
-            padding: 18px 16px;
+            padding: 20px 16px 18px 16px;
             box-shadow: var(--shadow-md);
+            position: relative; /* รองรับการจัดตำแหน่งปุ่มเปลี่ยนภาษา */
         }
 
+        /* ปุ่มเปลี่ยนภาษา แก้ไขไม่ให้ทับหัวข้อ */
+        .lang-switch {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            display: flex;
+            background: #f1f5f9;
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            padding: 2px;
+            z-index: 10;
+        }
+
+        .lang-btn {
+            border: none;
+            background: transparent;
+            padding: 4px 10px;
+            border-radius: 16px;
+            font-size: 0.75rem;
+            font-weight: 700;
+            color: var(--text-sub);
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .lang-btn.active {
+            background: var(--primary-color);
+            color: #fff;
+        }
+
+        /* เพิ่ม margin-top และ padding-right เพื่อหลบปุ่มเปลี่ยนภาษา */
         h1 {
             font-size: 1.25rem;
             font-weight: 700;
-            text-align: center;
-            margin-bottom: 18px;
+            text-align: left;
+            margin-top: 4px;
+            margin-bottom: 20px;
+            padding-right: 90px; 
             color: var(--primary-color);
+            line-height: 1.3;
         }
 
         .section-title {
@@ -62,16 +97,57 @@
             padding: 8px 12px;
             border-radius: 10px;
             margin: 16px 0 12px 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
-        .input-grid {
+        .section-title-subtext {
+            font-size: 0.78rem;
+            color: var(--danger-color);
+            font-weight: 700;
+        }
+
+        .group-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        /* การ์ดหมวดหมู่ย่อย */
+        .input-group-card {
+            background: #f8fafc;
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .group-header {
+            font-size: 0.85rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .group-subtext {
+            font-size: 0.78rem;
+            color: var(--text-sub);
+            font-weight: 600;
+        }
+
+        .group-inputs {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 10px;
         }
 
         @media (max-width: 360px) {
-            .input-grid {
+            .group-inputs {
                 grid-template-columns: 1fr;
             }
         }
@@ -228,96 +304,146 @@
 <body>
 
 <div class="container">
-    <h1>Salary & OT Calculator</h1>
+    <!-- ปุ่มสลับภาษา อยู่ในตำแหน่งมุมขวาของการ์ด -->
+    <div class="lang-switch">
+        <button class="lang-btn active" id="btn-th" onclick="setLanguage('th')">TH</button>
+        <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+    </div>
+
+    <h1 id="txt_title">Salary & OT Calculator</h1>
 
     <!-- Section 1 -->
-    <div class="section-title">1. เงินเดือน & รายรับอื่นๆ</div>
-    <div class="input-grid">
-        <div class="input-card">
-            <label>เงินเดือน (บาท)</label>
-            <input type="number" id="salary" inputmode="decimal" placeholder="0" oninput="calculate()">
+    <div class="section-title" id="txt_sec1">1. เงินเดือน & รายรับอื่นๆ</div>
+    <div class="group-container">
+        
+        <!-- หมวด 1: เงินเดือนฐาน -->
+        <div class="input-group-card">
+            <div class="group-header">
+                <span id="txt_group_base">💼 เงินเดือนพื้นฐาน</span>
+                <span class="group-subtext" id="lbl_base_preview">รวม: 0 บาท</span>
+            </div>
+            <div class="group-inputs">
+                <div class="input-card">
+                    <label id="lbl_in_salary">เงินเดือน (บาท)</label>
+                    <input type="number" id="salary" inputmode="decimal" placeholder="0" oninput="calculate()">
+                </div>
+                <div class="input-card">
+                    <label id="lbl_in_hours">ทำงาน (ชม./วัน)</label>
+                    <input type="number" id="hours" inputmode="decimal" placeholder="0" oninput="calculate()">
+                </div>
+            </div>
         </div>
-        <div class="input-card">
-            <label>ทำงาน (ชม./วัน)</label>
-            <input type="number" id="hours" inputmode="decimal" placeholder="8" oninput="calculate()">
+
+        <!-- หมวด 2: OT -->
+        <div class="input-group-card">
+            <div class="group-header">
+                <span id="txt_group_ot">⏰ ค่าล่วงเวลา (OT)</span>
+                <span class="group-subtext" id="lbl_ot_preview">รวม: 0 บาท</span>
+            </div>
+            <div class="group-inputs">
+                <div class="input-card">
+                    <label id="lbl_ot1">OT x1.0 (ชม.)</label>
+                    <input type="number" id="ot1" inputmode="decimal" placeholder="0" oninput="calculate()">
+                </div>
+                <div class="input-card">
+                    <label id="lbl_ot15">OT x1.5 (ชม.)</label>
+                    <input type="number" id="ot15" inputmode="decimal" placeholder="0" oninput="calculate()">
+                </div>
+                <div class="input-card">
+                    <label id="lbl_ot2">OT x2.0 (ชม.)</label>
+                    <input type="number" id="ot2" inputmode="decimal" placeholder="0" oninput="calculate()">
+                </div>
+                <div class="input-card">
+                    <label id="lbl_ot3">OT x3.0 (ชม.)</label>
+                    <input type="number" id="ot3" inputmode="decimal" placeholder="0" oninput="calculate()">
+                </div>
+            </div>
         </div>
-        <div class="input-card">
-            <label>จำนวนวันเดินทาง</label>
-            <input type="number" id="work_days" inputmode="decimal" placeholder="0" oninput="calculate()">
+
+        <!-- หมวด 3: เบี้ยเลี้ยงเดินทาง -->
+        <div class="input-group-card">
+            <div class="group-header">
+                <span id="txt_group_travel">✈️ เบี้ยเลี้ยงเดินทาง</span>
+                <span class="group-subtext" id="lbl_travel_preview">รวม: 0 บาท</span>
+            </div>
+            <div class="group-inputs">
+                <div class="input-card">
+                    <label id="lbl_in_work_days">จำนวนวันเดินทาง</label>
+                    <input type="number" id="work_days" inputmode="decimal" placeholder="0" oninput="calculate()">
+                </div>
+                <div class="input-card">
+                    <label id="lbl_in_travel">อัตรา (บาท/วัน)</label>
+                    <input type="number" id="travel" inputmode="decimal" placeholder="0" oninput="calculate()">
+                </div>
+            </div>
         </div>
-        <div class="input-card">
-            <label>เบี้ยเลี้ยง (บาท/วัน)</label>
-            <input type="number" id="travel" inputmode="decimal" placeholder="0" oninput="calculate()">
+
+        <!-- หมวด 4: เพิ่มเติม (ค่าภาษา & ค่ากะ) -->
+        <div class="input-group-card">
+            <div class="group-header">
+                <span id="txt_group_extra">✨ รายได้เพิ่มเติม</span>
+                <span class="group-subtext" id="lbl_extra_preview">รวม: 0 บาท</span>
+            </div>
+            <div class="group-inputs">
+                <div class="input-card">
+                    <label id="lbl_in_lang">ค่าภาษา (บาท)</label>
+                    <input type="number" id="lang_allowance" inputmode="decimal" placeholder="0" oninput="calculate()">
+                </div>
+                <div class="input-card">
+                    <label id="lbl_in_night_days">กะกลางคืน (วัน)</label>
+                    <input type="number" id="night_days" inputmode="decimal" placeholder="0" oninput="calculate()">
+                </div>
+            </div>
         </div>
-        <div class="input-card">
-            <label>ค่ากะกลางคืน (บาท/วัน)</label>
-            <input type="number" id="night_shift" inputmode="decimal" placeholder="0" oninput="calculate()">
-        </div>
-        <div class="input-card">
-            <label>ค่าภาษา (บาท)</label>
-            <input type="number" id="lang_allowance" inputmode="decimal" placeholder="0" oninput="calculate()">
-        </div>
-        <div class="input-card">
-            <label>OT x1.0 (ชม.)</label>
-            <input type="number" id="ot1" inputmode="decimal" value="0" oninput="calculate()">
-        </div>
-        <div class="input-card">
-            <label>OT x1.5 (ชม.)</label>
-            <input type="number" id="ot15" inputmode="decimal" value="0" oninput="calculate()">
-        </div>
-        <div class="input-card">
-            <label>OT x2.0 (ชม.)</label>
-            <input type="number" id="ot2" inputmode="decimal" value="0" oninput="calculate()">
-        </div>
-        <div class="input-card">
-            <label>OT x3.0 (ชม.)</label>
-            <input type="number" id="ot3" inputmode="decimal" value="0" oninput="calculate()">
-        </div>
+
     </div>
 
     <!-- Section 2 -->
-    <div class="section-title">2. รายการค่าใช้จ่าย</div>
+    <div class="section-title">
+        <span id="txt_sec2">2. รายการค่าใช้จ่าย</span>
+        <span class="section-title-subtext" id="lbl_expense_preview">รวม: 0 บาท</span>
+    </div>
     <div class="expense-list" id="expense-container"></div>
-    <button class="btn-add-exp" onclick="addExpenseRow()">+ เพิ่มรายการค่าใช้จ่าย</button>
+    <button class="btn-add-exp" id="btn_add_exp" onclick="addExpenseRow()">+ เพิ่มรายการค่าใช้จ่าย</button>
 
     <!-- Section 3 -->
-    <div class="section-title">3. สรุปผลคำนวณ</div>
+    <div class="section-title" id="txt_sec3">3. สรุปผลคำนวณ</div>
     <div class="summary-card">
         <div class="summary-item">
-            <span>เงินเดือนฐาน</span>
+            <span id="txt_sum_salary">เงินเดือนฐาน</span>
             <span class="value" id="lbl_salary">-</span>
         </div>
         <div class="summary-item">
-            <span>ค่าภาษา</span>
+            <span id="txt_sum_lang">ค่าภาษา</span>
             <span class="value" id="lbl_lang">-</span>
         </div>
         <div class="summary-item">
-            <span>รวมค่า OT</span>
+            <span id="txt_sum_ot">รวมค่า OT</span>
             <span class="value" id="lbl_ot">-</span>
         </div>
         <div class="ot-breakdown" id="lbl_ot_detail">-</div>
         <div class="summary-item">
-            <span>เบี้ยเลี้ยงเดินทาง</span>
+            <span id="txt_sum_travel">เบี้ยเลี้ยงเดินทาง</span>
             <span class="value" id="lbl_travel">-</span>
         </div>
         <div class="summary-item">
-            <span>ค่ากะกลางคืน</span>
+            <span id="txt_sum_night">ค่ากะกลางคืน (50 บ./วัน)</span>
             <span class="value" id="lbl_night">-</span>
         </div>
         <div class="summary-item bold">
-            <span>รวมรายรับทั้งหมด</span>
+            <span id="txt_sum_total_income">รวมรายรับทั้งหมด</span>
             <span class="value" id="lbl_total_income">-</span>
         </div>
         <div class="summary-item">
-            <span>หัก ประกันสังคม (5%)</span>
+            <span id="txt_sum_ss">หัก ประกันสังคม (5%)</span>
             <span class="value" id="lbl_ss" style="color:var(--danger-color);">-</span>
         </div>
         <div class="summary-item bold">
-            <span>รายรับหลังหักประกันสังคม</span>
+            <span id="txt_sum_after_ss">รายรับหลังหักประกันสังคม</span>
             <span class="value" id="lbl_after_ss">-</span>
         </div>
         <div class="summary-item">
-            <span>รวมค่าใช้จ่าย</span>
+            <span id="txt_sum_expense">รวมค่าใช้จ่าย</span>
             <span class="value" id="lbl_expense" style="color:var(--danger-color);">-</span>
         </div>
     </div>
@@ -326,6 +452,140 @@
 </div>
 
 <script>
+    let currentLang = 'th';
+
+    const translations = {
+        th: {
+            title: "Salary & OT Calculator",
+            sec1: "1. เงินเดือน & รายรับอื่นๆ",
+            sec2: "2. รายการค่าใช้จ่าย",
+            sec3: "3. สรุปผลคำนวณ",
+            group_base: "💼 เงินเดือนพื้นฐาน",
+            group_ot: "⏰ ค่าล่วงเวลา (OT)",
+            group_travel: "✈️ เบี้ยเลี้ยงเดินทาง",
+            group_extra: "✨ รายได้เพิ่มเติม",
+            lbl_in_salary: "เงินเดือน (บาท)",
+            lbl_in_hours: "ทำงาน (ชม./วัน)",
+            lbl_ot1: "OT x1.0 (ชม.)",
+            lbl_ot15: "OT x1.5 (ชม.)",
+            lbl_ot2: "OT x2.0 (ชม.)",
+            lbl_ot3: "OT x3.0 (ชม.)",
+            lbl_in_work_days: "จำนวนวันเดินทาง",
+            lbl_in_travel: "อัตรา (บาท/วัน)",
+            lbl_in_night_days: "กะกลางคืน (วัน)",
+            lbl_in_lang: "ค่าภาษา (บาท)",
+            btn_add_exp: "+ เพิ่มรายการค่าใช้จ่าย",
+            exp_item_name: "ชื่อรายการ",
+            exp_item_amt: "จำนวนเงิน",
+            btn_del: "ลบ",
+            sum_salary: "เงินเดือนฐาน",
+            sum_lang: "ค่าภาษา",
+            sum_ot: "รวมค่า OT",
+            sum_travel: "เบี้ยเลี้ยงเดินทาง",
+            sum_night: "ค่ากะกลางคืน (50 บ./วัน)",
+            sum_total_income: "รวมรายรับทั้งหมด",
+            sum_ss: "หัก ประกันสังคม (5%)",
+            sum_after_ss: "รายรับหลังหักประกันสังคม",
+            sum_expense: "รวมค่าใช้จ่าย",
+            msg_initial: "กรอกข้อมูลเพื่อคำนวณ",
+            msg_remaining: "คงเหลือ: ",
+            msg_deficit: "ขาดดุล: ",
+            total_prefix: "รวม: ",
+            currency: " บาท"
+        },
+        en: {
+            title: "Salary & OT Calculator",
+            sec1: "1. Salary & Other Income",
+            sec2: "2. Expense List",
+            sec3: "3. Summary",
+            group_base: "💼 Base Salary",
+            group_ot: "⏰ Overtime (OT)",
+            group_travel: "✈️ Travel Allowance",
+            group_extra: "✨ Additional Allowance",
+            lbl_in_salary: "Salary (THB)",
+            lbl_in_hours: "Work (hrs/day)",
+            lbl_ot1: "OT x1.0 (hrs)",
+            lbl_ot15: "OT x1.5 (hrs)",
+            lbl_ot2: "OT x2.0 (hrs)",
+            lbl_ot3: "OT x3.0 (hrs)",
+            lbl_in_work_days: "Travel Days",
+            lbl_in_travel: "Rate (THB/day)",
+            lbl_in_night_days: "Night Shift (Days)",
+            lbl_in_lang: "Language Allowance",
+            btn_add_exp: "+ Add Expense Item",
+            exp_item_name: "Item Name",
+            exp_item_amt: "Amount",
+            btn_del: "Delete",
+            sum_salary: "Base Salary",
+            sum_lang: "Language Allowance",
+            sum_ot: "Total OT",
+            sum_travel: "Travel Allowance",
+            sum_night: "Night Shift (50 THB/day)",
+            sum_total_income: "Total Gross Income",
+            sum_ss: "Social Security (5%)",
+            sum_after_ss: "Income After SS",
+            sum_expense: "Total Expense",
+            msg_initial: "Enter details to calculate",
+            msg_remaining: "Balance: ",
+            msg_deficit: "Deficit: ",
+            total_prefix: "Total: ",
+            currency: " THB"
+        }
+    };
+
+    function setLanguage(lang) {
+        currentLang = lang;
+        document.getElementById('btn-th').classList.toggle('active', lang === 'th');
+        document.getElementById('btn-en').classList.toggle('active', lang === 'en');
+        
+        const t = translations[lang];
+        
+        document.getElementById('txt_title').innerText = t.title;
+        document.getElementById('txt_sec1').innerText = t.sec1;
+        document.getElementById('txt_sec2').innerText = t.sec2;
+        document.getElementById('txt_sec3').innerText = t.sec3;
+        
+        document.getElementById('txt_group_base').innerText = t.group_base;
+        document.getElementById('txt_group_ot').innerText = t.group_ot;
+        document.getElementById('txt_group_travel').innerText = t.group_travel;
+        document.getElementById('txt_group_extra').innerText = t.group_extra;
+
+        document.getElementById('lbl_in_salary').innerText = t.lbl_in_salary;
+        document.getElementById('lbl_in_hours').innerText = t.lbl_in_hours;
+        
+        document.getElementById('lbl_ot1').innerText = t.lbl_ot1;
+        document.getElementById('lbl_ot15').innerText = t.lbl_ot15;
+        document.getElementById('lbl_ot2').innerText = t.lbl_ot2;
+        document.getElementById('lbl_ot3').innerText = t.lbl_ot3;
+
+        document.getElementById('lbl_in_work_days').innerText = t.lbl_in_work_days;
+        document.getElementById('lbl_in_travel').innerText = t.lbl_in_travel;
+        document.getElementById('lbl_in_night_days').innerText = t.lbl_in_night_days;
+        document.getElementById('lbl_in_lang').innerText = t.lbl_in_lang;
+        
+        document.getElementById('btn_add_exp').innerText = t.btn_add_exp;
+        
+        document.getElementById('txt_sum_salary').innerText = t.sum_salary;
+        document.getElementById('txt_sum_lang').innerText = t.sum_lang;
+        document.getElementById('txt_sum_ot').innerText = t.sum_ot;
+        document.getElementById('txt_sum_travel').innerText = t.sum_travel;
+        document.getElementById('txt_sum_night').innerText = t.sum_night;
+        document.getElementById('txt_sum_total_income').innerText = t.sum_total_income;
+        document.getElementById('txt_sum_ss').innerText = t.sum_ss;
+        document.getElementById('txt_sum_after_ss').innerText = t.sum_after_ss;
+        document.getElementById('txt_sum_expense').innerText = t.sum_expense;
+
+        document.querySelectorAll('.expense-item').forEach(row => {
+            const inputs = row.querySelectorAll('input');
+            const btn = row.querySelector('.btn-del');
+            if(inputs[0]) inputs[0].placeholder = t.exp_item_name;
+            if(inputs[1]) inputs[1].placeholder = t.exp_item_amt;
+            if(btn) btn.innerText = t.btn_del;
+        });
+
+        calculate();
+    }
+
     function addExpenseRow() {
         const container = document.getElementById('expense-container');
         const rowId = 'exp_' + Date.now();
@@ -333,10 +593,12 @@
         rowDiv.className = 'expense-item';
         rowDiv.id = rowId;
 
+        const t = translations[currentLang];
+
         rowDiv.innerHTML = `
-            <input type="text" placeholder="ชื่อรายการ" oninput="calculate()">
-            <input type="number" inputmode="decimal" placeholder="จำนวนเงิน" oninput="calculate()">
-            <button class="btn-del" onclick="document.getElementById('${rowId}').remove(); calculate();">ลบ</button>
+            <input type="text" placeholder="${t.exp_item_name}" oninput="calculate()">
+            <input type="number" inputmode="decimal" placeholder="${t.exp_item_amt}" oninput="calculate()">
+            <button class="btn-del" onclick="document.getElementById('${rowId}').remove(); calculate();">${t.btn_del}</button>
         `;
 
         container.appendChild(rowDiv);
@@ -355,38 +617,35 @@
     }
 
     function calculate() {
+        const t = translations[currentLang];
+
         const salary = getNum('salary');
         const hoursPerDay = getNum('hours');
 
-        if (salary <= 0 || hoursPerDay <= 0) {
-            clearSummary();
-            return;
-        }
-
         const workDays = getNum('work_days');
         const travelPerDay = getNum('travel');
-        const nightPerDay = getNum('night_shift');
+        const totalTravel = workDays * travelPerDay;
+
+        const nightDays = getNum('night_days');
         const langAllowance = getNum('lang_allowance');
+        const totalNight = nightDays * 50;
+        const totalExtra = langAllowance + totalNight;
 
         const ot1 = getNum('ot1');
         const ot15 = getNum('ot15');
         const ot2 = getNum('ot2');
         const ot3 = getNum('ot3');
 
-        const hourlyRate = salary / 30 / hoursPerDay;
+        let moneyOt1 = 0, moneyOt15 = 0, moneyOt2 = 0, moneyOt3 = 0, totalOt = 0;
 
-        const moneyOt1 = hourlyRate * ot1 * 1.0;
-        const moneyOt15 = hourlyRate * ot15 * 1.5;
-        const moneyOt2 = hourlyRate * ot2 * 2.0;
-        const moneyOt3 = hourlyRate * ot3 * 3.0;
-        const totalOt = moneyOt1 + moneyOt15 + moneyOt2 + moneyOt3;
-
-        const totalTravel = workDays * travelPerDay;
-        const totalNight = workDays * nightPerDay;
-        const socialSecurity = Math.min(salary * 0.05, 875.0);
-
-        const totalIncome = salary + totalOt + totalTravel + totalNight + langAllowance;
-        const incomeAfterSs = totalIncome - socialSecurity;
+        if (salary > 0 && hoursPerDay > 0) {
+            const hourlyRate = salary / 30 / hoursPerDay;
+            moneyOt1 = hourlyRate * ot1 * 1.0;
+            moneyOt15 = hourlyRate * ot15 * 1.5;
+            moneyOt2 = hourlyRate * ot2 * 2.0;
+            moneyOt3 = hourlyRate * ot3 * 3.0;
+            totalOt = moneyOt1 + moneyOt15 + moneyOt2 + moneyOt3;
+        }
 
         let totalExpense = 0;
         const rows = document.querySelectorAll('#expense-container .expense-item');
@@ -397,6 +656,22 @@
                 totalExpense += amt;
             }
         });
+
+        // แสดงผล preview ยอดรวมของแต่ละหมวด
+        document.getElementById('lbl_base_preview').innerText = `${t.total_prefix}${formatNum(salary)}${t.currency}`;
+        document.getElementById('lbl_ot_preview').innerText = `${t.total_prefix}${formatNum(totalOt)}${t.currency}`;
+        document.getElementById('lbl_travel_preview').innerText = `${t.total_prefix}${formatNum(totalTravel)}${t.currency}`;
+        document.getElementById('lbl_extra_preview').innerText = `${t.total_prefix}${formatNum(totalExtra)}${t.currency}`;
+        document.getElementById('lbl_expense_preview').innerText = `${t.total_prefix}${formatNum(totalExpense)}${t.currency}`;
+
+        if (salary <= 0 || hoursPerDay <= 0) {
+            clearSummary();
+            return;
+        }
+
+        const socialSecurity = Math.min(salary * 0.05, 875.0);
+        const totalIncome = salary + totalOt + totalTravel + totalNight + langAllowance;
+        const incomeAfterSs = totalIncome - socialSecurity;
 
         const remainingMoney = incomeAfterSs - totalExpense;
 
@@ -415,10 +690,10 @@
         const remBox = document.getElementById('lbl_remaining');
         if (remainingMoney >= 0) {
             remBox.className = 'result-box result-positive';
-            remBox.innerText = 'คงเหลือ: ' + formatNum(remainingMoney) + ' บาท';
+            remBox.innerText = t.msg_remaining + formatNum(remainingMoney) + t.currency;
         } else {
             remBox.className = 'result-box result-negative';
-            remBox.innerText = 'ขาดดุล: ' + formatNum(remainingMoney) + ' บาท';
+            remBox.innerText = t.msg_deficit + formatNum(remainingMoney) + t.currency;
         }
     }
 
@@ -428,7 +703,7 @@
         });
         const remBox = document.getElementById('lbl_remaining');
         remBox.className = 'result-box';
-        remBox.innerText = 'กรอกข้อมูลเพื่อคำนวณ';
+        remBox.innerText = translations[currentLang].msg_initial;
     }
 </script>
 </body>
