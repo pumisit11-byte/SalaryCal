@@ -1,0 +1,425 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Salary + OT + Expense Calculator</title>
+    <style>
+        :root {
+            --primary-color: #3b82f6;
+            --primary-dark: #1d4ed8;
+            --bg-color: #f8fafc;
+            --card-bg: #ffffff;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
+            --border-color: #e2e8f0;
+            --success-color: #22c55e;
+            --danger-color: #ef4444;
+            --accent-bg: #eff6ff;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Sukhumvit Set', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-main);
+            padding: 20px 12px;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            min-height: 100vh;
+        }
+
+        .calculator-card {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 600px;
+            border-radius: 16px;
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.05), 0 8px 10px -6px rgba(0, 0, 0, 0.01);
+            padding: 24px;
+            border: 1px solid var(--border-color);
+        }
+
+        .app-title {
+            text-align: center;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--text-main);
+            margin-bottom: 24px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        .section-header {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-color);
+            margin-top: 20px;
+            margin-bottom: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .grid-inputs {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
+        }
+
+        @media (max-width: 480px) {
+            .grid-inputs {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .input-group {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+
+        .input-group label {
+            font-size: 0.85rem;
+            color: var(--text-muted);
+            font-weight: 500;
+        }
+
+        .input-group input {
+            padding: 10px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            outline: none;
+            transition: all 0.2s;
+            background-color: #f9fafb;
+        }
+
+        .input-group input:focus {
+            border-color: var(--primary-color);
+            background-color: #ffffff;
+            box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+        }
+
+        .expense-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .expense-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr auto;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .expense-row input {
+            padding: 8px 12px;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.9rem;
+            outline: none;
+        }
+
+        .btn-delete {
+            background-color: #fee2e2;
+            color: var(--danger-color);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .btn-delete:hover {
+            background-color: #fca5a5;
+        }
+
+        .btn-add {
+            width: 100%;
+            background-color: #dcfce7;
+            color: #15803d;
+            border: 1px dashed #86efac;
+            padding: 10px;
+            border-radius: 8px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 0.95rem;
+        }
+
+        .btn-add:hover {
+            background-color: #bbf7d0;
+        }
+
+        .summary-card {
+            background-color: var(--accent-bg);
+            border-radius: 12px;
+            padding: 16px;
+            margin-top: 16px;
+            border: 1px solid #dbeafe;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 6px 0;
+            font-size: 0.95rem;
+            color: var(--text-main);
+        }
+
+        .summary-row.bold {
+            font-weight: 700;
+            border-top: 1px dashed #cbd5e1;
+            margin-top: 4px;
+            padding-top: 8px;
+        }
+
+        .summary-row .val {
+            font-weight: 600;
+        }
+
+        .ot-detail {
+            font-size: 0.78rem;
+            color: var(--text-muted);
+            text-align: right;
+            margin-bottom: 6px;
+        }
+
+        .balance-box {
+            text-align: center;
+            padding: 16px;
+            border-radius: 10px;
+            margin-top: 16px;
+            font-size: 1.25rem;
+            font-weight: 700;
+            background-color: #f1f5f9;
+        }
+
+        .balance-positive {
+            background-color: #dcfce7;
+            color: #166534;
+        }
+
+        .balance-negative {
+            background-color: #fee2e2;
+            color: #991b1b;
+        }
+    </style>
+</head>
+<body>
+
+<div class="calculator-card">
+    <h1 class="app-title">Salary + OT + Expense Calculator</h1>
+
+    <!-- 1. Salary & OT Details -->
+    <div class="section-header">1. รายละเอียดเงินเดือน & ค่าล่วงเวลา</div>
+    <div class="grid-inputs">
+        <div class="input-group">
+            <label for="salary">Base Salary (เงินเดือน):</label>
+            <input type="number" id="salary" placeholder="0" oninput="calculate()">
+        </div>
+        <div class="input-group">
+            <label for="hours">Work Hours/Day (ชม. ทำงาน/วัน):</label>
+            <input type="number" id="hours" placeholder="0" oninput="calculate()">
+        </div>
+        <div class="input-group">
+            <label for="work_days">Work Days (จำนวนวันเดินทาง):</label>
+            <input type="number" id="work_days" placeholder="0" oninput="calculate()">
+        </div>
+        <div class="input-group">
+            <label for="travel">Travel Allowance/Day (เบี้ยเลี้ยง/วัน):</label>
+            <input type="number" id="travel" placeholder="0" oninput="calculate()">
+        </div>
+        <div class="input-group">
+            <label for="ot1">OT x1.0 (ชั่วโมง):</label>
+            <input type="number" id="ot1" value="0" oninput="calculate()">
+        </div>
+        <div class="input-group">
+            <label for="ot15">OT x1.5 (ชั่วโมง):</label>
+            <input type="number" id="ot15" value="0" oninput="calculate()">
+        </div>
+        <div class="input-group">
+            <label for="ot2">OT x2.0 (ชั่วโมง):</label>
+            <input type="number" id="ot2" value="0" oninput="calculate()">
+        </div>
+        <div class="input-group">
+            <label for="ot3">OT x3.0 (ชั่วโมง):</label>
+            <input type="number" id="ot3" value="0" oninput="calculate()">
+        </div>
+    </div>
+
+    <!-- 2. Expense List -->
+    <div class="section-header">2. รายการค่าใช้จ่าย (Expenses)</div>
+    <div class="expense-list" id="expense-container"></div>
+    <button class="btn-add" onclick="addExpenseRow()">+ เพิ่มรายการค่าใช้จ่าย</button>
+
+    <!-- 3. Summary -->
+    <div class="section-header">3. สรุปผลการคำนวณ (Summary)</div>
+    <div class="summary-card">
+        <div class="summary-row">
+            <span>Base Salary (เงินเดือนพื้นฐาน):</span>
+            <span class="val" id="lbl_salary">-</span>
+        </div>
+        <div class="summary-row">
+            <span>Total OT (รวมค่าล่วงเวลา):</span>
+            <span class="val" id="lbl_ot">-</span>
+        </div>
+        <div class="ot-detail" id="lbl_ot_detail">-</div>
+        <div class="summary-row">
+            <span>Travel Allowance (ค่าเดินทาง):</span>
+            <span class="val" id="lbl_travel">-</span>
+        </div>
+        <div class="summary-row bold">
+            <span>Total Income (รายรับรวม):</span>
+            <span class="val" id="lbl_total_income">-</span>
+        </div>
+        <div class="summary-row">
+            <span>Social Security (ประกันสังคม 5% Max 875):</span>
+            <span class="val" id="lbl_ss" style="color: var(--danger-color);">-</span>
+        </div>
+        <div class="summary-row bold">
+            <span>Income After SS (รายรับหลังหักประกันสังคม):</span>
+            <span class="val" id="lbl_after_ss">-</span>
+        </div>
+        <div class="summary-row">
+            <span>Total Expenses (รายจ่ายรวม):</span>
+            <span class="val" id="lbl_expense" style="color: var(--danger-color);">-</span>
+        </div>
+    </div>
+
+    <div class="balance-box" id="lbl_remaining">กรอกข้อมูลเพื่อคำนวณ</div>
+</div>
+
+<script>
+    let expenseRows = [];
+
+    function addExpenseRow() {
+        const container = document.getElementById('expense-container');
+        const rowId = 'exp_' + Date.now();
+        
+        const rowDiv = document.createElement('div');
+        rowDiv.className = 'expense-row';
+        rowDiv.id = rowId;
+
+        rowDiv.innerHTML = `
+            <input type="text" placeholder="ชื่อรายการ" oninput="calculate()">
+            <input type="number" placeholder="จำนวนเงิน" oninput="calculate()">
+            <button class="btn-delete" onclick="deleteExpenseRow('${rowId}')">ลบ</button>
+        `;
+
+        container.appendChild(rowDiv);
+        calculate();
+    }
+
+    function deleteExpenseRow(rowId) {
+        const row = document.getElementById(rowId);
+        if (row) {
+            row.remove();
+            calculate();
+        }
+    }
+
+    function getNum(id) {
+        const el = document.getElementById(id);
+        if (!el) return 0;
+        const val = parseFloat(el.value);
+        return isNaN(val) ? 0 : val;
+    }
+
+    function formatNum(num) {
+        return num.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function calculate() {
+        const salary = getNum('salary');
+        const hoursPerDay = getNum('hours');
+
+        if (salary <= 0 || hoursPerDay <= 0) {
+            clearSummary();
+            return;
+        }
+
+        const workDays = getNum('work_days');
+        const travelPerDay = getNum('travel');
+
+        const ot1 = getNum('ot1');
+        const ot15 = getNum('ot15');
+        const ot2 = getNum('ot2');
+        const ot3 = getNum('ot3');
+
+        // Logic ตาม Kivy เดิม
+        const hourlyRate = salary / 30 / hoursPerDay;
+
+        const moneyOt1 = hourlyRate * ot1 * 1.0;
+        const moneyOt15 = hourlyRate * ot15 * 1.5;
+        const moneyOt2 = hourlyRate * ot2 * 2.0;
+        const moneyOt3 = hourlyRate * ot3 * 3.0;
+        const totalOt = moneyOt1 + moneyOt15 + moneyOt2 + moneyOt3;
+
+        const totalTravel = workDays * travelPerDay;
+        const socialSecurity = Math.min(salary * 0.05, 875.0);
+
+        const totalIncome = salary + totalOt + totalTravel;
+        const incomeAfterSs = totalIncome - socialSecurity;
+
+        // คำนวณรายจ่าย
+        let totalExpense = 0;
+        const container = document.getElementById('expense-container');
+        const rows = container.querySelectorAll('.expense-row');
+        rows.forEach(row => {
+            const inputs = row.querySelectorAll('input');
+            const amt = parseFloat(inputs[1].value);
+            if (!isNaN(amt) && amt > 0) {
+                totalExpense += amt;
+            }
+        });
+
+        const remainingMoney = incomeAfterSs - totalExpense;
+
+        // แสดงผล
+        document.getElementById('lbl_salary').innerText = formatNum(salary);
+        document.getElementById('lbl_ot').innerText = formatNum(totalOt);
+        document.getElementById('lbl_ot_detail').innerText = 
+            `x1: ${formatNum(moneyOt1)} | x1.5: ${formatNum(moneyOt15)} | x2: ${formatNum(moneyOt2)} | x3: ${formatNum(moneyOt3)}`;
+        document.getElementById('lbl_travel').innerText = formatNum(totalTravel);
+        document.getElementById('lbl_total_income').innerText = formatNum(totalIncome);
+        document.getElementById('lbl_ss').innerText = '-' + formatNum(socialSecurity);
+        document.getElementById('lbl_after_ss').innerText = formatNum(incomeAfterSs);
+        document.getElementById('lbl_expense').innerText = '-' + formatNum(totalExpense);
+
+        const remBox = document.getElementById('lbl_remaining');
+        if (remainingMoney >= 0) {
+            remBox.className = 'balance-box balance-positive';
+            remBox.innerText = 'คงเหลือ (Balance): ' + formatNum(remainingMoney) + ' บาท';
+        } else {
+            remBox.className = 'balance-box balance-negative';
+            remBox.innerText = 'คงเหลือ (Balance): ' + formatNum(remainingMoney) + ' บาท';
+        }
+    }
+
+    function clearSummary() {
+        document.getElementById('lbl_salary').innerText = '-';
+        document.getElementById('lbl_ot').innerText = '-';
+        document.getElementById('lbl_ot_detail').innerText = '-';
+        document.getElementById('lbl_travel').innerText = '-';
+        document.getElementById('lbl_total_income').innerText = '-';
+        document.getElementById('lbl_ss').innerText = '-';
+        document.getElementById('lbl_after_ss').innerText = '-';
+        document.getElementById('lbl_expense').innerText = '-';
+
+        const remBox = document.getElementById('lbl_remaining');
+        remBox.className = 'balance-box';
+        remBox.innerText = 'กรอกข้อมูลเพื่อคำนวณ';
+    }
+</script>
+</body>
+</html>
