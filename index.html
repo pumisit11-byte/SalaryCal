@@ -127,7 +127,7 @@
             line-height: 1.3;
         }
 
-        /* Profile Manager Styles */
+        /* Profile Manager Styles (Fix Overflow) */
         .profile-bar {
             background: var(--card-sub-bg);
             border: 1px solid var(--border-color);
@@ -137,16 +137,20 @@
             display: flex;
             flex-direction: column;
             gap: 8px;
+            width: 100%;
         }
 
         .profile-controls {
             display: flex;
             gap: 6px;
             align-items: center;
+            width: 100%;
+            flex-wrap: wrap;
         }
 
         .profile-select {
-            flex: 1;
+            flex: 1 1 180px;
+            min-width: 0;
             padding: 8px 10px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
@@ -154,16 +158,18 @@
             color: var(--text-main);
             font-size: 0.85rem;
             outline: none;
+            text-overflow: ellipsis;
         }
 
         .btn-profile {
-            padding: 8px 12px;
+            padding: 8px 10px;
             border-radius: 8px;
             border: none;
             font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
-            flex-shrink: 0;
+            white-space: nowrap;
+            flex: 0 0 auto;
         }
 
         .btn-save { background: var(--primary-color); color: #fff; }
@@ -660,7 +666,6 @@
         const t = translations[lang];
         
         document.getElementById('txt_title').innerText = t.title;
-        document.getElementById('opt_default').innerText = t.opt_default;
         document.getElementById('btn_save_profile').innerText = t.btn_save;
         document.getElementById('btn_del_profile').innerText = t.btn_del_prof;
 
@@ -706,6 +711,7 @@
             if(btn) btn.innerText = t.btn_del;
         });
 
+        renderProfileOptions();
         calculate();
     }
 
@@ -718,16 +724,23 @@
 
     function renderProfileOptions() {
         const select = document.getElementById('profile-select');
+        const selectedVal = select.value;
         const profiles = getProfiles();
         const t = translations[currentLang];
         
-        select.innerHTML = `<option value="default">${t.opt_default}</option>`;
+        select.innerHTML = `<option value="default" id="opt_default">${t.opt_default}</option>`;
         Object.keys(profiles).forEach(name => {
             const opt = document.createElement('option');
             opt.value = name;
             opt.textContent = name;
             select.appendChild(opt);
         });
+
+        if (selectedVal && profiles[selectedVal]) {
+            select.value = selectedVal;
+        } else {
+            select.value = 'default';
+        }
     }
 
     function clearAllInputs() {
