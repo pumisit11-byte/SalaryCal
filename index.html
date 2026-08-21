@@ -10,6 +10,7 @@
             --primary-light: #eff6ff;
             --bg-color: #f1f5f9;
             --card-bg: #ffffff;
+            --card-sub-bg: #f8fafc;
             --text-main: #0f172a;
             --text-sub: #64748b;
             --border-color: #cbd5e1;
@@ -18,6 +19,28 @@
             --success-color: #16a34a;
             --success-bg: #f0fdf4;
             --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
+            --input-bg: #ffffff;
+            --result-neutral: #e2e8f0;
+            color-scheme: light;
+        }
+
+        [data-theme="dark"] {
+            --primary-color: #3b82f6;
+            --primary-light: #1e293b;
+            --bg-color: #0f172a;
+            --card-bg: #1e293b;
+            --card-sub-bg: #0f172a;
+            --text-main: #f8fafc;
+            --text-sub: #94a3b8;
+            --border-color: #334155;
+            --danger-color: #f87171;
+            --danger-bg: #450a0a;
+            --success-color: #4ade80;
+            --success-bg: #052e16;
+            --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.5);
+            --input-bg: #334155;
+            --result-neutral: #334155;
+            color-scheme: dark;
         }
 
         * {
@@ -26,6 +49,7 @@
             padding: 0;
             font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
             -webkit-tap-highlight-color: transparent;
+            transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
 
         body {
@@ -44,20 +68,36 @@
             border-radius: 20px;
             padding: 20px 16px 18px 16px;
             box-shadow: var(--shadow-md);
-            position: relative; /* รองรับการจัดตำแหน่งปุ่มเปลี่ยนภาษา */
+            position: relative;
         }
 
-        /* ปุ่มเปลี่ยนภาษา แก้ไขไม่ให้ทับหัวข้อ */
-        .lang-switch {
+        .top-tools {
             position: absolute;
             top: 16px;
             right: 16px;
             display: flex;
-            background: #f1f5f9;
+            gap: 8px;
+            z-index: 10;
+        }
+
+        .theme-toggle-btn {
+            border: 1px solid var(--border-color);
+            background: var(--card-sub-bg);
+            padding: 4px 8px;
+            border-radius: 16px;
+            font-size: 0.85rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .lang-switch {
+            display: flex;
+            background: var(--card-sub-bg);
             border: 1px solid var(--border-color);
             border-radius: 20px;
             padding: 2px;
-            z-index: 10;
         }
 
         .lang-btn {
@@ -69,7 +109,6 @@
             font-weight: 700;
             color: var(--text-sub);
             cursor: pointer;
-            transition: all 0.2s ease;
         }
 
         .lang-btn.active {
@@ -77,17 +116,58 @@
             color: #fff;
         }
 
-        /* เพิ่ม margin-top และ padding-right เพื่อหลบปุ่มเปลี่ยนภาษา */
         h1 {
             font-size: 1.25rem;
             font-weight: 700;
             text-align: left;
             margin-top: 4px;
-            margin-bottom: 20px;
-            padding-right: 90px; 
+            margin-bottom: 16px;
+            padding-right: 140px;
             color: var(--primary-color);
             line-height: 1.3;
         }
+
+        /* Profile Manager Styles */
+        .profile-bar {
+            background: var(--card-sub-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 10px;
+            margin-bottom: 16px;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .profile-controls {
+            display: flex;
+            gap: 6px;
+            align-items: center;
+        }
+
+        .profile-select {
+            flex: 1;
+            padding: 8px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--input-bg);
+            color: var(--text-main);
+            font-size: 0.85rem;
+            outline: none;
+        }
+
+        .btn-profile {
+            padding: 8px 12px;
+            border-radius: 8px;
+            border: none;
+            font-size: 0.8rem;
+            font-weight: 600;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .btn-save { background: var(--primary-color); color: #fff; }
+        .btn-del-profile { background: var(--danger-bg); color: var(--danger-color); }
 
         .section-title {
             font-size: 0.95rem;
@@ -114,9 +194,8 @@
             gap: 12px;
         }
 
-        /* การ์ดหมวดหมู่ย่อย */
         .input-group-card {
-            background: #f8fafc;
+            background: var(--card-sub-bg);
             border: 1px solid var(--border-color);
             border-radius: 14px;
             padding: 12px;
@@ -147,9 +226,7 @@
         }
 
         @media (max-width: 360px) {
-            .group-inputs {
-                grid-template-columns: 1fr;
-            }
+            .group-inputs { grid-template-columns: 1fr; }
         }
 
         .input-card {
@@ -170,7 +247,8 @@
             border: 1.5px solid var(--border-color);
             border-radius: 12px;
             font-size: 1rem;
-            background: #fff;
+            background: var(--input-bg);
+            color: var(--text-main);
             outline: none;
         }
 
@@ -189,29 +267,24 @@
             display: flex;
             gap: 8px;
             align-items: center;
-            background: #f8fafc;
+            background: var(--card-sub-bg);
             padding: 8px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
         }
 
-        .expense-item input[type="text"] {
-            flex: 1.2;
-            min-width: 0;
+        .expense-item input[type="text"],
+        .expense-item input[type="number"] {
             padding: 10px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
             font-size: 0.9rem;
+            background: var(--input-bg);
+            color: var(--text-main);
         }
 
-        .expense-item input[type="number"] {
-            flex: 1;
-            min-width: 0;
-            padding: 10px;
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            font-size: 0.9rem;
-        }
+        .expense-item input[type="text"] { flex: 1.2; min-width: 0; }
+        .expense-item input[type="number"] { flex: 1; min-width: 0; }
 
         .btn-del {
             background: var(--danger-bg);
@@ -237,7 +310,7 @@
         }
 
         .summary-card {
-            background: #f8fafc;
+            background: var(--card-sub-bg);
             border: 1px solid var(--border-color);
             border-radius: 14px;
             padding: 14px;
@@ -283,7 +356,8 @@
             padding: 16px;
             border-radius: 14px;
             text-align: center;
-            background: #e2e8f0;
+            background: var(--result-neutral);
+            color: var(--text-main);
             font-weight: 700;
             font-size: 1.15rem;
         }
@@ -291,32 +365,44 @@
         .result-positive {
             background: var(--success-bg);
             color: var(--success-color);
-            border: 1px solid #bbf7d0;
+            border: 1px solid var(--success-color);
         }
 
         .result-negative {
             background: var(--danger-bg);
             color: var(--danger-color);
-            border: 1px solid #fecaca;
+            border: 1px solid var(--danger-color);
         }
     </style>
 </head>
 <body>
 
 <div class="container">
-    <!-- ปุ่มสลับภาษา อยู่ในตำแหน่งมุมขวาของการ์ด -->
-    <div class="lang-switch">
-        <button class="lang-btn active" id="btn-th" onclick="setLanguage('th')">TH</button>
-        <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+    <div class="top-tools">
+        <button class="theme-toggle-btn" id="theme-btn" onclick="toggleTheme()" title="สลับธีม">🌙</button>
+        <div class="lang-switch">
+            <button class="lang-btn active" id="btn-th" onclick="setLanguage('th')">TH</button>
+            <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+        </div>
     </div>
 
     <h1 id="txt_title">Salary & OT Calculator</h1>
+
+    <!-- แถบจัดการ Profile -->
+    <div class="profile-bar">
+        <div class="profile-controls">
+            <select id="profile-select" class="profile-select" onchange="loadSelectedProfile()">
+                <option value="default" id="opt_default">-- เลือกโปรไฟล์ --</option>
+            </select>
+            <button class="btn-profile btn-save" onclick="saveProfile()" id="btn_save_profile">💾 บันทึก</button>
+            <button class="btn-profile btn-del-profile" onclick="deleteProfile()" id="btn_del_profile">🗑️ ลบ</button>
+        </div>
+    </div>
 
     <!-- Section 1 -->
     <div class="section-title" id="txt_sec1">1. เงินเดือน & รายรับอื่นๆ</div>
     <div class="group-container">
         
-        <!-- หมวด 1: เงินเดือนฐาน -->
         <div class="input-group-card">
             <div class="group-header">
                 <span id="txt_group_base">💼 เงินเดือนพื้นฐาน</span>
@@ -334,7 +420,6 @@
             </div>
         </div>
 
-        <!-- หมวด 2: OT -->
         <div class="input-group-card">
             <div class="group-header">
                 <span id="txt_group_ot">⏰ ค่าล่วงเวลา (OT)</span>
@@ -360,7 +445,6 @@
             </div>
         </div>
 
-        <!-- หมวด 3: เบี้ยเลี้ยงเดินทาง -->
         <div class="input-group-card">
             <div class="group-header">
                 <span id="txt_group_travel">✈️ เบี้ยเลี้ยงเดินทาง</span>
@@ -378,7 +462,6 @@
             </div>
         </div>
 
-        <!-- หมวด 4: เพิ่มเติม (ค่าภาษา & ค่ากะ) -->
         <div class="input-group-card">
             <div class="group-header">
                 <span id="txt_group_extra">✨ รายได้เพิ่มเติม</span>
@@ -454,9 +537,39 @@
 <script>
     let currentLang = 'th';
 
+    function initTheme() {
+        const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (prefersDark) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.getElementById('theme-btn').innerText = '☀️';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.getElementById('theme-btn').innerText = '🌙';
+        }
+    }
+
+    function toggleTheme() {
+        const currentTheme = document.documentElement.getAttribute('data-theme');
+        if (currentTheme === 'dark') {
+            document.documentElement.setAttribute('data-theme', 'light');
+            document.getElementById('theme-btn').innerText = '🌙';
+        } else {
+            document.documentElement.setAttribute('data-theme', 'dark');
+            document.getElementById('theme-btn').innerText = '☀️';
+        }
+    }
+
+    initTheme();
+
     const translations = {
         th: {
             title: "Salary & OT Calculator",
+            opt_default: "-- เลือกโปรไฟล์ --",
+            btn_save: "💾 บันทึก",
+            btn_del_prof: "🗑️ ลบ",
+            prompt_name: "ตั้งชื่อโปรไฟล์ใหม่ (เช่น งานหลัก, งานเสริม):",
+            msg_saved: "บันทึกโปรไฟล์เรียบร้อยแล้ว!",
+            msg_deleted: "ลบโปรไฟล์เรียบร้อยแล้ว!",
             sec1: "1. เงินเดือน & รายรับอื่นๆ",
             sec2: "2. รายการค่าใช้จ่าย",
             sec3: "3. สรุปผลคำนวณ",
@@ -495,6 +608,12 @@
         },
         en: {
             title: "Salary & OT Calculator",
+            opt_default: "-- Select Profile --",
+            btn_save: "💾 Save",
+            btn_del_prof: "🗑️ Delete",
+            prompt_name: "Enter new profile name:",
+            msg_saved: "Profile saved successfully!",
+            msg_deleted: "Profile deleted!",
             sec1: "1. Salary & Other Income",
             sec2: "2. Expense List",
             sec3: "3. Summary",
@@ -541,6 +660,10 @@
         const t = translations[lang];
         
         document.getElementById('txt_title').innerText = t.title;
+        document.getElementById('opt_default').innerText = t.opt_default;
+        document.getElementById('btn_save_profile').innerText = t.btn_save;
+        document.getElementById('btn_del_profile').innerText = t.btn_del_prof;
+
         document.getElementById('txt_sec1').innerText = t.sec1;
         document.getElementById('txt_sec2').innerText = t.sec2;
         document.getElementById('txt_sec3').innerText = t.sec3;
@@ -586,9 +709,132 @@
         calculate();
     }
 
-    function addExpenseRow() {
+    /* ---- ระบบ PROFILE LOCALSTORAGE ---- */
+    const STORAGE_KEY = 'calc_profiles_data';
+
+    function getProfiles() {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
+    }
+
+    function renderProfileOptions() {
+        const select = document.getElementById('profile-select');
+        const profiles = getProfiles();
+        const t = translations[currentLang];
+        
+        select.innerHTML = `<option value="default">${t.opt_default}</option>`;
+        Object.keys(profiles).forEach(name => {
+            const opt = document.createElement('option');
+            opt.value = name;
+            opt.textContent = name;
+            select.appendChild(opt);
+        });
+    }
+
+    function clearAllInputs() {
+        ['salary', 'hours', 'ot1', 'ot15', 'ot2', 'ot3', 'work_days', 'travel', 'lang_allowance', 'night_days'].forEach(id => {
+            document.getElementById(id).value = '';
+        });
+        document.getElementById('expense-container').innerHTML = '';
+        calculate();
+    }
+
+    function saveProfile() {
+        const t = translations[currentLang];
+        const select = document.getElementById('profile-select');
+        let selectedName = select.value;
+
+        if (selectedName === 'default') {
+            const newName = prompt(t.prompt_name);
+            if (!newName || !newName.trim()) return;
+            selectedName = newName.trim();
+        }
+
+        const expenses = [];
+        document.querySelectorAll('#expense-container .expense-item').forEach(row => {
+            const inputs = row.querySelectorAll('input');
+            expenses.push({
+                name: inputs[0].value,
+                amount: inputs[1].value
+            });
+        });
+
+        const data = {
+            salary: document.getElementById('salary').value,
+            hours: document.getElementById('hours').value,
+            ot1: document.getElementById('ot1').value,
+            ot15: document.getElementById('ot15').value,
+            ot2: document.getElementById('ot2').value,
+            ot3: document.getElementById('ot3').value,
+            work_days: document.getElementById('work_days').value,
+            travel: document.getElementById('travel').value,
+            lang_allowance: document.getElementById('lang_allowance').value,
+            night_days: document.getElementById('night_days').value,
+            expenses: expenses
+        };
+
+        const profiles = getProfiles();
+        profiles[selectedName] = data;
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(profiles));
+
+        renderProfileOptions();
+        select.value = selectedName;
+        alert(t.msg_saved);
+    }
+
+    function loadSelectedProfile() {
+        const select = document.getElementById('profile-select');
+        const name = select.value;
+        
+        if (name === 'default') {
+            clearAllInputs();
+            return;
+        }
+
+        const profiles = getProfiles();
+        const data = profiles[name];
+        if (!data) return;
+
+        document.getElementById('salary').value = data.salary || '';
+        document.getElementById('hours').value = data.hours || '';
+        document.getElementById('ot1').value = data.ot1 || '';
+        document.getElementById('ot15').value = data.ot15 || '';
+        document.getElementById('ot2').value = data.ot2 || '';
+        document.getElementById('ot3').value = data.ot3 || '';
+        document.getElementById('work_days').value = data.work_days || '';
+        document.getElementById('travel').value = data.travel || '';
+        document.getElementById('lang_allowance').value = data.lang_allowance || '';
+        document.getElementById('night_days').value = data.night_days || '';
+
         const container = document.getElementById('expense-container');
-        const rowId = 'exp_' + Date.now();
+        container.innerHTML = '';
+        if (data.expenses && Array.isArray(data.expenses)) {
+            data.expenses.forEach(item => {
+                addExpenseRow(item.name, item.amount);
+            });
+        }
+
+        calculate();
+    }
+
+    function deleteProfile() {
+        const select = document.getElementById('profile-select');
+        const name = select.value;
+        const t = translations[currentLang];
+
+        if (name === 'default') return;
+
+        const profiles = getProfiles();
+        delete profiles[name];
+        localStorage.setItem(STORAGE_KEY, JSON.stringify(profiles));
+
+        renderProfileOptions();
+        clearAllInputs();
+        alert(t.msg_deleted);
+    }
+
+    function addExpenseRow(name = '', amount = '') {
+        const container = document.getElementById('expense-container');
+        const rowId = 'exp_' + Date.now() + Math.random().toString(36).substr(2, 4);
         const rowDiv = document.createElement('div');
         rowDiv.className = 'expense-item';
         rowDiv.id = rowId;
@@ -596,8 +842,8 @@
         const t = translations[currentLang];
 
         rowDiv.innerHTML = `
-            <input type="text" placeholder="${t.exp_item_name}" oninput="calculate()">
-            <input type="number" inputmode="decimal" placeholder="${t.exp_item_amt}" oninput="calculate()">
+            <input type="text" placeholder="${t.exp_item_name}" value="${name}" oninput="calculate()">
+            <input type="number" inputmode="decimal" placeholder="${t.exp_item_amt}" value="${amount}" oninput="calculate()">
             <button class="btn-del" onclick="document.getElementById('${rowId}').remove(); calculate();">${t.btn_del}</button>
         `;
 
@@ -657,7 +903,6 @@
             }
         });
 
-        // แสดงผล preview ยอดรวมของแต่ละหมวด
         document.getElementById('lbl_base_preview').innerText = `${t.total_prefix}${formatNum(salary)}${t.currency}`;
         document.getElementById('lbl_ot_preview').innerText = `${t.total_prefix}${formatNum(totalOt)}${t.currency}`;
         document.getElementById('lbl_travel_preview').innerText = `${t.total_prefix}${formatNum(totalTravel)}${t.currency}`;
@@ -705,6 +950,8 @@
         remBox.className = 'result-box';
         remBox.innerText = translations[currentLang].msg_initial;
     }
+
+    renderProfileOptions();
 </script>
 </body>
 </html>
