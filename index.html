@@ -127,16 +127,13 @@
             line-height: 1.3;
         }
 
-        /* Profile Manager Styles (Fix Overflow) */
+        /* Profile Manager Styles (Single Line Lock) */
         .profile-bar {
             background: var(--card-sub-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 10px;
+            padding: 8px;
             margin-bottom: 16px;
-            display: flex;
-            flex-direction: column;
-            gap: 8px;
             width: 100%;
         }
 
@@ -145,13 +142,13 @@
             gap: 6px;
             align-items: center;
             width: 100%;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* ห้ามขึ้นบรรทัดใหม่ */
         }
 
         .profile-select {
-            flex: 1 1 180px;
+            flex: 1; /* ยืดหดตามพื้นที่ที่เหลือ */
             min-width: 0;
-            padding: 8px 10px;
+            padding: 8px 6px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--input-bg);
@@ -159,6 +156,8 @@
             font-size: 0.85rem;
             outline: none;
             text-overflow: ellipsis;
+            white-space: nowrap;
+            overflow: hidden;
         }
 
         .btn-profile {
@@ -169,11 +168,22 @@
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
-            flex: 0 0 auto;
+            flex-shrink: 0; /* ห้ามโดนบีบจนเบี้ยว */
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
         }
 
         .btn-save { background: var(--primary-color); color: #fff; }
         .btn-del-profile { background: var(--danger-bg); color: var(--danger-color); }
+
+        /* ปรับแต่งปุ่มบนมือถือจอเล็ก */
+        @media (max-width: 400px) {
+            .profile-controls { gap: 4px; }
+            .btn-profile { padding: 8px 8px; }
+            .btn-text { display: none; } /* ซ่อนข้อความ เหลือเฉพาะไอคอนบนมือถือ */
+        }
 
         .section-title {
             font-size: 0.95rem;
@@ -400,8 +410,12 @@
             <select id="profile-select" class="profile-select" onchange="loadSelectedProfile()">
                 <option value="default" id="opt_default">-- เลือกโปรไฟล์ --</option>
             </select>
-            <button class="btn-profile btn-save" onclick="saveProfile()" id="btn_save_profile">💾 บันทึก</button>
-            <button class="btn-profile btn-del-profile" onclick="deleteProfile()" id="btn_del_profile">🗑️ ลบ</button>
+            <button class="btn-profile btn-save" onclick="saveProfile()">
+                <span>💾</span><span class="btn-text" id="lbl_btn_save">บันทึก</span>
+            </button>
+            <button class="btn-profile btn-del-profile" onclick="deleteProfile()">
+                <span>🗑️</span><span class="btn-text" id="lbl_btn_del">ลบ</span>
+            </button>
         </div>
     </div>
 
@@ -571,8 +585,8 @@
         th: {
             title: "Salary & OT Calculator",
             opt_default: "-- เลือกโปรไฟล์ --",
-            btn_save: "💾 บันทึก",
-            btn_del_prof: "🗑️ ลบ",
+            btn_save: "บันทึก",
+            btn_del_prof: "ลบ",
             prompt_name: "ตั้งชื่อโปรไฟล์ใหม่ (เช่น งานหลัก, งานเสริม):",
             msg_saved: "บันทึกโปรไฟล์เรียบร้อยแล้ว!",
             msg_deleted: "ลบโปรไฟล์เรียบร้อยแล้ว!",
@@ -615,8 +629,8 @@
         en: {
             title: "Salary & OT Calculator",
             opt_default: "-- Select Profile --",
-            btn_save: "💾 Save",
-            btn_del_prof: "🗑️ Delete",
+            btn_save: "Save",
+            btn_del_prof: "Delete",
             prompt_name: "Enter new profile name:",
             msg_saved: "Profile saved successfully!",
             msg_deleted: "Profile deleted!",
@@ -666,8 +680,8 @@
         const t = translations[lang];
         
         document.getElementById('txt_title').innerText = t.title;
-        document.getElementById('btn_save_profile').innerText = t.btn_save;
-        document.getElementById('btn_del_profile').innerText = t.btn_del_prof;
+        document.getElementById('lbl_btn_save').innerText = t.btn_save;
+        document.getElementById('lbl_btn_del').innerText = t.btn_del_prof;
 
         document.getElementById('txt_sec1').innerText = t.sec1;
         document.getElementById('txt_sec2').innerText = t.sec2;
