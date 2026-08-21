@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Salary + OT + Expense Calculator</title>
+    <title>Salary & OT Monthly Calculator</title>
     <style>
         :root {
             --primary-color: #2563eb;
@@ -87,9 +87,6 @@
             border-radius: 16px;
             font-size: 0.85rem;
             cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
         }
 
         .lang-switch {
@@ -119,7 +116,6 @@
         h1 {
             font-size: 1.25rem;
             font-weight: 700;
-            text-align: left;
             margin-top: 4px;
             margin-bottom: 16px;
             padding-right: 140px;
@@ -127,62 +123,43 @@
             line-height: 1.3;
         }
 
-        /* Profile Manager Styles (Single Line Lock) */
-        .profile-bar {
+        /* Monthly Bar Styles */
+        .month-bar {
             background: var(--card-sub-bg);
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 8px;
             margin-bottom: 16px;
-            width: 100%;
-        }
-
-        .profile-controls {
             display: flex;
             gap: 6px;
             align-items: center;
-            width: 100%;
-            flex-wrap: nowrap; /* ห้ามขึ้นบรรทัดใหม่ */
         }
 
-        .profile-select {
-            flex: 1; /* ยืดหดตามพื้นที่ที่เหลือ */
-            min-width: 0;
+        .month-select, .year-select {
             padding: 8px 6px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--input-bg);
             color: var(--text-main);
             font-size: 0.85rem;
+            font-weight: 600;
             outline: none;
-            text-overflow: ellipsis;
-            white-space: nowrap;
-            overflow: hidden;
         }
 
-        .btn-profile {
+        .year-select { flex: 0.8; }
+        .month-select { flex: 1.2; }
+
+        .btn-clear-month {
             padding: 8px 10px;
             border-radius: 8px;
             border: none;
+            background: var(--danger-bg);
+            color: var(--danger-color);
             font-size: 0.8rem;
             font-weight: 600;
             cursor: pointer;
             white-space: nowrap;
-            flex-shrink: 0; /* ห้ามโดนบีบจนเบี้ยว */
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
-            gap: 4px;
-        }
-
-        .btn-save { background: var(--primary-color); color: #fff; }
-        .btn-del-profile { background: var(--danger-bg); color: var(--danger-color); }
-
-        /* ปรับแต่งปุ่มบนมือถือจอเล็ก */
-        @media (max-width: 400px) {
-            .profile-controls { gap: 4px; }
-            .btn-profile { padding: 8px 8px; }
-            .btn-text { display: none; } /* ซ่อนข้อความ เหลือเฉพาะไอคอนบนมือถือ */
+            flex-shrink: 0;
         }
 
         .section-title {
@@ -259,10 +236,10 @@
 
         .input-card input {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             border: 1.5px solid var(--border-color);
-            border-radius: 12px;
-            font-size: 1rem;
+            border-radius: 10px;
+            font-size: 0.95rem;
             background: var(--input-bg);
             color: var(--text-main);
             outline: none;
@@ -291,10 +268,10 @@
 
         .expense-item input[type="text"],
         .expense-item input[type="number"] {
-            padding: 10px;
+            padding: 8px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             background: var(--input-bg);
             color: var(--text-main);
         }
@@ -306,7 +283,7 @@
             background: var(--danger-bg);
             color: var(--danger-color);
             border: none;
-            padding: 10px 14px;
+            padding: 8px 12px;
             border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
@@ -315,13 +292,13 @@
 
         .btn-add-exp {
             width: 100%;
-            padding: 12px;
+            padding: 10px;
             background: var(--primary-light);
             color: var(--primary-color);
             border: 1.5px dashed var(--primary-color);
             border-radius: 12px;
             font-weight: 700;
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             cursor: pointer;
         }
 
@@ -337,8 +314,8 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 6px 0;
-            font-size: 0.88rem;
+            padding: 5px 0;
+            font-size: 0.85rem;
             color: var(--text-sub);
         }
 
@@ -348,7 +325,7 @@
         }
 
         .summary-item.bold {
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             font-weight: 700;
             color: var(--text-main);
             border-top: 1px dashed var(--border-color);
@@ -369,13 +346,13 @@
 
         .result-box {
             margin-top: 16px;
-            padding: 16px;
+            padding: 14px;
             border-radius: 14px;
             text-align: center;
             background: var(--result-neutral);
             color: var(--text-main);
             font-weight: 700;
-            font-size: 1.15rem;
+            font-size: 1.1rem;
         }
 
         .result-positive {
@@ -388,6 +365,82 @@
             background: var(--danger-bg);
             color: var(--danger-color);
             border: 1px solid var(--danger-color);
+        }
+
+        /* Yearly Section Styles */
+        .yearly-card {
+            background: var(--card-sub-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 14px;
+            padding: 12px;
+            margin-top: 10px;
+        }
+
+        .yearly-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 8px;
+            margin-bottom: 12px;
+        }
+
+        .yearly-stat-box {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+            padding: 8px 10px;
+            display: flex;
+            flex-direction: column;
+            gap: 2px;
+        }
+
+        .yearly-stat-box label {
+            font-size: 0.72rem;
+            color: var(--text-sub);
+            font-weight: 600;
+        }
+
+        .yearly-stat-box span {
+            font-size: 0.88rem;
+            font-weight: 700;
+        }
+
+        .table-responsive {
+            width: 100%;
+            overflow-x: auto;
+            border: 1px solid var(--border-color);
+            border-radius: 10px;
+        }
+
+        .yearly-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 0.78rem;
+            text-align: right;
+        }
+
+        .yearly-table th, .yearly-table td {
+            padding: 8px 6px;
+            border-bottom: 1px solid var(--border-color);
+            white-space: nowrap;
+        }
+
+        .yearly-table th {
+            background: var(--primary-light);
+            color: var(--primary-color);
+            font-weight: 700;
+            text-align: right;
+        }
+
+        .yearly-table th:first-child, .yearly-table td:first-child {
+            text-align: left;
+            position: sticky;
+            left: 0;
+            background: var(--card-bg);
+            z-index: 1;
+        }
+
+        .yearly-table tr:last-child td {
+            border-bottom: none;
         }
     </style>
 </head>
@@ -404,19 +457,11 @@
 
     <h1 id="txt_title">Salary & OT Calculator</h1>
 
-    <!-- แถบจัดการ Profile -->
-    <div class="profile-bar">
-        <div class="profile-controls">
-            <select id="profile-select" class="profile-select" onchange="loadSelectedProfile()">
-                <option value="default" id="opt_default">-- เลือกโปรไฟล์ --</option>
-            </select>
-            <button class="btn-profile btn-save" onclick="saveProfile()">
-                <span>💾</span><span class="btn-text" id="lbl_btn_save">บันทึก</span>
-            </button>
-            <button class="btn-profile btn-del-profile" onclick="deleteProfile()">
-                <span>🗑️</span><span class="btn-text" id="lbl_btn_del">ลบ</span>
-            </button>
-        </div>
+    <!-- แถบเลือกเดือน/ปี -->
+    <div class="month-bar">
+        <select id="year-select" class="year-select" onchange="onMonthOrYearChange()"></select>
+        <select id="month-select" class="month-select" onchange="onMonthOrYearChange()"></select>
+        <button class="btn-clear-month" onclick="clearCurrentMonthData()" id="btn_clear_month">🗑️ ล้างเดือนนี้</button>
     </div>
 
     <!-- Section 1 -->
@@ -431,11 +476,11 @@
             <div class="group-inputs">
                 <div class="input-card">
                     <label id="lbl_in_salary">เงินเดือน (บาท)</label>
-                    <input type="number" id="salary" inputmode="decimal" placeholder="0" oninput="calculate()">
+                    <input type="number" id="salary" inputmode="decimal" placeholder="0" oninput="saveAndCalculate()">
                 </div>
                 <div class="input-card">
                     <label id="lbl_in_hours">ทำงาน (ชม./วัน)</label>
-                    <input type="number" id="hours" inputmode="decimal" placeholder="0" oninput="calculate()">
+                    <input type="number" id="hours" inputmode="decimal" placeholder="0" oninput="saveAndCalculate()">
                 </div>
             </div>
         </div>
@@ -448,19 +493,19 @@
             <div class="group-inputs">
                 <div class="input-card">
                     <label id="lbl_ot1">OT x1.0 (ชม.)</label>
-                    <input type="number" id="ot1" inputmode="decimal" placeholder="0" oninput="calculate()">
+                    <input type="number" id="ot1" inputmode="decimal" placeholder="0" oninput="saveAndCalculate()">
                 </div>
                 <div class="input-card">
                     <label id="lbl_ot15">OT x1.5 (ชม.)</label>
-                    <input type="number" id="ot15" inputmode="decimal" placeholder="0" oninput="calculate()">
+                    <input type="number" id="ot15" inputmode="decimal" placeholder="0" oninput="saveAndCalculate()">
                 </div>
                 <div class="input-card">
                     <label id="lbl_ot2">OT x2.0 (ชม.)</label>
-                    <input type="number" id="ot2" inputmode="decimal" placeholder="0" oninput="calculate()">
+                    <input type="number" id="ot2" inputmode="decimal" placeholder="0" oninput="saveAndCalculate()">
                 </div>
                 <div class="input-card">
                     <label id="lbl_ot3">OT x3.0 (ชม.)</label>
-                    <input type="number" id="ot3" inputmode="decimal" placeholder="0" oninput="calculate()">
+                    <input type="number" id="ot3" inputmode="decimal" placeholder="0" oninput="saveAndCalculate()">
                 </div>
             </div>
         </div>
@@ -473,11 +518,11 @@
             <div class="group-inputs">
                 <div class="input-card">
                     <label id="lbl_in_work_days">จำนวนวันเดินทาง</label>
-                    <input type="number" id="work_days" inputmode="decimal" placeholder="0" oninput="calculate()">
+                    <input type="number" id="work_days" inputmode="decimal" placeholder="0" oninput="saveAndCalculate()">
                 </div>
                 <div class="input-card">
                     <label id="lbl_in_travel">อัตรา (บาท/วัน)</label>
-                    <input type="number" id="travel" inputmode="decimal" placeholder="0" oninput="calculate()">
+                    <input type="number" id="travel" inputmode="decimal" placeholder="0" oninput="saveAndCalculate()">
                 </div>
             </div>
         </div>
@@ -490,11 +535,11 @@
             <div class="group-inputs">
                 <div class="input-card">
                     <label id="lbl_in_lang">ค่าภาษา (บาท)</label>
-                    <input type="number" id="lang_allowance" inputmode="decimal" placeholder="0" oninput="calculate()">
+                    <input type="number" id="lang_allowance" inputmode="decimal" placeholder="0" oninput="saveAndCalculate()">
                 </div>
                 <div class="input-card">
                     <label id="lbl_in_night_days">กะกลางคืน (วัน)</label>
-                    <input type="number" id="night_days" inputmode="decimal" placeholder="0" oninput="calculate()">
+                    <input type="number" id="night_days" inputmode="decimal" placeholder="0" oninput="saveAndCalculate()">
                 </div>
             </div>
         </div>
@@ -510,7 +555,7 @@
     <button class="btn-add-exp" id="btn_add_exp" onclick="addExpenseRow()">+ เพิ่มรายการค่าใช้จ่าย</button>
 
     <!-- Section 3 -->
-    <div class="section-title" id="txt_sec3">3. สรุปผลคำนวณ</div>
+    <div class="section-title" id="txt_sec3">3. สรุปผลคำนวณประจำเดือน</div>
     <div class="summary-card">
         <div class="summary-item">
             <span id="txt_sum_salary">เงินเดือนฐาน</span>
@@ -552,10 +597,53 @@
     </div>
 
     <div class="result-box" id="lbl_remaining">กรอกข้อมูลเพื่อคำนวณ</div>
+
+    <!-- Section 4: สรุปภาพรวมรายปี -->
+    <div class="section-title" id="txt_sec4">4. สรุปภาพรวมรายปี <span id="lbl_yearly_title_year"></span></div>
+    <div class="yearly-card">
+        <div class="yearly-grid">
+            <div class="yearly-stat-box">
+                <label id="lbl_y_income">รายรับรวมทั้งปี</label>
+                <span id="y_val_income" style="color:var(--primary-color);">0.00</span>
+            </div>
+            <div class="yearly-stat-box">
+                <label id="lbl_y_ss">ประกันสังคมทั้งปี</label>
+                <span id="y_val_ss" style="color:var(--danger-color);">0.00</span>
+            </div>
+            <div class="yearly-stat-box">
+                <label id="lbl_y_expense">ค่าใช้จ่ายรวมทั้งปี</label>
+                <span id="y_val_expense" style="color:var(--danger-color);">0.00</span>
+            </div>
+            <div class="yearly-stat-box">
+                <label id="lbl_y_net">คงเหลือสุทธิทั้งปี</label>
+                <span id="y_val_net" style="color:var(--success-color);">0.00</span>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table class="yearly-table">
+                <thead>
+                    <tr>
+                        <th id="th_month">เดือน</th>
+                        <th id="th_income">รายรับ</th>
+                        <th id="th_ss">ประกันสังคม</th>
+                        <th id="th_expense">รายจ่าย</th>
+                        <th id="th_net">คงเหลือ</th>
+                    </tr>
+                </thead>
+                <tbody id="yearly-table-body"></tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <script>
     let currentLang = 'th';
+
+    const monthNames = {
+        th: ['มกราคม', 'กุมภาพันธ์', 'มีนาคม', 'เมษายน', 'พฤษภาคม', 'มิถุนายน', 'กรกฎาคม', 'สิงหาคม', 'กันยายน', 'ตุลาคม', 'พฤศจิกายน', 'ธันวาคม'],
+        en: ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
+    };
 
     function initTheme() {
         const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
@@ -584,15 +672,12 @@
     const translations = {
         th: {
             title: "Salary & OT Calculator",
-            opt_default: "-- เลือกโปรไฟล์ --",
-            btn_save: "บันทึก",
-            btn_del_prof: "ลบ",
-            prompt_name: "ตั้งชื่อโปรไฟล์ใหม่ (เช่น งานหลัก, งานเสริม):",
-            msg_saved: "บันทึกโปรไฟล์เรียบร้อยแล้ว!",
-            msg_deleted: "ลบโปรไฟล์เรียบร้อยแล้ว!",
+            btn_clear_month: "🗑️ ล้างเดือนนี้",
+            msg_cleared: "ล้างข้อมูลเดือนนี้เรียบร้อยแล้ว",
             sec1: "1. เงินเดือน & รายรับอื่นๆ",
             sec2: "2. รายการค่าใช้จ่าย",
-            sec3: "3. สรุปผลคำนวณ",
+            sec3: "3. สรุปผลคำนวณประจำเดือน",
+            sec4: "4. สรุปภาพรวมรายปี",
             group_base: "💼 เงินเดือนพื้นฐาน",
             group_ot: "⏰ ค่าล่วงเวลา (OT)",
             group_travel: "✈️ เบี้ยเลี้ยงเดินทาง",
@@ -624,19 +709,25 @@
             msg_remaining: "คงเหลือ: ",
             msg_deficit: "ขาดดุล: ",
             total_prefix: "รวม: ",
-            currency: " บาท"
+            currency: " บาท",
+            lbl_y_income: "รายรับรวมทั้งปี",
+            lbl_y_ss: "ประกันสังคมทั้งปี",
+            lbl_y_expense: "ค่าใช้จ่ายรวมทั้งปี",
+            lbl_y_net: "คงเหลือสุทธิทั้งปี",
+            th_month: "เดือน",
+            th_income: "รายรับ",
+            th_ss: "ประกันสังคม",
+            th_expense: "รายจ่าย",
+            th_net: "คงเหลือ"
         },
         en: {
             title: "Salary & OT Calculator",
-            opt_default: "-- Select Profile --",
-            btn_save: "Save",
-            btn_del_prof: "Delete",
-            prompt_name: "Enter new profile name:",
-            msg_saved: "Profile saved successfully!",
-            msg_deleted: "Profile deleted!",
+            btn_clear_month: "🗑️ Clear Month",
+            msg_cleared: "Cleared data for this month",
             sec1: "1. Salary & Other Income",
             sec2: "2. Expense List",
-            sec3: "3. Summary",
+            sec3: "3. Monthly Summary",
+            sec4: "4. Yearly Overview",
             group_base: "💼 Base Salary",
             group_ot: "⏰ Overtime (OT)",
             group_travel: "✈️ Travel Allowance",
@@ -668,9 +759,49 @@
             msg_remaining: "Balance: ",
             msg_deficit: "Deficit: ",
             total_prefix: "Total: ",
-            currency: " THB"
+            currency: " THB",
+            lbl_y_income: "Yearly Gross Income",
+            lbl_y_ss: "Yearly Social Security",
+            lbl_y_expense: "Yearly Total Expense",
+            lbl_y_net: "Yearly Net Balance",
+            th_month: "Month",
+            th_income: "Income",
+            th_ss: "Soc.Sec",
+            th_expense: "Expense",
+            th_net: "Balance"
         }
     };
+
+    function initYearMonthDropdowns() {
+        const yearSelect = document.getElementById('year-select');
+        const monthSelect = document.getElementById('month-select');
+        const now = new Date();
+        const currentYear = now.getFullYear();
+        const currentMonth = now.getMonth();
+
+        yearSelect.innerHTML = '';
+        for (let y = currentYear - 3; y <= currentYear + 3; y++) {
+            const opt = document.createElement('option');
+            opt.value = y;
+            opt.textContent = currentLang === 'th' ? `ปี ${y + 543}` : `Year ${y}`;
+            if (y === currentYear) opt.selected = true;
+            yearSelect.appendChild(opt);
+        }
+
+        renderMonthOptions(currentMonth);
+    }
+
+    function renderMonthOptions(selectedMonth = 0) {
+        const monthSelect = document.getElementById('month-select');
+        monthSelect.innerHTML = '';
+        monthNames[currentLang].forEach((m, idx) => {
+            const opt = document.createElement('option');
+            opt.value = idx;
+            opt.textContent = m;
+            if (idx === selectedMonth) opt.selected = true;
+            monthSelect.appendChild(opt);
+        });
+    }
 
     function setLanguage(lang) {
         currentLang = lang;
@@ -680,12 +811,12 @@
         const t = translations[lang];
         
         document.getElementById('txt_title').innerText = t.title;
-        document.getElementById('lbl_btn_save').innerText = t.btn_save;
-        document.getElementById('lbl_btn_del').innerText = t.btn_del_prof;
+        document.getElementById('btn_clear_month').innerText = t.btn_clear_month;
 
         document.getElementById('txt_sec1').innerText = t.sec1;
         document.getElementById('txt_sec2').innerText = t.sec2;
         document.getElementById('txt_sec3').innerText = t.sec3;
+        document.getElementById('txt_sec4').innerText = t.sec4 + " " + document.getElementById('year-select').value;
         
         document.getElementById('txt_group_base').innerText = t.group_base;
         document.getElementById('txt_group_ot').innerText = t.group_ot;
@@ -717,6 +848,27 @@
         document.getElementById('txt_sum_after_ss').innerText = t.sum_after_ss;
         document.getElementById('txt_sum_expense').innerText = t.sum_expense;
 
+        document.getElementById('lbl_y_income').innerText = t.lbl_y_income;
+        document.getElementById('lbl_y_ss').innerText = t.lbl_y_ss;
+        document.getElementById('lbl_y_expense').innerText = t.lbl_y_expense;
+        document.getElementById('lbl_y_net').innerText = t.lbl_y_net;
+
+        document.getElementById('th_month').innerText = t.th_month;
+        document.getElementById('th_income').innerText = t.th_income;
+        document.getElementById('th_ss').innerText = t.th_ss;
+        document.getElementById('th_expense').innerText = t.th_expense;
+        document.getElementById('th_net').innerText = t.th_net;
+
+        const selMonth = parseInt(document.getElementById('month-select').value) || 0;
+        renderMonthOptions(selMonth);
+
+        const yearSelect = document.getElementById('year-select');
+        const curY = parseInt(yearSelect.value);
+        Array.from(yearSelect.options).forEach(opt => {
+            const y = parseInt(opt.value);
+            opt.textContent = lang === 'th' ? `ปี ${y + 543}` : `Year ${y}`;
+        });
+
         document.querySelectorAll('.expense-item').forEach(row => {
             const inputs = row.querySelectorAll('input');
             const btn = row.querySelector('.btn-del');
@@ -725,56 +877,30 @@
             if(btn) btn.innerText = t.btn_del;
         });
 
-        renderProfileOptions();
+        loadCurrentMonthData();
+    }
+
+    /* ---- STORAGE SYSTEM (YEAR-MONTH KEY) ---- */
+    const STORAGE_KEY_PREFIX = 'calc_data_';
+
+    function getStorageKey(year, month) {
+        return `${STORAGE_KEY_PREFIX}${year}_${month}`;
+    }
+
+    function onMonthOrYearChange() {
+        loadCurrentMonthData();
+    }
+
+    function saveAndCalculate() {
+        saveCurrentMonthData();
         calculate();
+        calculateYearlySummary();
     }
 
-    /* ---- ระบบ PROFILE LOCALSTORAGE ---- */
-    const STORAGE_KEY = 'calc_profiles_data';
-
-    function getProfiles() {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY) || '{}');
-    }
-
-    function renderProfileOptions() {
-        const select = document.getElementById('profile-select');
-        const selectedVal = select.value;
-        const profiles = getProfiles();
-        const t = translations[currentLang];
-        
-        select.innerHTML = `<option value="default" id="opt_default">${t.opt_default}</option>`;
-        Object.keys(profiles).forEach(name => {
-            const opt = document.createElement('option');
-            opt.value = name;
-            opt.textContent = name;
-            select.appendChild(opt);
-        });
-
-        if (selectedVal && profiles[selectedVal]) {
-            select.value = selectedVal;
-        } else {
-            select.value = 'default';
-        }
-    }
-
-    function clearAllInputs() {
-        ['salary', 'hours', 'ot1', 'ot15', 'ot2', 'ot3', 'work_days', 'travel', 'lang_allowance', 'night_days'].forEach(id => {
-            document.getElementById(id).value = '';
-        });
-        document.getElementById('expense-container').innerHTML = '';
-        calculate();
-    }
-
-    function saveProfile() {
-        const t = translations[currentLang];
-        const select = document.getElementById('profile-select');
-        let selectedName = select.value;
-
-        if (selectedName === 'default') {
-            const newName = prompt(t.prompt_name);
-            if (!newName || !newName.trim()) return;
-            selectedName = newName.trim();
-        }
+    function saveCurrentMonthData() {
+        const year = document.getElementById('year-select').value;
+        const month = document.getElementById('month-select').value;
+        const key = getStorageKey(year, month);
 
         const expenses = [];
         document.querySelectorAll('#expense-container .expense-item').forEach(row => {
@@ -799,27 +925,15 @@
             expenses: expenses
         };
 
-        const profiles = getProfiles();
-        profiles[selectedName] = data;
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(profiles));
-
-        renderProfileOptions();
-        select.value = selectedName;
-        alert(t.msg_saved);
+        localStorage.setItem(key, JSON.stringify(data));
     }
 
-    function loadSelectedProfile() {
-        const select = document.getElementById('profile-select');
-        const name = select.value;
-        
-        if (name === 'default') {
-            clearAllInputs();
-            return;
-        }
+    function loadCurrentMonthData() {
+        const year = document.getElementById('year-select').value;
+        const month = document.getElementById('month-select').value;
+        const key = getStorageKey(year, month);
 
-        const profiles = getProfiles();
-        const data = profiles[name];
-        if (!data) return;
+        const data = JSON.parse(localStorage.getItem(key) || '{}');
 
         document.getElementById('salary').value = data.salary || '';
         document.getElementById('hours').value = data.hours || '';
@@ -836,30 +950,33 @@
         container.innerHTML = '';
         if (data.expenses && Array.isArray(data.expenses)) {
             data.expenses.forEach(item => {
-                addExpenseRow(item.name, item.amount);
+                addExpenseRow(item.name, item.amount, false);
             });
         }
 
         calculate();
+        calculateYearlySummary();
     }
 
-    function deleteProfile() {
-        const select = document.getElementById('profile-select');
-        const name = select.value;
+    function clearCurrentMonthData() {
         const t = translations[currentLang];
+        const year = document.getElementById('year-select').value;
+        const month = document.getElementById('month-select').value;
+        const key = getStorageKey(year, month);
 
-        if (name === 'default') return;
+        localStorage.removeItem(key);
 
-        const profiles = getProfiles();
-        delete profiles[name];
-        localStorage.setItem(STORAGE_KEY, JSON.stringify(profiles));
+        ['salary', 'hours', 'ot1', 'ot15', 'ot2', 'ot3', 'work_days', 'travel', 'lang_allowance', 'night_days'].forEach(id => {
+            document.getElementById(id).value = '';
+        });
+        document.getElementById('expense-container').innerHTML = '';
 
-        renderProfileOptions();
-        clearAllInputs();
-        alert(t.msg_deleted);
+        calculate();
+        calculateYearlySummary();
+        alert(t.msg_cleared);
     }
 
-    function addExpenseRow(name = '', amount = '') {
+    function addExpenseRow(name = '', amount = '', triggerSave = true) {
         const container = document.getElementById('expense-container');
         const rowId = 'exp_' + Date.now() + Math.random().toString(36).substr(2, 4);
         const rowDiv = document.createElement('div');
@@ -869,13 +986,13 @@
         const t = translations[currentLang];
 
         rowDiv.innerHTML = `
-            <input type="text" placeholder="${t.exp_item_name}" value="${name}" oninput="calculate()">
-            <input type="number" inputmode="decimal" placeholder="${t.exp_item_amt}" value="${amount}" oninput="calculate()">
-            <button class="btn-del" onclick="document.getElementById('${rowId}').remove(); calculate();">${t.btn_del}</button>
+            <input type="text" placeholder="${t.exp_item_name}" value="${name}" oninput="saveAndCalculate()">
+            <input type="number" inputmode="decimal" placeholder="${t.exp_item_amt}" value="${amount}" oninput="saveAndCalculate()">
+            <button class="btn-del" onclick="document.getElementById('${rowId}').remove(); saveAndCalculate();">${t.btn_del}</button>
         `;
 
         container.appendChild(rowDiv);
-        calculate();
+        if (triggerSave) saveAndCalculate();
     }
 
     function getNum(id) {
@@ -887,6 +1004,47 @@
 
     function formatNum(num) {
         return num.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function calculateMonthDataFromObj(data) {
+        const salary = parseFloat(data.salary) || 0;
+        const hoursPerDay = parseFloat(data.hours) || 0;
+        const workDays = parseFloat(data.work_days) || 0;
+        const travelPerDay = parseFloat(data.travel) || 0;
+        const totalTravel = workDays * travelPerDay;
+
+        const nightDays = parseFloat(data.night_days) || 0;
+        const langAllowance = parseFloat(data.lang_allowance) || 0;
+        const totalNight = nightDays * 50;
+
+        const ot1 = parseFloat(data.ot1) || 0;
+        const ot15 = parseFloat(data.ot15) || 0;
+        const ot2 = parseFloat(data.ot2) || 0;
+        const ot3 = parseFloat(data.ot3) || 0;
+
+        let totalOt = 0;
+        if (salary > 0 && hoursPerDay > 0) {
+            const hourlyRate = salary / 30 / hoursPerDay;
+            totalOt = (hourlyRate * ot1 * 1.0) + (hourlyRate * ot15 * 1.5) + (hourlyRate * ot2 * 2.0) + (hourlyRate * ot3 * 3.0);
+        }
+
+        let totalExpense = 0;
+        if (data.expenses && Array.isArray(data.expenses)) {
+            data.expenses.forEach(item => {
+                const amt = parseFloat(item.amount);
+                if (!isNaN(amt) && amt > 0) totalExpense += amt;
+            });
+        }
+
+        if (salary <= 0 || hoursPerDay <= 0) {
+            return { income: 0, ss: 0, expense: totalExpense, net: -totalExpense };
+        }
+
+        const socialSecurity = Math.min(salary * 0.05, 875.0);
+        const totalIncome = salary + totalOt + totalTravel + totalNight + langAllowance;
+        const net = totalIncome - socialSecurity - totalExpense;
+
+        return { income: totalIncome, ss: socialSecurity, expense: totalExpense, net: net };
     }
 
     function calculate() {
@@ -969,6 +1127,46 @@
         }
     }
 
+    function calculateYearlySummary() {
+        const year = document.getElementById('year-select').value;
+        const tbody = document.getElementById('yearly-table-body');
+        tbody.innerHTML = '';
+
+        let yearIncome = 0, yearSs = 0, yearExpense = 0, yearNet = 0;
+
+        monthNames[currentLang].forEach((mName, mIdx) => {
+            const key = getStorageKey(year, mIdx);
+            const data = JSON.parse(localStorage.getItem(key) || '{}');
+            const res = calculateMonthDataFromObj(data);
+
+            yearIncome += res.income;
+            yearSs += res.ss;
+            yearExpense += res.expense;
+            yearNet += res.net;
+
+            const tr = document.createElement('tr');
+            tr.innerHTML = `
+                <td><strong>${mName}</strong></td>
+                <td>${formatNum(res.income)}</td>
+                <td style="color:var(--danger-color);">${res.ss > 0 ? '-' + formatNum(res.ss) : '0.00'}</td>
+                <td style="color:var(--danger-color);">${res.expense > 0 ? '-' + formatNum(res.expense) : '0.00'}</td>
+                <td style="font-weight:700; color:${res.net >= 0 ? 'var(--success-color)' : 'var(--danger-color)'};">${formatNum(res.net)}</td>
+            `;
+            tbody.appendChild(tr);
+        });
+
+        document.getElementById('y_val_income').innerText = formatNum(yearIncome);
+        document.getElementById('y_val_ss').innerText = '-' + formatNum(yearSs);
+        document.getElementById('y_val_expense').innerText = '-' + formatNum(yearExpense);
+
+        const yNetEl = document.getElementById('y_val_net');
+        yNetEl.innerText = formatNum(yearNet);
+        yNetEl.style.color = yearNet >= 0 ? 'var(--success-color)' : 'var(--danger-color)';
+
+        const yearLabel = currentLang === 'th' ? `ปี ${parseInt(year) + 543}` : `Year ${year}`;
+        document.getElementById('txt_sec4').innerText = `${translations[currentLang].sec4} (${yearLabel})`;
+    }
+
     function clearSummary() {
         ['lbl_salary','lbl_lang','lbl_ot','lbl_ot_detail','lbl_travel','lbl_night','lbl_total_income','lbl_ss','lbl_after_ss','lbl_expense'].forEach(id => {
             document.getElementById(id).innerText = '-';
@@ -978,7 +1176,8 @@
         remBox.innerText = translations[currentLang].msg_initial;
     }
 
-    renderProfileOptions();
+    initYearMonthDropdowns();
+    loadCurrentMonthData();
 </script>
 </body>
 </html>
