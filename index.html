@@ -4,7 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>Salary & OT Monthly Calculator</title>
+    <!-- นำเข้าฟอนต์ PK Samut Sakhon และฟอนต์สำรอง -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@500;600;700;800&display=swap" rel="stylesheet">
+    
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap');
+
         :root {
             --primary-color: #2563eb;
             --primary-light: #eff6ff;
@@ -20,7 +27,6 @@
             --success-bg: #f0fdf4;
             --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
             --input-bg: #ffffff;
-            --result-neutral: #e2e8f0;
             color-scheme: light;
         }
 
@@ -39,7 +45,6 @@
             --success-bg: #052e16;
             --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.5);
             --input-bg: #334155;
-            --result-neutral: #334155;
             color-scheme: dark;
         }
 
@@ -47,7 +52,7 @@
             box-sizing: border-box;
             margin: 0;
             padding: 0;
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+            font-family: 'PK Samut Sakhon', 'Prompt', 'Plus Jakarta Sans', sans-serif;
             -webkit-tap-highlight-color: transparent;
             transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
         }
@@ -73,20 +78,25 @@
 
         .top-tools {
             position: absolute;
-            top: 16px;
-            right: 16px;
+            top: 14px;
+            right: 14px;
             display: flex;
             gap: 6px;
+            align-items: center;
             z-index: 10;
         }
 
-        .theme-toggle-btn {
+        .icon-tool-btn {
             border: 1px solid var(--border-color);
             background: var(--card-sub-bg);
-            padding: 4px 8px;
-            border-radius: 16px;
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
             font-size: 0.85rem;
             cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
         .lang-switch {
@@ -100,9 +110,9 @@
         .lang-btn {
             border: none;
             background: transparent;
-            padding: 4px 8px;
+            padding: 3px 6px;
             border-radius: 16px;
-            font-size: 0.7rem;
+            font-size: 0.65rem;
             font-weight: 700;
             color: var(--text-sub);
             cursor: pointer;
@@ -114,14 +124,14 @@
         }
 
         h1 {
-            font-size: 1.15rem;
-            font-weight: 700;
+            font-size: 1.2rem;
+            font-weight: 800;
             margin-top: 4px;
             margin-bottom: 14px;
-            padding-right: 110px;
+            padding-right: 100px;
             color: var(--primary-color);
             line-height: 1.3;
-            word-break: break-word;
+            letter-spacing: -0.02em;
         }
 
         .month-bar {
@@ -129,14 +139,14 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 8px;
-            margin-bottom: 10px;
+            margin-bottom: 16px;
             display: flex;
             gap: 6px;
             align-items: center;
         }
 
         .month-select, .year-select {
-            padding: 8px 6px;
+            padding: 8px 10px;
             border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--input-bg);
@@ -150,44 +160,23 @@
         .month-select { flex: 1.2; }
 
         .btn-clear-month {
-            padding: 8px 10px;
-            border-radius: 8px;
-            border: none;
-            background: var(--danger-bg);
-            color: var(--danger-color);
-            font-size: 0.8rem;
-            font-weight: 600;
-            cursor: pointer;
-            white-space: nowrap;
-            flex-shrink: 0;
-        }
-
-        /* Backup Bar Style */
-        .backup-bar {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 16px;
-        }
-
-        .btn-backup {
-            flex: 1;
-            padding: 7px 10px;
-            border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--card-sub-bg);
-            color: var(--text-main);
-            font-size: 0.75rem;
-            font-weight: 700;
+            width: 38px;
+            height: 38px;
+            border-radius: 10px;
+            font-size: 0.95rem;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            gap: 4px;
+            flex-shrink: 0;
+            transition: all 0.2s;
         }
 
-        .btn-backup:hover {
-            border-color: var(--primary-color);
-            color: var(--primary-color);
+        .btn-clear-month:hover {
+            background: var(--danger-bg);
+            border-color: var(--danger-color);
         }
 
         .section-title {
@@ -201,6 +190,7 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
+            letter-spacing: -0.01em;
         }
 
         .cal-header-bar {
@@ -212,14 +202,6 @@
             gap: 8px;
         }
 
-        .cal-controls {
-            display: flex;
-            gap: 6px;
-            align-items: center;
-            flex-shrink: 0;
-        }
-
-        /* Fixed Toggle Switch Overflow Issue */
         .toggle-switch-wrapper {
             display: flex;
             align-items: center;
@@ -267,19 +249,29 @@
             transform: translateX(16px);
         }
 
-        .btn-cal-action {
-            padding: 4px 6px;
-            border-radius: 6px;
-            font-size: 0.7rem;
-            font-weight: 600;
+        .calendar-footer-tools {
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 6px;
+            margin-top: 8px;
+        }
+
+        .btn-cal-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 8px;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-main);
+            font-size: 0.85rem;
             cursor: pointer;
-            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .btn-cal-action.danger {
+        .btn-cal-icon.danger {
             background: var(--danger-bg);
             color: var(--danger-color);
             border-color: transparent;
@@ -292,6 +284,7 @@
             display: none;
         }
 
+        /* Calendar Grid Style */
         .calendar-grid {
             display: grid;
             grid-template-columns: repeat(7, 1fr);
@@ -300,7 +293,7 @@
             padding: 8px;
             border-radius: 12px;
             border: 1px solid var(--border-color);
-            margin-bottom: 12px;
+            margin-bottom: 6px;
         }
 
         .cal-header-day {
@@ -348,7 +341,7 @@
 
         .badge {
             font-size: 0.52rem;
-            padding: 1px 2px;
+            padding: 1px 3px;
             border-radius: 3px;
             font-weight: 700;
         }
@@ -356,6 +349,64 @@
         .badge-inc { background: #dcfce7; color: #15803d; }
         .badge-ns { background: #fef3c7; color: #b45309; }
         .badge-exp { background: #fee2e2; color: #b91c1c; }
+
+        /* Calendar List / To-Do Style Theme */
+        .calendar-list-view {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            background: var(--card-sub-bg);
+            padding: 8px;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            margin-bottom: 6px;
+            max-height: 320px;
+            overflow-y: auto;
+        }
+
+        .cal-list-item {
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            padding: 8px 12px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            cursor: pointer;
+            font-size: 0.78rem;
+        }
+
+        .cal-list-item.has-data {
+            border-left: 4px solid var(--primary-color);
+        }
+
+        .cal-list-date {
+            font-weight: 700;
+            width: 85px;
+            color: var(--text-main);
+        }
+
+        .cal-list-row-data {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+            font-weight: 600;
+            flex-wrap: wrap;
+            justify-content: flex-end;
+        }
+
+        .list-chip {
+            display: inline-flex;
+            align-items: center;
+            gap: 3px;
+            padding: 2px 6px;
+            border-radius: 6px;
+            font-size: 0.72rem;
+        }
+        .list-chip.ot { background: #e0e7ff; color: #4338ca; }
+        .list-chip.inc { background: #dcfce7; color: #15803d; }
+        .list-chip.exp { background: #fee2e2; color: #b91c1c; }
+        .list-chip.empty-data { color: var(--text-sub); font-weight: 500; font-style: italic; }
 
         .modal-overlay {
             position: fixed;
@@ -829,8 +880,9 @@
 <body>
 
 <div class="container">
+    <!-- Top Tools: Theme, Language, Clear Month Icon -->
     <div class="top-tools">
-        <button class="theme-toggle-btn" id="theme-btn" onclick="toggleTheme()" title="สลับธีม">🌙</button>
+        <button class="icon-tool-btn" id="theme-btn" onclick="toggleTheme()" title="สลับธีม">🌙</button>
         <div class="lang-switch">
             <button class="lang-btn active" id="btn-th" onclick="setLanguage('th')">TH</button>
             <button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
@@ -842,14 +894,7 @@
     <div class="month-bar">
         <select id="year-select" class="year-select" onchange="onMonthOrYearChange()"></select>
         <select id="month-select" class="month-select" onchange="onMonthOrYearChange()"></select>
-        <button class="btn-clear-month" onclick="confirmClearMonthData()" id="btn_clear_month">🗑️ ล้างเดือนนี้</button>
-    </div>
-
-    <!-- Backup & Restore System Bar -->
-    <div class="backup-bar">
-        <button class="btn-backup" onclick="exportDataBackup()" id="btn_export_backup">📥 สำรองข้อมูล (Backup)</button>
-        <button class="btn-backup" onclick="triggerImportBackup()" id="btn_import_backup">📤 กู้คืนข้อมูล (Restore)</button>
-        <input type="file" id="import-file-input" style="display: none;" accept=".json" onchange="importDataBackup(event)">
+        <button class="btn-clear-month" onclick="confirmClearMonthData()" id="btn_clear_month" title="ล้างข้อมูลเดือนนี้">🗑️</button>
     </div>
 
     <div class="section-title" id="txt_sec1">1. เงินเดือน & รายรับอื่นๆ</div>
@@ -873,18 +918,25 @@
 
             <div class="cal-header-bar">
                 <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-sub); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" id="txt_sec_cal">
-                    📅 ปฏิทินบันทึกการทำงาน & รายวัน
+                    📅 บันทึกการทำงาน & รายวัน
                 </div>
-                <div class="cal-controls">
-                    <div class="toggle-switch-wrapper" id="toggle_switch_wrapper" onclick="confirmToggleCalendar()">
-                        <span class="toggle-switch-label" id="txt_toggle_cal">ปฏิทิน</span>
-                        <div class="toggle-switch"></div>
-                    </div>
-                    <button class="btn-cal-action danger" id="btn_clear_cal" style="display:none;" onclick="confirmClearCalendar()">🧹 ล้าง</button>
+                <div class="toggle-switch-wrapper" id="toggle_switch_wrapper" onclick="confirmToggleCalendar()">
+                    <span class="toggle-switch-label" id="txt_toggle_cal">เปิด</span>
+                    <div class="toggle-switch"></div>
                 </div>
             </div>
+            
             <div class="calendar-wrapper collapsed" id="calendar-wrapper">
+                <!-- Grid View -->
                 <div class="calendar-grid" id="calendar-grid"></div>
+                <!-- List View (To-Do style) -->
+                <div class="calendar-list-view" id="calendar-list-view" style="display: none;"></div>
+                
+                <!-- Footer Tools: Switch View & Clear (Moved to Bottom Right) -->
+                <div class="calendar-footer-tools">
+                    <button class="btn-cal-icon" id="btn_switch_theme" onclick="toggleCalendarTheme()" title="สลับมุมมอง">📋</button>
+                    <button class="btn-cal-icon danger" id="btn_clear_cal" onclick="confirmClearCalendar()" title="ล้างข้อมูลปฏิทิน">🧹</button>
+                </div>
             </div>
         </div>
 
@@ -1102,23 +1154,33 @@
             <button class="modal-close" onclick="closeDayModal()">✕</button>
         </div>
 
+        <!-- มาทำงาน & กะกลางคืน -->
+        <div style="display: flex; gap: 16px; align-items: center; background: var(--card-sub-bg); padding: 8px 12px; border-radius: 10px; border: 1px solid var(--border-color);">
+            <label class="checkbox-label">
+                <input type="checkbox" id="m_work" onchange="onWorkCheckboxChange()"> <span id="lbl_m_work">มาทำงาน</span>
+            </label>
+            <label class="checkbox-label">
+                <input type="checkbox" id="m_night" onchange="onNightCheckboxChange()"> <span id="lbl_m_night">กะกลางคืน</span>
+            </label>
+        </div>
+
         <div class="modal-section-title">⏰ ชั่วโมงการทำงานล่วงเวลา (OT)</div>
         <div class="group-inputs">
             <div class="input-card">
                 <label>OT x1.0 (ชม.)</label>
-                <input type="number" id="m_ot1" inputmode="decimal" placeholder="0">
+                <input type="number" id="m_ot1" inputmode="decimal" placeholder="0" oninput="onModalOtChange()">
             </div>
             <div class="input-card">
                 <label>OT x1.5 (ชม.)</label>
-                <input type="number" id="m_ot15" inputmode="decimal" placeholder="0">
+                <input type="number" id="m_ot15" inputmode="decimal" placeholder="0" oninput="onModalOtChange()">
             </div>
             <div class="input-card">
                 <label>OT x2.0 (ชม.)</label>
-                <input type="number" id="m_ot2" inputmode="decimal" placeholder="0">
+                <input type="number" id="m_ot2" inputmode="decimal" placeholder="0" oninput="onModalOtChange()">
             </div>
             <div class="input-card">
                 <label>OT x3.0 (ชม.)</label>
-                <input type="number" id="m_ot3" inputmode="decimal" placeholder="0">
+                <input type="number" id="m_ot3" inputmode="decimal" placeholder="0" oninput="onModalOtChange()">
             </div>
         </div>
 
@@ -1144,12 +1206,6 @@
             </div>
         </div>
 
-        <div style="display: flex; justify-content: flex-end; margin-top: 4px;">
-            <label class="checkbox-label">
-                <input type="checkbox" id="m_night"> <span id="lbl_m_night">กะกลางคืน</span>
-            </label>
-        </div>
-
         <button class="btn-primary" onclick="saveDayData()" id="btn_save_day">บันทึกข้อมูล</button>
     </div>
 </div>
@@ -1159,6 +1215,7 @@
     let selectedDayNum = null;
     let dailyDataMap = {};
     let isCalendarCollapsed = true;
+    let calendarViewMode = 'grid'; // 'grid' or 'list'
 
     const monthNames = {
         th: ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'],
@@ -1203,11 +1260,8 @@
     const translations = {
         th: {
             title: "Salary & OT Calculator",
-            btn_clear_month: "🗑️ ล้างเดือนนี้",
-            btn_export_backup: "📥 สำรองข้อมูล",
-            btn_import_backup: "📤 กู้คืนข้อมูล",
             msg_cleared: "ล้างข้อมูลเดือนนี้เรียบร้อยแล้ว",
-            sec_cal: "📅 ปฏิทินบันทึกการทำงาน & รายวัน",
+            sec_cal: "📅 บันทึกการทำงาน & รายวัน",
             sec1: "1. เงินเดือน & รายรับอื่นๆ",
             sec_breakdown: "2. สรุปจำแนกหมวดหมู่รายรับ-รายจ่าย",
             sec3: "3. สรุปผลคำนวณประจำเดือน",
@@ -1260,14 +1314,15 @@
             th_ss: "ประกันสังคม",
             th_expense: "รายจ่าย",
             th_net: "คงเหลือ",
+            lbl_m_work: "มาทำงาน",
             lbl_m_night: "กะกลางคืน",
             lbl_m_food: "ค่ากิน (บาท)",
             lbl_m_commute: "ค่าเดินทาง (บาท)",
             lbl_m_add_exp_title: "💸 รายจ่ายประจำวัน",
             lbl_m_add_inc_title: "💰 รายรับเพิ่มเติม",
             btn_save_day: "บันทึกข้อมูล",
-            toggle_cal_text: "ปฏิทิน",
-            btn_clear_cal: "🧹 ล้าง",
+            toggle_cal_text: "เปิด",
+            toggle_cal_off: "ปิด",
             txt_bd_exp_title: "💸 รายจ่าย (รวม)",
             txt_bd_inc_title: "💰 รายรับเพิ่มเติม (รวม)",
             txt_add_month_exp: "➕ เพิ่มรายจ่ายประจำเดือน",
@@ -1275,20 +1330,14 @@
             food_default: "ค่าอาหาร",
             commute_default: "ค่าเดินทาง",
             confirm_clear_month: "คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลทั้งหมดในเดือนนี้?",
-            confirm_clear_cal: "คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลในปฏิทินทั้งหมดของเดือนนี้?",
-            confirm_open_cal: "⚠️ คำเตือน: การเปิดใช้งานโหมดปฏิทินจะทำให้ข้อมูลชั่วโมง OT, วันทำงาน และกะกลางคืนที่กรอกไว้เดิมถูกล้างและแทนที่ด้วยข้อมูลจากปฏิทิน คุณต้องการเปิดหรือไม่?",
-            confirm_toggle_off: "เมื่อปิดโหมดปฏิทิน ระบบจะล้างค่าในปฏิทินและค่าที่เกี่ยวข้องออกทั้งหมด ยืนยันปิดหรือไม่?",
-            backup_success: "สำรองข้อมูลสำเร็จ! ไฟล์จะถูกดาวน์โหลดลงเครื่องของคุณ",
-            restore_success: "กู้คืนข้อมูลสำเร็จแล้ว!",
-            restore_error: "ไฟล์สำรองข้อมูลไม่ถูกต้อง กรุณาตรวจสอบไฟล์อีกครั้ง"
+            confirm_clear_cal: "คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลในบันทึกทั้งหมดของเดือนนี้?",
+            confirm_open_cal: "⚠️ คำเตือน: การเปิดใช้งานโหมดบันทึกรายวันจะทำให้ข้อมูลชั่วโมง OT, วันทำงาน และกะกลางคืนที่กรอกไว้เดิมถูกล้างและแทนที่ด้วยข้อมูลรายวัน คุณต้องการเปิดหรือไม่?",
+            confirm_toggle_off: "เมื่อปิดโหมดนี้ ระบบจะล้างค่าบันทึกรายวันและค่าที่เกี่ยวข้องออกทั้งหมด ยืนยันปิดหรือไม่?"
         },
         en: {
             title: "Salary & OT Calculator",
-            btn_clear_month: "🗑️ Clear Month",
-            btn_export_backup: "📥 Backup",
-            btn_import_backup: "📤 Restore",
             msg_cleared: "Cleared data for this month",
-            sec_cal: "📅 Work & Daily Calendar Log",
+            sec_cal: "📅 Work & Daily Log",
             sec1: "1. Salary & Other Income",
             sec_breakdown: "2. Income & Expense Categorization Summary",
             sec3: "3. Monthly Summary",
@@ -1341,14 +1390,15 @@
             th_ss: "Soc.Sec",
             th_expense: "Expense",
             th_net: "Balance",
+            lbl_m_work: "Present",
             lbl_m_night: "Night Shift",
             lbl_m_food: "Food (THB)",
             lbl_m_commute: "Commute (THB)",
             lbl_m_add_exp_title: "💸 Daily Expenses",
             lbl_m_add_inc_title: "💰 Extra Incomes",
             btn_save_day: "Save Data",
-            toggle_cal_text: "Calendar",
-            btn_clear_cal: "🧹 Clear",
+            toggle_cal_text: "On",
+            toggle_cal_off: "Off",
             txt_bd_exp_title: "💸 Expenses (Total)",
             txt_bd_inc_title: "💰 Extra Incomes (Total)",
             txt_add_month_exp: "➕ Add Monthly Expense",
@@ -1356,12 +1406,9 @@
             food_default: "Food",
             commute_default: "Commute",
             confirm_clear_month: "Are you sure you want to clear all data for this month?",
-            confirm_clear_cal: "Are you sure you want to clear all calendar records for this month?",
-            confirm_open_cal: "⚠️ Warning: Turning on calendar mode will clear existing manual OT and work day inputs and replace them with calendar records. Turn on?",
-            confirm_toggle_off: "Turning off calendar mode will clear all calendar records and related inputs. Turn off?",
-            backup_success: "Backup successful! Your file is downloading.",
-            restore_success: "Data restored successfully!",
-            restore_error: "Invalid backup file. Please check the file."
+            confirm_clear_cal: "Are you sure you want to clear all log records for this month?",
+            confirm_open_cal: "⚠️ Warning: Turning on daily log mode will clear existing manual OT and work day inputs and replace them with log records. Turn on?",
+            confirm_toggle_off: "Turning off log mode will clear all log records and related inputs. Turn off?"
         }
     };
 
@@ -1403,15 +1450,12 @@
         const t = translations[lang];
 
         document.getElementById('txt_title').innerText = t.title;
-        document.getElementById('btn_clear_month').innerText = t.btn_clear_month;
-        document.getElementById('btn_export_backup').innerText = t.btn_export_backup;
-        document.getElementById('btn_import_backup').innerText = t.btn_import_backup;
         document.getElementById('txt_sec_cal').innerText = t.sec_cal;
 
         document.getElementById('txt_sec1').innerText = t.sec1;
         document.getElementById('txt_sec_breakdown').innerText = t.sec_breakdown;
         document.getElementById('txt_sec3').innerText = t.sec3;
-        document.getElementById('txt_sec4').innerText = t.sec4 + " " + document.getElementById('year-select').value;
+        document.getElementById('txt_sec4').innerText = t.sec4;
 
         document.getElementById('txt_group_base').innerText = t.group_base;
         document.getElementById('txt_group_ot').innerText = t.group_ot;
@@ -1431,6 +1475,7 @@
         document.getElementById('lbl_in_night_days').innerText = t.lbl_in_night_days;
         document.getElementById('lbl_in_lang').innerText = t.lbl_in_lang;
 
+        document.getElementById('lbl_m_work').innerText = t.lbl_m_work;
         document.getElementById('lbl_m_night').innerText = t.lbl_m_night;
         document.getElementById('lbl_m_food').innerText = t.lbl_m_food;
         document.getElementById('lbl_m_commute').innerText = t.lbl_m_commute;
@@ -1438,8 +1483,7 @@
         document.getElementById('lbl_m_add_inc_title').innerText = t.lbl_m_add_inc_title;
         document.getElementById('btn_save_day').innerText = t.btn_save_day;
 
-        document.getElementById('txt_toggle_cal').innerText = t.toggle_cal_text;
-        document.getElementById('btn_clear_cal').innerText = t.btn_clear_cal;
+        document.getElementById('txt_toggle_cal').innerText = isCalendarCollapsed ? t.toggle_cal_off : t.toggle_cal_text;
 
         document.getElementById('txt_bd_exp_title').innerText = t.txt_bd_exp_title;
         document.getElementById('txt_bd_inc_title').innerText = t.txt_bd_inc_title;
@@ -1493,134 +1537,140 @@
         loadCurrentMonthData();
     }
 
-    // --- Backup & Restore Functions ---
-    function exportDataBackup() {
-        const t = translations[currentLang];
-        const allData = {};
-        for (let i = 0; i < localStorage.length; i++) {
-            const key = localStorage.key(i);
-            if (key.startsWith(STORAGE_KEY_PREFIX)) {
-                allData[key] = localStorage.getItem(key);
-            }
-        }
+    const STORAGE_KEY_PREFIX = 'calc_data_v6_';
 
-        const backupObj = {
-            version: "1.0",
-            app: "SalaryCalculator",
-            timestamp: new Date().toISOString(),
-            data: allData
-        };
-
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupObj, null, 2));
-        const downloadAnchor = document.createElement('a');
-        downloadAnchor.setAttribute("href", dataStr);
-        const dateStr = new Date().toISOString().slice(0, 10);
-        downloadAnchor.setAttribute("download", `salary_calc_backup_${dateStr}.json`);
-        document.body.appendChild(downloadAnchor);
-        downloadAnchor.click();
-        downloadAnchor.remove();
-        alert(t.backup_success);
-    }
-
-    function triggerImportBackup() {
-        document.getElementById('import-file-input').click();
-    }
-
-    function importDataBackup(event) {
-        const t = translations[currentLang];
-        const file = event.target.files[0];
-        if (!file) return;
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const parsed = JSON.parse(e.target.result);
-                if (!parsed.data || parsed.app !== "SalaryCalculator") {
-                    alert(t.restore_error);
-                    return;
-                }
-
-                // Clear existing prefixed storage keys
-                const keysToRemove = [];
-                for (let i = 0; i < localStorage.length; i++) {
-                    const key = localStorage.key(i);
-                    if (key.startsWith(STORAGE_KEY_PREFIX)) {
-                        keysToRemove.push(key);
-                    }
-                }
-                keysToRemove.forEach(k => localStorage.removeItem(k));
-
-                // Insert imported keys
-                Object.keys(parsed.data).forEach(k => {
-                    localStorage.setItem(k, parsed.data[k]);
-                });
-
-                loadCurrentMonthData();
-                alert(t.restore_success);
-            } catch (err) {
-                alert(t.restore_error);
-            }
-            // Reset file input
-            event.target.value = '';
-        };
-        reader.readAsText(file);
+    function toggleCalendarTheme() {
+        calendarViewMode = calendarViewMode === 'grid' ? 'list' : 'grid';
+        renderCalendar();
     }
 
     function renderCalendar() {
         const grid = document.getElementById('calendar-grid');
+        const listView = document.getElementById('calendar-list-view');
+        
         grid.innerHTML = '';
+        listView.innerHTML = '';
 
         const year = parseInt(document.getElementById('year-select').value);
         const month = parseInt(document.getElementById('month-select').value);
-
-        dayHeaders[currentLang].forEach(h => {
-            const el = document.createElement('div');
-            el.className = 'cal-header-day';
-            el.innerText = h;
-            grid.appendChild(el);
-        });
-
-        const firstDayIndex = new Date(year, month, 1).getDay();
         const totalDays = new Date(year, month + 1, 0).getDate();
 
-        for (let i = 0; i < firstDayIndex; i++) {
-            const emptyCell = document.createElement('div');
-            emptyCell.className = 'cal-day-cell empty';
-            grid.appendChild(emptyCell);
-        }
+        if (calendarViewMode === 'grid') {
+            grid.style.display = 'grid';
+            listView.style.display = 'none';
+            document.getElementById('btn_switch_theme').innerHTML = '📋';
 
-        for (let day = 1; day <= totalDays; day++) {
-            const cell = document.createElement('div');
-            const dayData = dailyDataMap[day];
+            dayHeaders[currentLang].forEach(h => {
+                const el = document.createElement('div');
+                el.className = 'cal-header-day';
+                el.innerText = h;
+                grid.appendChild(el);
+            });
 
-            cell.className = 'cal-day-cell' + (dayData ? ' has-data' : '');
-            cell.onclick = () => openDayModal(day);
-
-            let badgesHtml = '';
-            if (dayData) {
-                const totalOtHrs = (parseFloat(dayData.ot1)||0) + (parseFloat(dayData.ot15)||0) + (parseFloat(dayData.ot2)||0) + (parseFloat(dayData.ot3)||0);
-                if (totalOtHrs > 0) badgesHtml += `<span class="badge badge-ot">OT:${totalOtHrs}h</span>`;
-                if (dayData.night) badgesHtml += `<span class="badge badge-ns">🌙</span>`;
-
-                let dayExp = (parseFloat(dayData.expFood)||0) + (parseFloat(dayData.expCommute)||0);
-                if (dayData.extraExpenses && Array.isArray(dayData.extraExpenses)) {
-                    dayData.extraExpenses.forEach(x => dayExp += (parseFloat(x.amount)||0));
-                }
-                if (dayExp > 0) badgesHtml += `<span class="badge badge-exp">-${dayExp}</span>`;
-
-                let dayInc = 0;
-                if (dayData.extraIncomes && Array.isArray(dayData.extraIncomes)) {
-                    dayData.extraIncomes.forEach(x => dayInc += (parseFloat(x.amount)||0));
-                }
-                if (dayInc > 0) badgesHtml += `<span class="badge badge-inc">+${dayInc}</span>`;
+            const firstDayIndex = new Date(year, month, 1).getDay();
+            for (let i = 0; i < firstDayIndex; i++) {
+                const emptyCell = document.createElement('div');
+                emptyCell.className = 'cal-day-cell empty';
+                grid.appendChild(emptyCell);
             }
 
-            cell.innerHTML = `
-                <span class="cal-day-num">${day}</span>
-                <div class="cal-badges">${badgesHtml}</div>
-            `;
-            grid.appendChild(cell);
+            for (let day = 1; day <= totalDays; day++) {
+                const cell = document.createElement('div');
+                const dayData = dailyDataMap[day];
+
+                cell.className = 'cal-day-cell' + (dayData ? ' has-data' : '');
+                cell.onclick = () => openDayModal(day);
+
+                let badgesHtml = '';
+                if (dayData) {
+                    if (dayData.work && !dayData.night && !hasOt(dayData)) badgesHtml += `<span class="badge badge-inc">ทำงาน</span>`;
+                    if (dayData.night) badgesHtml += `<span class="badge badge-ns">🌙</span>`;
+                    
+                    const totalOtHrs = (parseFloat(dayData.ot1)||0) + (parseFloat(dayData.ot15)||0) + (parseFloat(dayData.ot2)||0) + (parseFloat(dayData.ot3)||0);
+                    if (totalOtHrs > 0) badgesHtml += `<span class="badge badge-ot">OT:${totalOtHrs}h</span>`;
+
+                    let dayExp = (parseFloat(dayData.expFood)||0) + (parseFloat(dayData.expCommute)||0);
+                    if (dayData.extraExpenses && Array.isArray(dayData.extraExpenses)) {
+                        dayData.extraExpenses.forEach(x => dayExp += (parseFloat(x.amount)||0));
+                    }
+                    if (dayExp > 0) badgesHtml += `<span class="badge badge-exp">-${dayExp}</span>`;
+
+                    let dayInc = 0;
+                    if (dayData.extraIncomes && Array.isArray(dayData.extraIncomes)) {
+                        dayData.extraIncomes.forEach(x => dayInc += (parseFloat(x.amount)||0));
+                    }
+                    if (dayInc > 0) badgesHtml += `<span class="badge badge-inc">+${dayInc}</span>`;
+                }
+
+                cell.innerHTML = `
+                    <span class="cal-day-num">${day}</span>
+                    <div class="cal-badges">${badgesHtml}</div>
+                `;
+                grid.appendChild(cell);
+            }
+        } else {
+            // โหมด To-Do List ลำดับใหม่: รายรับ ➔ รายจ่าย ➔ OT (ไม่ใส่คำว่า OT, รับ, จ่าย ถ้าไม่มีข้อมูล)
+            grid.style.display = 'none';
+            listView.style.display = 'flex';
+            document.getElementById('btn_switch_theme').innerHTML = '🔲';
+
+            for (let day = 1; day <= totalDays; day++) {
+                const item = document.createElement('div');
+                const dayData = dailyDataMap[day];
+                const dayOfWeek = dayHeaders[currentLang][new Date(year, month, day).getDay()];
+
+                item.className = 'cal-list-item' + (dayData ? ' has-data' : '');
+                item.onclick = () => openDayModal(day);
+
+                let incChip = '';
+                let expChip = '';
+                let otChip = '';
+
+                if (dayData) {
+                    // 1. รายรับ
+                    let dayInc = 0;
+                    if (dayData.extraIncomes) dayData.extraIncomes.forEach(x => dayInc += (parseFloat(x.amount)||0));
+                    if (dayInc > 0) {
+                        incChip = `<span class="list-chip inc">💰 +${formatNum(dayInc)}</span>`;
+                    }
+
+                    // 2. รายจ่าย
+                    let dayExp = (parseFloat(dayData.expFood)||0) + (parseFloat(dayData.expCommute)||0);
+                    if (dayData.extraExpenses) dayData.extraExpenses.forEach(x => dayExp += (parseFloat(x.amount)||0));
+                    if (dayExp > 0) {
+                        expChip = `<span class="list-chip exp">💸 -${formatNum(dayExp)}</span>`;
+                    }
+
+                    // 3. OT / กะ
+                    const totalOtHrs = (parseFloat(dayData.ot1)||0) + (parseFloat(dayData.ot15)||0) + (parseFloat(dayData.ot2)||0) + (parseFloat(dayData.ot3)||0);
+                    if (totalOtHrs > 0 || dayData.night || dayData.work) {
+                        let textStr = [];
+                        if (dayData.work && !dayData.night && totalOtHrs === 0) textStr.push("ทำงาน");
+                        if (dayData.night) textStr.push("🌙 กะคืน");
+                        if (totalOtHrs > 0) textStr.push(`${totalOtHrs} ชม.`);
+                        
+                        if (textStr.length > 0) {
+                            otChip = `<span class="list-chip ot">⏱️ ${textStr.join(' / ')}</span>`;
+                        }
+                    }
+                }
+
+                const hasAnyInfo = incChip !== '' || expChip !== '' || otChip !== '';
+                const rowDataHtml = hasAnyInfo ? `${incChip}${expChip}${otChip}` : `<span class="list-chip empty-data">-</span>`;
+
+                item.innerHTML = `
+                    <span class="cal-list-date">${day} ${monthNames[currentLang][month]} (${dayOfWeek})</span>
+                    <div class="cal-list-row-data">
+                        ${rowDataHtml}
+                    </div>
+                `;
+                listView.appendChild(item);
+            }
         }
+    }
+
+    function hasOt(d) {
+        return (parseFloat(d.ot1)||0) > 0 || (parseFloat(d.ot15)||0) > 0 || (parseFloat(d.ot2)||0) > 0 || (parseFloat(d.ot3)||0) > 0;
     }
 
     function confirmToggleCalendar() {
@@ -1650,19 +1700,19 @@
         isCalendarCollapsed = collapse;
         const wrapper = document.getElementById('calendar-wrapper');
         const switchWrapper = document.getElementById('toggle_switch_wrapper');
-        const btnClear = document.getElementById('btn_clear_cal');
+        const t = translations[currentLang];
 
         const readonlyFields = ['ot1', 'ot15', 'ot2', 'ot3', 'work_days', 'night_days'];
 
         if (isCalendarCollapsed) {
             wrapper.classList.add('collapsed');
             switchWrapper.classList.remove('active');
-            btnClear.style.display = 'none';
+            document.getElementById('txt_toggle_cal').innerText = t.toggle_cal_off;
             readonlyFields.forEach(id => document.getElementById(id).removeAttribute('readonly'));
         } else {
             wrapper.classList.remove('collapsed');
             switchWrapper.classList.add('active');
-            btnClear.style.display = 'inline-block';
+            document.getElementById('txt_toggle_cal').innerText = t.toggle_cal_text;
             readonlyFields.forEach(id => document.getElementById(id).setAttribute('readonly', 'readonly'));
             recalculateMonthlyFromDaily();
         }
@@ -1696,6 +1746,7 @@
         document.getElementById('modal-date-title').innerText = `${day} ${monthFullNames[currentLang][month]} ${year}`;
 
         const d = dailyDataMap[day] || {};
+        document.getElementById('m_work').checked = !!d.work;
         document.getElementById('m_night').checked = !!d.night;
         document.getElementById('m_ot1').value = d.ot1 || '';
         document.getElementById('m_ot15').value = d.ot15 || '';
@@ -1717,7 +1768,57 @@
             d.extraIncomes.forEach(item => addModalItem('m_inc_list', item.name, item.amount));
         }
 
+        updateWorkCheckboxState();
         document.getElementById('day-modal').style.display = 'flex';
+    }
+
+    function onModalOtChange() {
+        const ot1 = parseFloat(document.getElementById('m_ot1').value) || 0;
+        const ot15 = parseFloat(document.getElementById('m_ot15').value) || 0;
+        const ot2 = parseFloat(document.getElementById('m_ot2').value) || 0;
+        const ot3 = parseFloat(document.getElementById('m_ot3').value) || 0;
+
+        if (ot1 > 0 || ot15 > 0 || ot2 > 0 || ot3 > 0) {
+            document.getElementById('m_work').checked = true;
+        }
+        updateWorkCheckboxState();
+    }
+
+    function onNightCheckboxChange() {
+        const night = document.getElementById('m_night').checked;
+        if (night) {
+            document.getElementById('m_work').checked = true;
+        }
+        updateWorkCheckboxState();
+    }
+
+    function onWorkCheckboxChange() {
+        const work = document.getElementById('m_work').checked;
+        const night = document.getElementById('m_night').checked;
+        const ot1 = parseFloat(document.getElementById('m_ot1').value) || 0;
+        const ot15 = parseFloat(document.getElementById('m_ot15').value) || 0;
+        const ot2 = parseFloat(document.getElementById('m_ot2').value) || 0;
+        const ot3 = parseFloat(document.getElementById('m_ot3').value) || 0;
+
+        if ((night || ot1 > 0 || ot15 > 0 || ot2 > 0 || ot3 > 0) && !work) {
+            document.getElementById('m_work').checked = true;
+        }
+        updateWorkCheckboxState();
+    }
+
+    function updateWorkCheckboxState() {
+        const night = document.getElementById('m_night').checked;
+        const ot1 = parseFloat(document.getElementById('m_ot1').value) || 0;
+        const ot15 = parseFloat(document.getElementById('m_ot15').value) || 0;
+        const ot2 = parseFloat(document.getElementById('m_ot2').value) || 0;
+        const ot3 = parseFloat(document.getElementById('m_ot3').value) || 0;
+        const workCheckbox = document.getElementById('m_work');
+
+        if (night || ot1 > 0 || ot15 > 0 || ot2 > 0 || ot3 > 0) {
+            workCheckbox.disabled = true;
+        } else {
+            workCheckbox.disabled = false;
+        }
     }
 
     function addModalItem(containerId, name = '', amount = '') {
@@ -1763,6 +1864,7 @@
     function saveDayData() {
         if (!selectedDayNum) return;
 
+        const work = document.getElementById('m_work').checked;
         const night = document.getElementById('m_night').checked;
         const ot1 = document.getElementById('m_ot1').value;
         const ot15 = document.getElementById('m_ot15').value;
@@ -1787,13 +1889,13 @@
             }
         });
 
-        const isEmpty = !night && !ot1 && !ot15 && !ot2 && !ot3 && !expFood && !expCommute &&
+        const isEmpty = !work && !night && !ot1 && !ot15 && !ot2 && !ot3 && !expFood && !expCommute &&
                         extraExpenses.length === 0 && extraIncomes.length === 0;
 
         if (isEmpty) {
             delete dailyDataMap[selectedDayNum];
         } else {
-            dailyDataMap[selectedDayNum] = { night, ot1, ot15, ot2, ot3, expFood, expCommute, extraExpenses, extraIncomes };
+            dailyDataMap[selectedDayNum] = { work, night, ot1, ot15, ot2, ot3, expFood, expCommute, extraExpenses, extraIncomes };
         }
 
         closeDayModal();
@@ -1822,7 +1924,7 @@
             sumOt2 += o2;
             sumOt3 += o3;
 
-            if ((o1 + o15 + o2 + o3) > 0) {
+            if (d.work) {
                 travelDays++;
             }
         });
@@ -1834,8 +1936,6 @@
         document.getElementById('ot2').value = sumOt2;
         document.getElementById('ot3').value = sumOt3;
     }
-
-    const STORAGE_KEY_PREFIX = 'calc_data_v4_';
 
     function getStorageKey(year, month) {
         return `${STORAGE_KEY_PREFIX}${year}_${month}`;
@@ -1885,6 +1985,7 @@
             lang_allowance: document.getElementById('lang_allowance').value,
             night_days: document.getElementById('night_days').value,
             isCalendarCollapsed: isCalendarCollapsed,
+            calendarViewMode: calendarViewMode,
             dailyDataMap: dailyDataMap,
             monthExtraExp: monthExtraExp,
             monthExtraInc: monthExtraInc
@@ -1902,6 +2003,7 @@
 
         dailyDataMap = data.dailyDataMap || {};
         isCalendarCollapsed = data.isCalendarCollapsed !== undefined ? !!data.isCalendarCollapsed : true;
+        calendarViewMode = data.calendarViewMode || 'grid';
 
         document.getElementById('salary').value = data.salary || '';
         document.getElementById('hours').value = data.hours || '';
@@ -2214,14 +2316,14 @@
 
         document.getElementById('y_val_income').innerText = formatNum(yearIncome);
         document.getElementById('y_val_ss').innerText = '-' + formatNum(yearSs);
-        document.getElementById('y_val_expense').innerText = '-' + formatNum(yearExpense);
+        document.getElementById('y_val_expense').innerText = formatNum(yearExpense);
 
         const yNetEl = document.getElementById('y_val_net');
         yNetEl.innerText = formatNum(yearNet);
         yNetEl.style.color = yearNet >= 0 ? 'var(--success-color)' : 'var(--danger-color)';
 
         const yearLabel = currentLang === 'th' ? `ปี ${parseInt(year) + 543}` : `Year ${year}`;
-        document.getElementById('txt_sec4').innerText = `${translations[currentLang].sec4} (${yearLabel})`;
+        document.getElementById('lbl_yearly_title_year').innerText = `(${yearLabel})`;
 
         renderYearlyChart(chartData);
     }
@@ -2277,7 +2379,7 @@
         }
 
         ctx.fillStyle = textColor;
-        ctx.font = '9px -apple-system, sans-serif';
+        ctx.font = '9px PK Samut Sakhon, sans-serif';
         ctx.textAlign = 'right';
 
         [0, 0.5, 1].forEach(ratio => {
@@ -2300,7 +2402,7 @@
             const centerX = paddingLeft + (i * monthWidth) + (monthWidth / 2);
             
             ctx.fillStyle = textColor;
-            ctx.font = '10px -apple-system, sans-serif';
+            ctx.font = '10px PK Samut Sakhon, sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText(d.month, centerX, height - 8);
 
