@@ -25,6 +25,8 @@
 --danger-bg: #fef2f2;
 --success-color: #16a34a;
 --success-bg: #f0fdf4;
+--saving-color: #7c3aed;
+--saving-bg: #f5f3ff;
 --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.1);
 --input-bg: #ffffff;
 color-scheme: light;
@@ -43,6 +45,8 @@ color-scheme: light;
 --danger-bg: #450a0a;
 --success-color: #4ade80;
 --success-bg: #052e16;
+--saving-color: #c4b5fd;
+--saving-bg: #2e1065;
 --shadow-md: 0 4px 6px -1px rgba(0,0,0,0.5);
 --input-bg: #334155;
 color-scheme: dark;
@@ -796,6 +800,28 @@ gap: 8px;
 
 .col-title.exp { color: var(--danger-color); }
 .col-title.inc { color: var(--success-color); }
+.col-title.save { color: var(--saving-color); }
+
+.savings-box {
+  border-color: var(--saving-color);
+}
+
+.savings-note {
+  font-size: 0.72rem;
+  color: var(--text-sub);
+  line-height: 1.45;
+  margin-bottom: 2px;
+}
+
+.summary-block.savings-block {
+  border-left: 4px solid var(--saving-color);
+  background: var(--saving-bg);
+}
+
+.savings-value {
+  color: var(--saving-color) !important;
+}
+
 
 .checkbox-label {
 display: flex;
@@ -1207,6 +1233,31 @@ z-index: 1;
 border-bottom: none;
 }
 
+.yearly-total-row td {
+font-weight: 800;
+background: var(--primary-light);
+border-top: 2px solid var(--primary-color);
+border-bottom: none;
+}
+
+.yearly-total-row td:first-child {
+background: var(--primary-light);
+color: var(--primary-color);
+z-index: 2;
+}
+
+.day-autosave-note {
+font-size: 0.72rem;
+font-weight: 600;
+color: var(--text-sub);
+text-align: center;
+margin-top: 2px;
+}
+
+.day-modal-actions.single-action .btn-clear-day {
+flex: 1 1 100%;
+}
+
 .breakdown-list {
 display: flex;
 flex-direction: column;
@@ -1467,6 +1518,187 @@ border-bottom: none;
     }
 }
 
+
+/* ============================================================
+   Compact Cut-off in Section 1 + Header Clear Icon
+   ============================================================ */
+.section-title-with-cutoff {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 8px;
+min-width: 0;
+}
+
+.section-title-with-cutoff > #txt_sec1 {
+min-width: 0;
+white-space: nowrap;
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+.period-setting.period-setting-compact {
+display: flex;
+align-items: center;
+justify-content: flex-end;
+gap: 4px;
+width: auto;
+min-width: 0;
+padding: 0;
+border: none;
+background: transparent;
+border-radius: 0;
+font-size: 0.62rem;
+font-weight: 700;
+white-space: nowrap;
+flex-shrink: 0;
+}
+
+.period-setting-compact .cutoff-label-wrap {
+display: inline-flex;
+align-items: center;
+justify-content: center;
+height: 26px;
+min-width: 0;
+padding: 0;
+border: none;
+background: transparent;
+border-radius: 0;
+color: var(--text-sub);
+font-size: 0.62rem;
+}
+
+.period-setting-compact .cutoff-control {
+display: grid;
+grid-template-columns: 24px 30px 24px;
+align-items: center;
+width: 78px;
+height: 28px;
+min-width: 78px;
+border: 1px solid var(--border-color);
+background: var(--card-bg);
+border-radius: 8px;
+overflow: hidden;
+box-shadow: none;
+}
+
+.period-setting-compact .cutoff-step-btn {
+width: 24px;
+height: 26px;
+padding: 0;
+font-size: 0.92rem;
+line-height: 1;
+}
+
+.period-setting-compact input {
+width: 30px;
+height: 26px;
+padding: 0;
+font-size: 0.72rem;
+border-left: 1px solid var(--border-color);
+border-right: 1px solid var(--border-color);
+}
+
+.cutoff-suffix-compact {
+display: none;
+}
+
+.modal-header-actions {
+display: flex;
+align-items: center;
+gap: 5px;
+flex-shrink: 0;
+}
+
+.modal-icon-btn {
+width: 30px;
+height: 30px;
+padding: 0;
+border: 1px solid var(--border-color);
+border-radius: 8px;
+background: var(--card-sub-bg);
+display: inline-flex;
+align-items: center;
+justify-content: center;
+font-size: 0.9rem;
+line-height: 1;
+cursor: pointer;
+transition: transform 0.16s ease, background-color 0.16s ease, border-color 0.16s ease;
+}
+
+.modal-icon-btn:active {
+transform: scale(0.92);
+}
+
+.modal-clear-icon {
+color: var(--danger-color);
+background: var(--danger-bg);
+border-color: transparent;
+}
+
+.modal-clear-icon:hover {
+border-color: var(--danger-color);
+}
+
+.modal-close {
+color: var(--text-sub);
+background: var(--card-sub-bg);
+}
+
+@media (max-width: 420px) {
+.section-title-with-cutoff {
+gap: 5px;
+padding-left: 9px;
+padding-right: 7px;
+}
+
+.section-title-with-cutoff > #txt_sec1 {
+font-size: 0.82rem;
+}
+
+.period-setting.period-setting-compact {
+gap: 3px;
+}
+
+.period-setting-compact .cutoff-label-wrap {
+font-size: 0.56rem;
+}
+
+.period-setting-compact .cutoff-control {
+grid-template-columns: 22px 28px 22px;
+width: 72px;
+min-width: 72px;
+height: 27px;
+}
+
+.period-setting-compact .cutoff-step-btn {
+width: 22px;
+height: 25px;
+font-size: 0.86rem;
+}
+
+.period-setting-compact input {
+width: 28px;
+height: 25px;
+font-size: 0.68rem;
+}
+
+.modal-icon-btn {
+width: 29px;
+height: 29px;
+}
+}
+
+@media (max-width: 340px) {
+.section-title-with-cutoff > #txt_sec1 {
+font-size: 0.76rem;
+}
+
+.period-setting-compact .cutoff-label-wrap {
+display: none;
+}
+}
+
 </style>
 </head>
 <body>
@@ -1491,25 +1723,24 @@ border-bottom: none;
 <button class="month-nav-btn" onclick="goToNextMonth()" title="เดือนถัดไป">▶</button>
 <button class="btn-clear-month" onclick="confirmClearMonthData()" id="btn_clear_month" title="ล้างข้อมูลเดือนนี้">🗑️</button>
 </div>
-<div class="period-setting" title="กำหนดวันตัดรอบเงินเดือน/OT">
-<div class="cutoff-label-wrap">
-<span>📅</span>
-<span id="lbl_cutoff_day">ตัดรอบ</span>
-<span id="lbl_cutoff_suffix">วัน</span>
-</div>
-<div class="cutoff-control" aria-label="ปรับวันตัดรอบ">
-<button type="button" class="cutoff-step-btn" onclick="adjustPeriodCutoff(-1)" title="ลดวันตัดรอบ" aria-label="ลดวันตัดรอบ">−</button>
-<input type="number" id="period-cutoff-day" min="1" max="31" value="25" onchange="onPeriodCutoffChange()">
-<button type="button" class="cutoff-step-btn" onclick="adjustPeriodCutoff(1)" title="เพิ่มวันตัดรอบ" aria-label="เพิ่มวันตัดรอบ">+</button>
-</div>
-</div>
 </div>
 
 <div class="period-info-bar" id="period-info-bar">
 <span id="lbl_period_range"></span>
 </div>
 
-<div class="section-title" id="txt_sec1">1. เงินเดือน & รายรับอื่นๆ</div>
+<div class="section-title section-title-with-cutoff">
+<span id="txt_sec1">1. เงินเดือน &amp; รายรับอื่นๆ</span>
+<div class="period-setting period-setting-compact" title="กำหนดวันตัดรอบเงินเดือน/OT">
+<span class="cutoff-label-wrap" id="lbl_cutoff_day">ตัดรอบ</span>
+<div class="cutoff-control" aria-label="ปรับวันตัดรอบ">
+<button type="button" class="cutoff-step-btn" onclick="adjustPeriodCutoff(-1)" title="ลดวันตัดรอบ" aria-label="ลดวันตัดรอบ">−</button>
+<input type="number" id="period-cutoff-day" min="1" max="31" value="25" onchange="onPeriodCutoffChange()" aria-label="วันตัดรอบ">
+<button type="button" class="cutoff-step-btn" onclick="adjustPeriodCutoff(1)" title="เพิ่มวันตัดรอบ" aria-label="เพิ่มวันตัดรอบ">+</button>
+</div>
+<span id="lbl_cutoff_suffix" class="cutoff-suffix-compact">วัน</span>
+</div>
+</div>
 <div class="group-container">
 
 <div class="input-group-card">
@@ -1613,7 +1844,7 @@ border-bottom: none;
 
 </div>
 
-<div class="section-title" id="txt_sec_breakdown">2. สรุปจำแนกหมวดหมู่รายรับ-รายจ่าย</div>
+<div class="section-title" id="txt_sec_breakdown">2. สรุปจำแนกหมวดหมู่รายรับ-รายจ่าย & เงินเก็บ</div>
 <div class="stacked-container">
 <div class="col-box">
 <div class="col-title exp">
@@ -1624,7 +1855,7 @@ border-bottom: none;
 <div style="border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 6px;">
 <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;" id="txt_add_month_exp">➕ เพิ่มรายจ่ายประจำเดือน</div>
 <div class="dynamic-list" id="month_exp_list"></div>
-<button class="btn-add-item" onclick="addMonthItem('month_exp_list')">+ เพิ่มรายการจ่าย</button>
+<button class="btn-add-item" id="btn_add_month_exp" onclick="addMonthItem('month_exp_list')">+ เพิ่มรายการจ่าย</button>
 </div>
 </div>
 
@@ -1637,8 +1868,18 @@ border-bottom: none;
 <div style="border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 6px;">
 <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;" id="txt_add_month_inc">➕ เพิ่มรายรับประจำเดือน</div>
 <div class="dynamic-list" id="month_inc_list"></div>
-<button class="btn-add-item" onclick="addMonthItem('month_inc_list')">+ เพิ่มรายการรับ</button>
+<button class="btn-add-item" id="btn_add_month_inc" onclick="addMonthItem('month_inc_list')">+ เพิ่มรายการรับ</button>
 </div>
+</div>
+
+<div class="col-box savings-box">
+<div class="col-title save">
+<span id="txt_bd_save_title">🏦 เงินเก็บ (แยกจากรายจ่าย)</span>
+<span id="lbl_sum_savings">0 บาท</span>
+</div>
+<div class="savings-note" id="txt_savings_note">เงินส่วนนี้จะถูกกันออกจากเงินใช้จ่าย แต่ไม่ถูกนับเป็นรายจ่าย</div>
+<div class="dynamic-list" id="month_savings_list"></div>
+<button class="btn-add-item" id="btn_add_savings" onclick="addMonthItem('month_savings_list')">+ เพิ่มกองเงินเก็บ</button>
 </div>
 </div>
 
@@ -1694,6 +1935,14 @@ border-bottom: none;
 </div>
 </div>
 
+<div class="summary-block savings-block">
+<div class="summary-block-title" id="txt_block_savings_title">🏦 สรุปเงินเก็บเดือนนี้</div>
+<div class="summary-row">
+<span class="label" id="txt_sum_savings">เงินที่แยกเก็บทั้งหมด</span>
+<span class="val savings-value" id="lbl_savings">-</span>
+</div>
+</div>
+
 <div class="summary-block net-block">
 <div class="summary-block-title" id="txt_block_net_title">💳 เงินสำหรับใช้จ่ายเดือนนี้</div>
 <div class="summary-row">
@@ -1703,6 +1952,10 @@ border-bottom: none;
 <div class="summary-row">
 <span class="label" id="txt_net_total_deduct">ค่าใช้จ่ายของเดือนนี้</span>
 <span class="val" id="lbl_card_net_deduct" style="color:var(--danger-color);">-</span>
+</div>
+<div class="summary-row">
+<span class="label" id="txt_net_savings">เงินเก็บของเดือนนี้</span>
+<span class="val savings-value" id="lbl_card_net_savings">-</span>
 </div>
 <div class="summary-row highlight-net">
 <span id="txt_net_final_rem">เงินคงเหลือสำหรับใช้เดือนนี้</span>
@@ -1727,6 +1980,10 @@ border-bottom: none;
 <span id="y_val_ss" style="color:var(--danger-color);">0.00</span>
 </div>
 <div class="yearly-stat-box">
+<label id="lbl_y_savings">เงินเก็บรวมทั้งปี</label>
+<span id="y_val_savings" class="savings-value">0.00</span>
+</div>
+<div class="yearly-stat-box">
 <label id="lbl_y_net">คงเหลือสุทธิทั้งปี</label>
 <span id="y_val_net" style="color:var(--primary-color);">0.00</span>
 </div>
@@ -1738,6 +1995,7 @@ border-bottom: none;
 <div class="chart-legend">
 <div class="legend-item"><div class="legend-color" style="background:#16a34a;"></div><span id="lg_inc">รายรับ</span></div>
 <div class="legend-item"><div class="legend-color" style="background:#dc2626;"></div><span id="lg_exp">รายจ่าย</span></div>
+<div class="legend-item"><div class="legend-color" style="background:#7c3aed;"></div><span id="lg_savings">เงินเก็บ</span></div>
 <div class="legend-item"><div class="legend-color" style="background:#2563eb;"></div><span id="lg_net">คงเหลือ</span></div>
 </div>
 </div>
@@ -1750,6 +2008,7 @@ border-bottom: none;
 <th id="th_income">รายรับ</th>
 <th id="th_ss">ประกันสังคม</th>
 <th id="th_expense">รายจ่าย</th>
+<th id="th_savings">เงินเก็บ</th>
 <th id="th_net">คงเหลือ</th>
 </tr>
 </thead>
@@ -1765,7 +2024,10 @@ border-bottom: none;
 <div class="modal-card day-dropdown-card" id="day-editor-card">
 <div class="modal-header">
 <span id="modal-date-title">บันทึกข้อมูลวันที่</span>
-<button class="modal-close" onclick="closeDayModal()">✕</button>
+<div class="modal-header-actions">
+<button type="button" class="modal-icon-btn modal-clear-icon" onclick="clearDayModalData()" id="btn_clear_day" title="ล้างข้อมูล" aria-label="ล้างข้อมูล">🗑️</button>
+<button type="button" class="modal-icon-btn modal-close" onclick="closeDayModal()" title="ปิด" aria-label="ปิด">✕</button>
+</div>
 </div>
 
 <!-- มาทำงาน & กะกลางคืน -->
@@ -1803,11 +2065,11 @@ border-bottom: none;
 <div class="col-title exp" id="lbl_m_add_exp_title">💸 รายจ่ายประจำวัน</div>
 <div class="input-card">
 <label id="lbl_m_food">ค่ากิน (บาท)</label>
-<input type="number" id="m_exp_food" inputmode="decimal" placeholder="0">
+<input type="number" id="m_exp_food" inputmode="decimal" placeholder="0" oninput="scheduleDayAutoSave()">
 </div>
 <div class="input-card">
 <label id="lbl_m_commute">ค่าเดินทาง (บาท)</label>
-<input type="number" id="m_exp_commute" inputmode="decimal" placeholder="0">
+<input type="number" id="m_exp_commute" inputmode="decimal" placeholder="0" oninput="scheduleDayAutoSave()">
 </div>
 <div class="dynamic-list" id="m_exp_list"></div>
 <button class="btn-add-item" onclick="addModalItem('m_exp_list')">+ เพิ่มรายจ่ายอื่น</button>
@@ -1820,10 +2082,7 @@ border-bottom: none;
 </div>
 </div>
 
-<div class="day-modal-actions">
-<button class="btn-primary" onclick="saveDayData()" id="btn_save_day">บันทึกข้อมูล</button>
-<button class="btn-clear-day" onclick="clearDayModalData()" id="btn_clear_day">🗑️ ล้างข้อมูล</button>
-</div>
+<div class="day-autosave-note" id="day_autosave_note">✓ บันทึกอัตโนมัติ</div>
 </div>
 </div>
 
@@ -1833,6 +2092,7 @@ let selectedDayKey = null;
 let dailyDataMap = {};
 let isCalendarCollapsed = true;
 let calendarViewMode = 'grid'; // 'grid' or 'list'
+let dayAutoSaveTimer = null;
 
 const monthNames = {
 th: ['ม.ค.', 'ก.พ.', 'มี.ค.', 'เม.ย.', 'พ.ค.', 'มิ.ย.', 'ก.ค.', 'ส.ค.', 'ก.ย.', 'ต.ค.', 'พ.ย.', 'ธ.ค.'],
@@ -2040,7 +2300,7 @@ msg_cleared: "ล้างข้อมูลรอบนี้เรียบร
 msg_cleared_all: "ล้างข้อมูลทั้งหมดเรียบร้อยแล้ว",
 sec_cal: "📅 บันทึกการทำงาน & รายวัน",
 sec1: "1. เงินเดือน & รายรับอื่นๆ",
-sec_breakdown: "2. สรุปจำแนกหมวดหมู่รายรับ-รายจ่าย",
+sec_breakdown: "2. สรุปจำแนกหมวดหมู่รายรับ-รายจ่าย & เงินเก็บ",
 sec3: "3. เงินสำหรับใช้จ่ายประจำเดือน",
 sec4: "4. สรุปภาพรวมรายปี",
 net_block_title: "💳 เงินสำหรับใช้จ่ายเดือนนี้",
@@ -2067,6 +2327,7 @@ btn_del: "ลบ",
 block_income_title: "🟢 สรุปรายได้ (Income)",
 block_deduct_title: "🔴 สรุปการหักค่าใช้จ่าย & ประกันสังคม",
 block_net_title: "💳 เงินสำหรับใช้จ่ายเดือนนี้",
+block_savings_title: "🏦 สรุปเงินเก็บเดือนนี้",
 sum_salary: "เงินเดือนฐาน",
 sum_lang: "ค่าภาษา",
 sum_ot: "รวมค่า OT",
@@ -2077,23 +2338,28 @@ sum_total_income: "รวมรายรับทั้งหมด (Gross)",
 sum_ss: "หัก ประกันสังคม (5%)",
 sum_expense: "รวมค่าใช้จ่ายทั้งหมด",
 sum_total_deduct: "รวมยอดหักทั้งหมด",
+sum_savings: "เงินที่แยกเก็บทั้งหมด",
 net_gross_inc: "รายได้สุทธิจากรอบเดือนที่แล้ว",
 net_total_deduct: "ค่าใช้จ่ายของเดือนนี้",
+net_savings: "เงินเก็บของเดือนนี้",
 net_final_rem: "เงินคงเหลือสำหรับใช้เดือนนี้",
 total_prefix: "รวม: ",
 currency: " บาท",
 lbl_y_income: "รายรับที่ได้รับรวมทั้งปี",
 lbl_y_ss: "ประกันสังคมที่หักทั้งปี",
 lbl_y_expense: "รายจ่ายรวมทั้งปี",
+lbl_y_savings: "เงินเก็บรวมทั้งปี",
 lbl_y_net: "คงเหลือสุทธิทั้งปี",
-chart_title: "📊 กราฟเปรียบเทียบรายรับ-รายจ่าย-คงเหลือ แต่ละเดือน",
+chart_title: "📊 กราฟรายรับ-รายจ่าย-เงินเก็บ-คงเหลือ แต่ละเดือน",
 lg_inc: "รายรับ",
 lg_exp: "รายจ่าย",
+lg_savings: "เงินเก็บ",
 lg_net: "คงเหลือ",
 th_month: "เดือน",
 th_income: "รายรับ",
 th_ss: "ประกันสังคม",
 th_expense: "รายจ่าย",
+th_savings: "เงินเก็บ",
 th_net: "คงเหลือ",
 lbl_m_work: "มาทำงาน",
 lbl_m_night: "กะกลางคืน",
@@ -2102,6 +2368,7 @@ lbl_m_commute: "ค่าเดินทาง (บาท)",
 lbl_m_add_exp_title: "💸 รายจ่ายประจำวัน",
 lbl_m_add_inc_title: "💰 รายรับเพิ่มเติม",
 btn_save_day: "บันทึกข้อมูล",
+autosave_note: "✓ บันทึกอัตโนมัติ",
 btn_clear_day: "🗑️ ล้างข้อมูล",
 lbl_cutoff_day: "ตัดรอบ",
 lbl_cutoff_suffix: "วัน",
@@ -2114,6 +2381,11 @@ txt_bd_exp_title: "💸 รายจ่าย (รวม)",
 txt_bd_inc_title: "💰 รายรับเพิ่มเติม (รวม)",
 txt_add_month_exp: "➕ เพิ่มรายจ่ายประจำรอบ",
 txt_add_month_inc: "➕ เพิ่มรายรับประจำรอบ",
+txt_bd_save_title: "🏦 เงินเก็บ (แยกจากรายจ่าย)",
+txt_savings_note: "เงินส่วนนี้จะถูกกันออกจากเงินใช้จ่าย แต่ไม่ถูกนับเป็นรายจ่าย",
+btn_add_month_exp: "+ เพิ่มรายการจ่าย",
+btn_add_month_inc: "+ เพิ่มรายการรับ",
+btn_add_savings: "+ เพิ่มกองเงินเก็บ",
 food_default: "ค่าอาหาร",
 commute_default: "ค่าเดินทาง",
 btn_clear_cal: "ล้าง",
@@ -2133,7 +2405,7 @@ msg_cleared: "Cleared data for this period",
 msg_cleared_all: "All data has been cleared",
 sec_cal: "📅 Work & Daily Log",
 sec1: "1. Salary & Other Income",
-sec_breakdown: "2. Income & Expense Categorization Summary",
+sec_breakdown: "2. Income, Expense & Savings Summary",
 sec3: "3. Period Summary",
 sec4: "4. Yearly Overview",
 net_block_title: "💳 Money Available for This Month",
@@ -2160,6 +2432,7 @@ btn_del: "Delete",
 block_income_title: "🟢 Gross Income Summary",
 block_deduct_title: "🔴 Deductions & Expenses",
 block_net_title: "💳 Period Net Balance",
+block_savings_title: "🏦 Savings This Month",
 sum_salary: "Base Salary",
 sum_lang: "Language Allowance",
 sum_ot: "Total OT",
@@ -2170,23 +2443,28 @@ sum_total_income: "Total Gross Income",
 sum_ss: "Social Security (5%)",
 sum_expense: "Total Expenses",
 sum_total_deduct: "Total Deductions",
+sum_savings: "Total money set aside",
 net_gross_inc: "Total Gross Income",
 net_total_deduct: "Expenses for this month",
+net_savings: "Savings for this month",
 net_final_rem: "Money remaining for this month",
 total_prefix: "Total: ",
 currency: " THB",
 lbl_y_income: "Total Income Received This Year",
 lbl_y_ss: "Social Security Withheld This Year",
 lbl_y_expense: "Yearly Total Expense",
+lbl_y_savings: "Total Savings This Year",
 lbl_y_net: "Yearly Net Balance",
-chart_title: "📊 Income / Expense / Net Chart by Period",
+chart_title: "📊 Income / Expense / Savings / Net by Month",
 lg_inc: "Income",
 lg_exp: "Expense",
+lg_savings: "Savings",
 lg_net: "Net Balance",
 th_month: "Month",
 th_income: "Income",
 th_ss: "Soc.Sec",
 th_expense: "Expense",
+th_savings: "Savings",
 th_net: "Balance",
 lbl_m_work: "Present",
 lbl_m_night: "Night Shift",
@@ -2195,6 +2473,7 @@ lbl_m_commute: "Commute (THB)",
 lbl_m_add_exp_title: "💸 Daily Expenses",
 lbl_m_add_inc_title: "💰 Extra Incomes",
 btn_save_day: "Save Data",
+autosave_note: "✓ Auto-saved",
 btn_clear_day: "🗑️ Clear Data",
 lbl_cutoff_day: "Cut-off",
 lbl_cutoff_suffix: "day",
@@ -2207,6 +2486,11 @@ txt_bd_exp_title: "💸 Expenses (Total)",
 txt_bd_inc_title: "💰 Extra Incomes (Total)",
 txt_add_month_exp: "➕ Add Expense for This Period",
 txt_add_month_inc: "➕ Add Income for This Period",
+txt_bd_save_title: "🏦 Savings (separate from expenses)",
+txt_savings_note: "This money is set aside from spending money and is not counted as an expense.",
+btn_add_month_exp: "+ Add Expense",
+btn_add_month_inc: "+ Add Income",
+btn_add_savings: "+ Add Savings Fund",
 food_default: "Food",
 commute_default: "Commute",
 btn_clear_cal: "Clear",
@@ -2295,26 +2579,39 @@ document.getElementById('lbl_m_food').innerText = t.lbl_m_food;
 document.getElementById('lbl_m_commute').innerText = t.lbl_m_commute;
 document.getElementById('lbl_m_add_exp_title').innerText = t.lbl_m_add_exp_title;
 document.getElementById('lbl_m_add_inc_title').innerText = t.lbl_m_add_inc_title;
-document.getElementById('btn_save_day').innerText = t.btn_save_day;
-document.getElementById('btn_clear_day').innerText = t.btn_clear_day;
+const autoSaveNote = document.getElementById('day_autosave_note');
+if (autoSaveNote) autoSaveNote.innerText = t.autosave_note || (lang === 'th' ? '✓ บันทึกอัตโนมัติ' : '✓ Auto-saved');
+const clearDayBtn = document.getElementById('btn_clear_day');
+if (clearDayBtn) {
+clearDayBtn.title = t.btn_clear_day;
+clearDayBtn.setAttribute('aria-label', t.btn_clear_day);
+}
 document.getElementById('lbl_cutoff_day').innerText = t.lbl_cutoff_day;
 document.getElementById('lbl_cutoff_suffix').innerText = t.lbl_cutoff_suffix;
 
 document.getElementById('txt_toggle_cal').innerText = isCalendarCollapsed ? t.toggle_cal_off : t.toggle_cal_text;
 
 document.getElementById('txt_btn_clear_cal').innerText = t.btn_clear_cal;
-document.getElementById('txt_nav_prev_bottom').innerText = t.nav_prev;
-document.getElementById('txt_nav_next_bottom').innerText = t.nav_next;
+const navPrevBottom = document.getElementById('txt_nav_prev_bottom');
+if (navPrevBottom) navPrevBottom.innerText = t.nav_prev;
+const navNextBottom = document.getElementById('txt_nav_next_bottom');
+if (navNextBottom) navNextBottom.innerText = t.nav_next;
 document.getElementById('btn_clear_all').innerHTML = t.btn_clear_all;
 
 document.getElementById('txt_bd_exp_title').innerText = t.txt_bd_exp_title;
 document.getElementById('txt_bd_inc_title').innerText = t.txt_bd_inc_title;
 document.getElementById('txt_add_month_exp').innerText = t.txt_add_month_exp;
 document.getElementById('txt_add_month_inc').innerText = t.txt_add_month_inc;
+document.getElementById('txt_bd_save_title').innerText = t.txt_bd_save_title;
+document.getElementById('txt_savings_note').innerText = t.txt_savings_note;
+document.getElementById('btn_add_month_exp').innerText = t.btn_add_month_exp;
+document.getElementById('btn_add_month_inc').innerText = t.btn_add_month_inc;
+document.getElementById('btn_add_savings').innerText = t.btn_add_savings;
 
 document.getElementById('txt_block_income_title').innerText = t.block_income_title;
 document.getElementById('txt_block_deduct_title').innerText = t.block_deduct_title;
 document.getElementById('txt_block_net_title').innerText = t.block_net_title;
+document.getElementById('txt_block_savings_title').innerText = t.block_savings_title;
 
 document.getElementById('txt_sum_salary').innerText = t.sum_salary;
 document.getElementById('txt_sum_lang').innerText = t.sum_lang;
@@ -2326,25 +2623,30 @@ document.getElementById('txt_sum_total_income').innerText = t.sum_total_income;
 document.getElementById('txt_sum_ss').innerText = t.sum_ss;
 document.getElementById('txt_sum_expense').innerText = t.sum_expense;
 document.getElementById('txt_sum_total_deduct').innerText = t.sum_total_deduct;
+document.getElementById('txt_sum_savings').innerText = t.sum_savings;
 
 document.getElementById('txt_net_gross_inc').innerText = t.net_gross_inc;
 document.getElementById('txt_net_total_deduct').innerText = t.net_total_deduct;
+document.getElementById('txt_net_savings').innerText = t.net_savings;
 document.getElementById('txt_net_final_rem').innerText = t.net_final_rem;
 
 document.getElementById('lbl_y_income').innerText = t.lbl_y_income;
 document.getElementById('lbl_y_ss').innerText = t.lbl_y_ss;
 document.getElementById('lbl_y_expense').innerText = t.lbl_y_expense;
+document.getElementById('lbl_y_savings').innerText = t.lbl_y_savings;
 document.getElementById('lbl_y_net').innerText = t.lbl_y_net;
 
 document.getElementById('txt_chart_title').innerText = t.chart_title;
 document.getElementById('lg_inc').innerText = t.lg_inc;
 document.getElementById('lg_exp').innerText = t.lg_exp;
+document.getElementById('lg_savings').innerText = t.lg_savings;
 document.getElementById('lg_net').innerText = t.lg_net;
 
 document.getElementById('th_month').innerText = t.th_month;
 document.getElementById('th_income').innerText = t.th_income;
 document.getElementById('th_ss').innerText = t.th_ss;
 document.getElementById('th_expense').innerText = t.th_expense;
+document.getElementById('th_savings').innerText = t.th_savings;
 document.getElementById('th_net').innerText = t.th_net;
 
 const selMonth = parseInt(document.getElementById('month-select').value) || 0;
@@ -2662,6 +2964,7 @@ document.getElementById('period-cutoff-day').value = 25;
 
 document.getElementById('month_exp_list').innerHTML = '';
 document.getElementById('month_inc_list').innerHTML = '';
+document.getElementById('month_savings_list').innerHTML = '';
 
 toggleCalendarUI(true);
 renderCalendar();
@@ -2673,6 +2976,11 @@ alert(t.msg_cleared_all);
 
 function openDayModal(date) {
 const newKey = dateKey(date);
+
+// ถ้ากำลังแก้วันอื่นอยู่ ให้บันทึกค่าล่าสุดก่อนสลับวัน
+if (selectedDayKey && selectedDayKey !== newKey) {
+    flushDayAutoSave();
+}
 
 // กดวันเดิมซ้ำ = พับ dropdown กลับ
 if (selectedDayKey === newKey && document.getElementById('day-dropdown-panel')) {
@@ -2730,6 +3038,7 @@ if (ot1 > 0 || ot15 > 0 || ot2 > 0 || ot3 > 0) {
 document.getElementById('m_work').checked = true;
 }
 updateWorkCheckboxState();
+scheduleDayAutoSave();
 }
 
 function onNightCheckboxChange() {
@@ -2738,6 +3047,7 @@ if (night) {
 document.getElementById('m_work').checked = true;
 }
 updateWorkCheckboxState();
+scheduleDayAutoSave();
 }
 
 function onWorkCheckboxChange() {
@@ -2752,6 +3062,7 @@ if ((night || ot1 > 0 || ot15 > 0 || ot2 > 0 || ot3 > 0) && !work) {
 document.getElementById('m_work').checked = true;
 }
 updateWorkCheckboxState();
+scheduleDayAutoSave();
 }
 
 function updateWorkCheckboxState() {
@@ -2779,9 +3090,9 @@ div.id = itemId;
 const t = translations[currentLang];
 
 div.innerHTML = `
-<input type="text" placeholder="${t.item_name}" value="${name}">
-<input type="number" inputmode="decimal" placeholder="${t.item_amt}" value="${amount}">
-<button class="btn-del" onclick="document.getElementById('${itemId}').remove()">${t.btn_del}</button>
+<input type="text" placeholder="${t.item_name}" value="${name}" oninput="scheduleDayAutoSave()">
+<input type="number" inputmode="decimal" placeholder="${t.item_amt}" value="${amount}" oninput="scheduleDayAutoSave()">
+<button class="btn-del" onclick="document.getElementById('${itemId}').remove(); scheduleDayAutoSave();">${t.btn_del}</button>
 `;
 
 container.appendChild(div);
@@ -2812,6 +3123,7 @@ const t = translations[currentLang];
 if (!confirm(t.confirm_clear_day)) return;
 
 // ล้างข้อมูลของวันที่กำลังเปิดอยู่ทันที
+if (dayAutoSaveTimer) { clearTimeout(dayAutoSaveTimer); dayAutoSaveTimer = null; }
 delete dailyDataMap[selectedDayKey];
 saveAllStoredDailyData();
 saveCurrentMonthData();
@@ -2819,15 +3131,92 @@ saveCurrentMonthData();
 if (!isCalendarCollapsed) {
 recalculateMonthlyFromDaily();
 }
+// บันทึกยอดรวม OT/วันทำงานที่ถูกคำนวณใหม่หลังล้างข้อมูลวันนั้น
+saveCurrentMonthData();
 
-closeDayModal(true);
+closeDayModal(true, true);
 renderCalendar();
 calculate();
 calculateYearlySummary();
 }
 
-function closeDayModal(immediate = false) {
+function scheduleDayAutoSave() {
+if (!selectedDayKey) return;
+if (dayAutoSaveTimer) clearTimeout(dayAutoSaveTimer);
+dayAutoSaveTimer = window.setTimeout(() => {
+    dayAutoSaveTimer = null;
+    autoSaveDayData();
+}, 160);
+}
+
+function flushDayAutoSave() {
+if (dayAutoSaveTimer) {
+    clearTimeout(dayAutoSaveTimer);
+    dayAutoSaveTimer = null;
+}
+if (selectedDayKey) autoSaveDayData();
+}
+
+function collectDayEditorData() {
+const work = document.getElementById('m_work').checked;
+const night = document.getElementById('m_night').checked;
+const ot1 = document.getElementById('m_ot1').value;
+const ot15 = document.getElementById('m_ot15').value;
+const ot2 = document.getElementById('m_ot2').value;
+const ot3 = document.getElementById('m_ot3').value;
+const expFood = document.getElementById('m_exp_food').value;
+const expCommute = document.getElementById('m_exp_commute').value;
+
+const extraExpenses = [];
+document.querySelectorAll('#m_exp_list .dynamic-item').forEach(row => {
+    const inputs = row.querySelectorAll('input');
+    if (inputs[0].value || inputs[1].value) {
+        extraExpenses.push({ name: inputs[0].value, amount: inputs[1].value });
+    }
+});
+
+const extraIncomes = [];
+document.querySelectorAll('#m_inc_list .dynamic-item').forEach(row => {
+    const inputs = row.querySelectorAll('input');
+    if (inputs[0].value || inputs[1].value) {
+        extraIncomes.push({ name: inputs[0].value, amount: inputs[1].value });
+    }
+});
+
+return { work, night, ot1, ot15, ot2, ot3, expFood, expCommute, extraExpenses, extraIncomes };
+}
+
+function autoSaveDayData() {
+if (!selectedDayKey) return;
+
+const dayData = collectDayEditorData();
+const isEmpty = !dayData.work && !dayData.night && !dayData.ot1 && !dayData.ot15 && !dayData.ot2 && !dayData.ot3 &&
+    !dayData.expFood && !dayData.expCommute && dayData.extraExpenses.length === 0 && dayData.extraIncomes.length === 0;
+
+if (isEmpty) {
+    delete dailyDataMap[selectedDayKey];
+} else {
+    dailyDataMap[selectedDayKey] = dayData;
+}
+
+// อัปเดตข้อมูลรายวันและยอดต่าง ๆ โดยไม่ render ปฏิทินใหม่
+// เพื่อไม่ให้ focus หลุดหรือ dropdown กระพริบขณะพิมพ์
+saveAllStoredDailyData();
+if (!isCalendarCollapsed) recalculateMonthlyFromDaily();
+saveCurrentMonthData();
+calculate();
+calculateYearlySummary();
+}
+
+function closeDayModal(immediate = false, skipAutoSave = false) {
 const panel = document.getElementById('day-dropdown-panel');
+
+if (!skipAutoSave) flushDayAutoSave();
+else if (dayAutoSaveTimer) {
+    clearTimeout(dayAutoSaveTimer);
+    dayAutoSaveTimer = null;
+}
+
 selectedDayKey = null;
 
 if (!panel || immediate) {
@@ -2841,50 +3230,6 @@ window.setTimeout(() => {
     rehomeDayEditor();
     renderCalendar();
 }, 340);
-}
-
-function saveDayData() {
-if (!selectedDayKey) return;
-
-const work = document.getElementById('m_work').checked;
-const night = document.getElementById('m_night').checked;
-const ot1 = document.getElementById('m_ot1').value;
-const ot15 = document.getElementById('m_ot15').value;
-const ot2 = document.getElementById('m_ot2').value;
-const ot3 = document.getElementById('m_ot3').value;
-const expFood = document.getElementById('m_exp_food').value;
-const expCommute = document.getElementById('m_exp_commute').value;
-
-const extraExpenses = [];
-document.querySelectorAll('#m_exp_list .dynamic-item').forEach(row => {
-const inputs = row.querySelectorAll('input');
-if (inputs[0].value || inputs[1].value) {
-extraExpenses.push({ name: inputs[0].value, amount: inputs[1].value });
-}
-});
-
-const extraIncomes = [];
-document.querySelectorAll('#m_inc_list .dynamic-item').forEach(row => {
-const inputs = row.querySelectorAll('input');
-if (inputs[0].value || inputs[1].value) {
-extraIncomes.push({ name: inputs[0].value, amount: inputs[1].value });
-}
-});
-
-const isEmpty = !work && !night && !ot1 && !ot15 && !ot2 && !ot3 && !expFood && !expCommute &&
-extraExpenses.length === 0 && extraIncomes.length === 0;
-
-if (isEmpty) {
-delete dailyDataMap[selectedDayKey];
-} else {
-dailyDataMap[selectedDayKey] = { work, night, ot1, ot15, ot2, ot3, expFood, expCommute, extraExpenses, extraIncomes };
-}
-
-closeDayModal(true);
-if (!isCalendarCollapsed) {
-recalculateMonthlyFromDaily();
-}
-saveAndCalculate();
 }
 
 function recalculateMonthlyFromDaily() {
@@ -3004,6 +3349,14 @@ monthExtraInc.push({ name: inputs[0].value, amount: inputs[1].value });
 }
 });
 
+const monthSavings = [];
+document.querySelectorAll('#month_savings_list .dynamic-item').forEach(row => {
+const inputs = row.querySelectorAll('input');
+if (inputs[0].value || inputs[1].value) {
+monthSavings.push({ name: inputs[0].value, amount: inputs[1].value });
+}
+});
+
 const data = {
 salary: document.getElementById('salary').value,
 hours: document.getElementById('hours').value,
@@ -3022,7 +3375,8 @@ calendarViewMode: calendarViewMode,
 // ช่วยป้องกันข้อมูลทั้งปีถูกทำสำเนาซ้ำในทุกเดือน
 dailyDataMap: getDailyDataForCurrentPeriod(),
 monthExtraExp: monthExtraExp,
-monthExtraInc: monthExtraInc
+monthExtraInc: monthExtraInc,
+monthSavings: monthSavings
 };
 
 localStorage.setItem(key, JSON.stringify(data));
@@ -3071,6 +3425,12 @@ if (data.monthExtraInc && Array.isArray(data.monthExtraInc)) {
 data.monthExtraInc.forEach(item => addMonthItem('month_inc_list', item.name, item.amount));
 }
 
+const savingsContainer = document.getElementById('month_savings_list');
+savingsContainer.innerHTML = '';
+if (data.monthSavings && Array.isArray(data.monthSavings)) {
+data.monthSavings.forEach(item => addMonthItem('month_savings_list', item.name, item.amount));
+}
+
 toggleCalendarUI(isCalendarCollapsed);
 
 if (isCalendarCollapsed) {
@@ -3110,6 +3470,7 @@ document.getElementById(id).value = '';
 
 document.getElementById('month_exp_list').innerHTML = '';
 document.getElementById('month_inc_list').innerHTML = '';
+document.getElementById('month_savings_list').innerHTML = '';
 
 recalculateMonthlyFromDaily();
 renderCalendar();
@@ -3153,6 +3514,7 @@ totalOt = (hourlyRate * ot1 * 1.0) + (hourlyRate * ot15 * 1.5) + (hourlyRate * o
 
 let totalExpense = 0;
 let totalExtraInc = 0;
+let totalSavings = 0;
 
 // สำคัญ: ค่าใช้จ่าย/รายรับรายวันต้องคิดเฉพาะวันที่ในรอบของเดือนนั้น
 // เวอร์ชันเก่าเคยบันทึก dailyDataMap ทั้งปีซ้ำในทุก storage key ทำให้สรุปรายปี
@@ -3188,15 +3550,19 @@ if (data.monthExtraInc && Array.isArray(data.monthExtraInc)) {
 data.monthExtraInc.forEach(x => totalExtraInc += (parseFloat(x.amount) || 0));
 }
 
+if (data.monthSavings && Array.isArray(data.monthSavings)) {
+data.monthSavings.forEach(x => totalSavings += Math.max(0, parseFloat(x.amount) || 0));
+}
+
 if (salary <= 0 || hoursPerDay <= 0) {
-return { income: totalExtraInc, ss: 0, expense: totalExpense, net: totalExtraInc - totalExpense };
+return { income: totalExtraInc, ss: 0, expense: totalExpense, savings: totalSavings, net: totalExtraInc - totalExpense - totalSavings };
 }
 
 const socialSecurity = Math.min(salary * 0.05, 875.0);
 const totalIncome = salary + totalOt + totalTravel + totalNight + langAllowance + totalExtraInc;
-const net = totalIncome - socialSecurity - totalExpense;
+const net = totalIncome - socialSecurity - totalExpense - totalSavings;
 
-return { income: totalIncome, ss: socialSecurity, expense: totalExpense, net: net };
+return { income: totalIncome, ss: socialSecurity, expense: totalExpense, savings: totalSavings, net: net };
 }
 
 function renderBreakdowns() {
@@ -3271,7 +3637,15 @@ listInc.appendChild(row);
 });
 document.getElementById('lbl_sum_bd_inc').innerText = `${formatNum(totalIncSum)}${t.currency}`;
 
-return { totalExpSum, totalIncSum };
+let totalSavingsSum = 0;
+document.querySelectorAll('#month_savings_list .dynamic-item').forEach(row => {
+const inputs = row.querySelectorAll('input');
+const amt = Math.max(0, parseFloat(inputs[1].value) || 0);
+totalSavingsSum += amt;
+});
+document.getElementById('lbl_sum_savings').innerText = `${formatNum(totalSavingsSum)}${t.currency}`;
+
+return { totalExpSum, totalIncSum, totalSavingsSum };
 }
 
 function calculate() {
@@ -3307,6 +3681,7 @@ totalOt = moneyOt1 + moneyOt15 + moneyOt2 + moneyOt3;
 const breakdowns = renderBreakdowns();
 const totalExpense = breakdowns.totalExpSum;
 const totalExtraInc = breakdowns.totalIncSum;
+const totalSavings = breakdowns.totalSavingsSum;
 
 const totalExtraCombined = langAllowance + totalNight + totalExtraInc;
 
@@ -3334,7 +3709,7 @@ const previousResult = calculateMonthDataFromObj(previousData, previous.year, pr
 // เงินที่ได้รับจริงจากรอบก่อน = รายได้ทั้งหมดของรอบก่อน - ประกันสังคม
 // ไม่หักค่าใช้จ่ายของรอบก่อน เพราะค่าใช้จ่ายเหล่านั้นเป็นของเดือนก่อน
 const previousNetIncome = previousResult.income - previousResult.ss;
-const spendingBalance = previousNetIncome - totalExpense;
+const spendingBalance = previousNetIncome - totalExpense - totalSavings;
 
 // ส่วนรายละเอียดด้านบนยังคงแสดงข้อมูลของรอบที่กำลังเลือก
 if (salary > 0 && hoursPerDay > 0) {
@@ -3355,6 +3730,7 @@ document.getElementById('lbl_total_income').innerText = formatNum(totalIncome);
 document.getElementById('lbl_ss').innerText = '-' + formatNum(socialSecurity);
 document.getElementById('lbl_expense').innerText = '-' + formatNum(totalExpense);
 document.getElementById('lbl_total_deduct').innerText = '-' + formatNum(totalDeduct);
+document.getElementById('lbl_savings').innerText = formatNum(totalSavings) + t.currency;
 } else {
 // ไม่มีข้อมูลรายได้ของรอบปัจจุบัน แต่ยังสามารถคำนวณเงินใช้จ่ายจากรอบก่อนหน้าได้
 document.getElementById('lbl_salary').innerText = '-';
@@ -3368,11 +3744,13 @@ document.getElementById('lbl_total_income').innerText = '-';
 document.getElementById('lbl_ss').innerText = '-';
 document.getElementById('lbl_expense').innerText = '-' + formatNum(totalExpense);
 document.getElementById('lbl_total_deduct').innerText = '-';
+document.getElementById('lbl_savings').innerText = formatNum(totalSavings) + t.currency;
 }
 
 // หัวข้อ 3: ใช้รายได้จากรอบเดือนที่แล้ว
 document.getElementById('lbl_card_net_inc').innerText = formatNum(previousNetIncome) + t.currency;
 document.getElementById('lbl_card_net_deduct').innerText = '-' + formatNum(totalExpense) + t.currency;
+document.getElementById('lbl_card_net_savings').innerText = '-' + formatNum(totalSavings) + t.currency;
 
 const cardNetFinal = document.getElementById('lbl_card_net_final');
 cardNetFinal.innerText = formatNum(spendingBalance) + t.currency;
@@ -3404,7 +3782,7 @@ tbody.innerHTML = '';
  * รายจ่าย = รายจ่ายของเดือนที่แสดง
  * คงเหลือ = รายรับรอบก่อน - ประกันสังคมรอบก่อน - รายจ่ายเดือนนี้
  */
-let yearIncome = 0, yearSs = 0, yearExpense = 0, yearNet = 0;
+let yearIncome = 0, yearSs = 0, yearExpense = 0, yearSavings = 0, yearNet = 0;
 const chartData = [];
 const allDaily = getAllStoredDailyData();
 
@@ -3423,17 +3801,20 @@ const previousResult = calculateMonthDataFromObj(previousData, previous.year, pr
 const receivedGross = previousResult.income;
 const receivedSs = previousResult.ss;
 const currentExpense = currentResult.expense;
-const spendingNet = receivedGross - receivedSs - currentExpense;
+const currentSavings = currentResult.savings || 0;
+const spendingNet = receivedGross - receivedSs - currentExpense - currentSavings;
 
 yearIncome += receivedGross;
 yearSs += receivedSs;
 yearExpense += currentExpense;
+yearSavings += currentSavings;
 yearNet += spendingNet;
 
 chartData.push({
 month: mName,
 income: receivedGross,
 expense: currentExpense + receivedSs,
+savings: currentSavings,
 net: spendingNet
 });
 
@@ -3443,14 +3824,29 @@ tr.innerHTML = `
 <td>${formatNum(receivedGross)}</td>
 <td style="color:var(--danger-color);">${receivedSs > 0 ? '-' + formatNum(receivedSs) : '0.00'}</td>
 <td style="color:var(--danger-color);">${currentExpense > 0 ? '-' + formatNum(currentExpense) : '0.00'}</td>
+<td class="savings-value">${currentSavings > 0 ? '-' + formatNum(currentSavings) : '0.00'}</td>
 <td style="font-weight:700; color:${spendingNet >= 0 ? 'var(--success-color)' : 'var(--danger-color)'};">${formatNum(spendingNet)}</td>
 `;
 tbody.appendChild(tr);
 });
 
+// แถวรวมทั้งปีท้ายตารางรายเดือน
+const totalTr = document.createElement('tr');
+totalTr.className = 'yearly-total-row';
+totalTr.innerHTML = `
+<td>${currentLang === 'th' ? 'รวมทั้งปี' : 'Year Total'}</td>
+<td>${formatNum(yearIncome)}</td>
+<td style="color:var(--danger-color);">${yearSs > 0 ? '-' + formatNum(yearSs) : '0.00'}</td>
+<td style="color:var(--danger-color);">${yearExpense > 0 ? '-' + formatNum(yearExpense) : '0.00'}</td>
+<td class="savings-value">${yearSavings > 0 ? '-' + formatNum(yearSavings) : '0.00'}</td>
+<td style="color:${yearNet >= 0 ? 'var(--success-color)' : 'var(--danger-color)'};">${formatNum(yearNet)}</td>
+`;
+tbody.appendChild(totalTr);
+
 document.getElementById('y_val_income').innerText = formatNum(yearIncome);
 document.getElementById('y_val_ss').innerText = '-' + formatNum(yearSs);
 document.getElementById('y_val_expense').innerText = formatNum(yearExpense);
+document.getElementById('y_val_savings').innerText = formatNum(yearSavings);
 
 const yNetEl = document.getElementById('y_val_net');
 yNetEl.innerText = formatNum(yearNet);
@@ -3482,6 +3878,7 @@ let maxVal = 1000;
 data.forEach(d => {
 if (d.income > maxVal) maxVal = d.income;
 if (d.expense > maxVal) maxVal = d.expense;
+if ((d.savings || 0) > maxVal) maxVal = d.savings || 0;
 if (Math.abs(d.net) > maxVal) maxVal = Math.abs(d.net);
 });
 maxVal = maxVal * 1.15;
@@ -3492,7 +3889,7 @@ const paddingLeft = 45;
 const chartWidth = width - paddingLeft - 8;
 const chartHeight = height - paddingBottom - paddingTop;
 const monthWidth = chartWidth / 12;
-const barWidth = Math.max(monthWidth / 4.5, 2.0);
+const barWidth = Math.max(monthWidth / 5.6, 1.8);
 
 const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
 const textColor = isDark ? '#94a3b8' : '#64748b';
@@ -3542,20 +3939,24 @@ ctx.fillText(d.month, centerX, height - 8);
 
 const hInc = (d.income / maxVal) * chartHeight;
 ctx.fillStyle = '#16a34a';
-ctx.fillRect(centerX - (barWidth * 1.2), (height - paddingBottom) - hInc, barWidth, hInc);
+ctx.fillRect(centerX - (barWidth * 1.8), (height - paddingBottom) - hInc, barWidth, hInc);
 
 const hExp = (d.expense / maxVal) * chartHeight;
 ctx.fillStyle = '#dc2626';
-ctx.fillRect(centerX - (barWidth * 0.1), (height - paddingBottom) - hExp, barWidth, hExp);
+ctx.fillRect(centerX - (barWidth * 0.6), (height - paddingBottom) - hExp, barWidth, hExp);
+
+const hSavings = ((d.savings || 0) / maxVal) * chartHeight;
+ctx.fillStyle = '#7c3aed';
+ctx.fillRect(centerX + (barWidth * 0.6), (height - paddingBottom) - hSavings, barWidth, hSavings);
 
 const hNet = (Math.abs(d.net) / maxVal) * chartHeight;
 ctx.fillStyle = d.net >= 0 ? '#2563eb' : '#991b1b';
-ctx.fillRect(centerX + (barWidth * 1.0), (height - paddingBottom) - hNet, barWidth, hNet);
+ctx.fillRect(centerX + (barWidth * 1.8), (height - paddingBottom) - hNet, barWidth, hNet);
 });
 }
 
 function clearSummary() {
-['lbl_salary','lbl_lang','lbl_ot','lbl_ot_detail','lbl_travel','lbl_night','lbl_daily_inc','lbl_total_income','lbl_ss','lbl_expense','lbl_total_deduct','lbl_card_net_inc','lbl_card_net_deduct','lbl_card_net_final'].forEach(id => {
+['lbl_salary','lbl_lang','lbl_ot','lbl_ot_detail','lbl_travel','lbl_night','lbl_daily_inc','lbl_total_income','lbl_ss','lbl_expense','lbl_total_deduct','lbl_card_net_inc','lbl_card_net_deduct','lbl_card_net_savings','lbl_card_net_final','lbl_savings'].forEach(id => {
 const el = document.getElementById(id);
 if (el) el.innerText = '-';
 });
