@@ -76,7 +76,7 @@
             top: 16px;
             right: 16px;
             display: flex;
-            gap: 8px;
+            gap: 6px;
             z-index: 10;
         }
 
@@ -100,9 +100,9 @@
         .lang-btn {
             border: none;
             background: transparent;
-            padding: 4px 10px;
+            padding: 4px 8px;
             border-radius: 16px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             color: var(--text-sub);
             cursor: pointer;
@@ -114,13 +114,14 @@
         }
 
         h1 {
-            font-size: 1.25rem;
+            font-size: 1.15rem;
             font-weight: 700;
             margin-top: 4px;
-            margin-bottom: 16px;
-            padding-right: 140px;
+            margin-bottom: 14px;
+            padding-right: 110px;
             color: var(--primary-color);
             line-height: 1.3;
+            word-break: break-word;
         }
 
         .month-bar {
@@ -128,7 +129,7 @@
             border: 1px solid var(--border-color);
             border-radius: 12px;
             padding: 8px;
-            margin-bottom: 16px;
+            margin-bottom: 10px;
             display: flex;
             gap: 6px;
             align-items: center;
@@ -161,6 +162,34 @@
             flex-shrink: 0;
         }
 
+        /* Backup Bar Style */
+        .backup-bar {
+            display: flex;
+            gap: 6px;
+            margin-bottom: 16px;
+        }
+
+        .btn-backup {
+            flex: 1;
+            padding: 7px 10px;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+            background: var(--card-sub-bg);
+            color: var(--text-main);
+            font-size: 0.75rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+        }
+
+        .btn-backup:hover {
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+        }
+
         .section-title {
             font-size: 0.95rem;
             font-weight: 700;
@@ -180,35 +209,41 @@
             align-items: center;
             margin-top: 10px;
             margin-bottom: 6px;
+            gap: 8px;
         }
 
         .cal-controls {
             display: flex;
-            gap: 8px;
+            gap: 6px;
             align-items: center;
+            flex-shrink: 0;
         }
 
+        /* Fixed Toggle Switch Overflow Issue */
         .toggle-switch-wrapper {
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 4px;
             cursor: pointer;
             user-select: none;
+            flex-shrink: 0;
         }
 
         .toggle-switch-label {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             color: var(--text-sub);
+            white-space: nowrap;
         }
 
         .toggle-switch {
             position: relative;
-            width: 38px;
-            height: 20px;
+            width: 34px;
+            height: 18px;
             background-color: var(--border-color);
-            border-radius: 20px;
+            border-radius: 18px;
             transition: background-color 0.25s ease;
+            flex-shrink: 0;
         }
 
         .toggle-switch::after {
@@ -216,8 +251,8 @@
             position: absolute;
             top: 2px;
             left: 2px;
-            width: 16px;
-            height: 16px;
+            width: 14px;
+            height: 14px;
             background-color: #ffffff;
             border-radius: 50%;
             transition: transform 0.25s ease;
@@ -229,18 +264,19 @@
         }
 
         .toggle-switch-wrapper.active .toggle-switch::after {
-            transform: translateX(18px);
+            transform: translateX(16px);
         }
 
         .btn-cal-action {
-            padding: 4px 8px;
+            padding: 4px 6px;
             border-radius: 6px;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 600;
             border: 1px solid var(--border-color);
             background: var(--card-bg);
             color: var(--text-main);
             cursor: pointer;
+            white-space: nowrap;
         }
 
         .btn-cal-action.danger {
@@ -269,7 +305,7 @@
 
         .cal-header-day {
             text-align: center;
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
             color: var(--text-sub);
             padding: 4px 0;
@@ -279,8 +315,8 @@
             background: var(--card-bg);
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            min-height: 48px;
-            padding: 4px;
+            min-height: 44px;
+            padding: 3px;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -295,7 +331,7 @@
         }
 
         .cal-day-num {
-            font-size: 0.75rem;
+            font-size: 0.7rem;
             font-weight: 700;
         }
 
@@ -311,9 +347,9 @@
         }
 
         .badge {
-            font-size: 0.58rem;
-            padding: 1px 3px;
-            border-radius: 4px;
+            font-size: 0.52rem;
+            padding: 1px 2px;
+            border-radius: 3px;
             font-weight: 700;
         }
         .badge-ot { background: #e0e7ff; color: #4338ca; }
@@ -390,12 +426,13 @@
         }
 
         .col-title {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 700;
             padding-bottom: 6px;
             border-bottom: 1px solid var(--border-color);
             display: flex;
             justify-content: space-between;
+            gap: 8px;
         }
 
         .col-title.exp { color: var(--danger-color); }
@@ -427,24 +464,26 @@
         }
 
         .group-header {
-            font-size: 0.85rem;
+            font-size: 0.82rem;
             font-weight: 700;
             color: var(--primary-color);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            gap: 6px;
         }
 
         .group-subtext {
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             color: var(--text-sub);
             font-weight: 600;
+            white-space: nowrap;
         }
 
         .group-inputs {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 10px;
+            gap: 8px;
         }
 
         @media (max-width: 360px) {
@@ -454,13 +493,16 @@
         .input-card {
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 3px;
         }
 
         .input-card label {
-            font-size: 0.78rem;
+            font-size: 0.72rem;
             font-weight: 600;
             color: var(--text-sub);
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .input-card input {
@@ -502,7 +544,7 @@
             padding: 6px 8px;
             border: 1px solid var(--border-color);
             border-radius: 8px;
-            font-size: 0.82rem;
+            font-size: 0.8rem;
             background: var(--input-bg);
             color: var(--text-main);
             outline: none;
@@ -530,9 +572,9 @@
             border: 1px dashed var(--primary-color);
             border-radius: 8px;
             font-weight: 600;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             cursor: pointer;
-            margin-top: 10px;
+            margin-top: 8px;
             text-align: center;
             display: block;
             width: 100%;
@@ -579,7 +621,7 @@
         }
 
         .summary-block-title {
-            font-size: 0.8rem;
+            font-size: 0.78rem;
             font-weight: 700;
             color: var(--text-sub);
             margin-bottom: 6px;
@@ -592,7 +634,8 @@
             justify-content: space-between;
             align-items: center;
             padding: 4px 0;
-            font-size: 0.84rem;
+            font-size: 0.82rem;
+            gap: 8px;
         }
 
         .summary-row .label {
@@ -602,18 +645,20 @@
         .summary-row .val {
             font-weight: 600;
             color: var(--text-main);
+            white-space: nowrap;
         }
 
         .summary-row.sub-detail {
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             color: var(--text-sub);
             padding-left: 8px;
             border-left: 2px solid var(--border-color);
             margin: 2px 0 4px 0;
+            word-break: break-all;
         }
 
         .summary-row.highlight-income {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 700;
             border-top: 1px dashed var(--border-color);
             padding-top: 6px;
@@ -624,7 +669,7 @@
         }
 
         .summary-row.highlight-deduct {
-            font-size: 0.9rem;
+            font-size: 0.88rem;
             font-weight: 700;
             border-top: 1px dashed var(--border-color);
             padding-top: 6px;
@@ -635,7 +680,7 @@
         }
 
         .summary-row.highlight-net {
-            font-size: 1.05rem;
+            font-size: 1rem;
             font-weight: 800;
             border-top: 2px solid var(--primary-color);
             padding-top: 8px;
@@ -668,13 +713,13 @@
         }
 
         .yearly-stat-box label {
-            font-size: 0.72rem;
+            font-size: 0.7rem;
             color: var(--text-sub);
             font-weight: 600;
         }
 
         .yearly-stat-box span {
-            font-size: 0.88rem;
+            font-size: 0.85rem;
             font-weight: 700;
         }
 
@@ -688,7 +733,7 @@
         }
 
         .chart-title {
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             font-weight: 700;
             color: var(--text-sub);
             margin-bottom: 8px;
@@ -704,9 +749,9 @@
         .chart-legend {
             display: flex;
             justify-content: center;
-            gap: 12px;
+            gap: 10px;
             margin-top: 8px;
-            font-size: 0.7rem;
+            font-size: 0.68rem;
             font-weight: 600;
         }
 
@@ -717,8 +762,8 @@
         }
 
         .legend-color {
-            width: 10px;
-            height: 10px;
+            width: 9px;
+            height: 9px;
             border-radius: 2px;
         }
 
@@ -732,7 +777,7 @@
         .yearly-table {
             width: 100%;
             border-collapse: collapse;
-            font-size: 0.78rem;
+            font-size: 0.75rem;
             text-align: right;
         }
 
@@ -765,7 +810,7 @@
             display: flex;
             flex-direction: column;
             gap: 4px;
-            font-size: 0.8rem;
+            font-size: 0.78rem;
         }
 
         .breakdown-row {
@@ -773,6 +818,7 @@
             justify-content: space-between;
             padding: 4px 0;
             border-bottom: 1px dashed var(--border-color);
+            gap: 8px;
         }
 
         .breakdown-row:last-child {
@@ -799,6 +845,13 @@
         <button class="btn-clear-month" onclick="confirmClearMonthData()" id="btn_clear_month">🗑️ ล้างเดือนนี้</button>
     </div>
 
+    <!-- Backup & Restore System Bar -->
+    <div class="backup-bar">
+        <button class="btn-backup" onclick="exportDataBackup()" id="btn_export_backup">📥 สำรองข้อมูล (Backup)</button>
+        <button class="btn-backup" onclick="triggerImportBackup()" id="btn_import_backup">📤 กู้คืนข้อมูล (Restore)</button>
+        <input type="file" id="import-file-input" style="display: none;" accept=".json" onchange="importDataBackup(event)">
+    </div>
+
     <div class="section-title" id="txt_sec1">1. เงินเดือน & รายรับอื่นๆ</div>
     <div class="group-container">
 
@@ -819,15 +872,15 @@
             </div>
 
             <div class="cal-header-bar">
-                <div style="font-size: 0.8rem; font-weight: 700; color: var(--text-sub);" id="txt_sec_cal">
+                <div style="font-size: 0.75rem; font-weight: 700; color: var(--text-sub); overflow:hidden; text-overflow:ellipsis; white-space:nowrap;" id="txt_sec_cal">
                     📅 ปฏิทินบันทึกการทำงาน & รายวัน
                 </div>
                 <div class="cal-controls">
                     <div class="toggle-switch-wrapper" id="toggle_switch_wrapper" onclick="confirmToggleCalendar()">
-                        <span class="toggle-switch-label" id="txt_toggle_cal">โหมดปฏิทิน</span>
+                        <span class="toggle-switch-label" id="txt_toggle_cal">ปฏิทิน</span>
                         <div class="toggle-switch"></div>
                     </div>
-                    <button class="btn-cal-action danger" id="btn_clear_cal" style="display:none;" onclick="confirmClearCalendar()">🧹 ล้างปฏิทิน</button>
+                    <button class="btn-cal-action danger" id="btn_clear_cal" style="display:none;" onclick="confirmClearCalendar()">🧹 ล้าง</button>
                 </div>
             </div>
             <div class="calendar-wrapper collapsed" id="calendar-wrapper">
@@ -1151,6 +1204,8 @@
         th: {
             title: "Salary & OT Calculator",
             btn_clear_month: "🗑️ ล้างเดือนนี้",
+            btn_export_backup: "📥 สำรองข้อมูล",
+            btn_import_backup: "📤 กู้คืนข้อมูล",
             msg_cleared: "ล้างข้อมูลเดือนนี้เรียบร้อยแล้ว",
             sec_cal: "📅 ปฏิทินบันทึกการทำงาน & รายวัน",
             sec1: "1. เงินเดือน & รายรับอื่นๆ",
@@ -1211,8 +1266,8 @@
             lbl_m_add_exp_title: "💸 รายจ่ายประจำวัน",
             lbl_m_add_inc_title: "💰 รายรับเพิ่มเติม",
             btn_save_day: "บันทึกข้อมูล",
-            toggle_cal_text: "โหมดปฏิทิน",
-            btn_clear_cal: "🧹 ล้างปฏิทิน",
+            toggle_cal_text: "ปฏิทิน",
+            btn_clear_cal: "🧹 ล้าง",
             txt_bd_exp_title: "💸 รายจ่าย (รวม)",
             txt_bd_inc_title: "💰 รายรับเพิ่มเติม (รวม)",
             txt_add_month_exp: "➕ เพิ่มรายจ่ายประจำเดือน",
@@ -1222,11 +1277,16 @@
             confirm_clear_month: "คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลทั้งหมดในเดือนนี้?",
             confirm_clear_cal: "คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลในปฏิทินทั้งหมดของเดือนนี้?",
             confirm_open_cal: "⚠️ คำเตือน: การเปิดใช้งานโหมดปฏิทินจะทำให้ข้อมูลชั่วโมง OT, วันทำงาน และกะกลางคืนที่กรอกไว้เดิมถูกล้างและแทนที่ด้วยข้อมูลจากปฏิทิน คุณต้องการเปิดหรือไม่?",
-            confirm_toggle_off: "เมื่อปิดโหมดปฏิทิน ระบบจะล้างค่าในปฏิทินและค่าที่เกี่ยวข้องออกทั้งหมด ยืนยันปิดหรือไม่?"
+            confirm_toggle_off: "เมื่อปิดโหมดปฏิทิน ระบบจะล้างค่าในปฏิทินและค่าที่เกี่ยวข้องออกทั้งหมด ยืนยันปิดหรือไม่?",
+            backup_success: "สำรองข้อมูลสำเร็จ! ไฟล์จะถูกดาวน์โหลดลงเครื่องของคุณ",
+            restore_success: "กู้คืนข้อมูลสำเร็จแล้ว!",
+            restore_error: "ไฟล์สำรองข้อมูลไม่ถูกต้อง กรุณาตรวจสอบไฟล์อีกครั้ง"
         },
         en: {
             title: "Salary & OT Calculator",
             btn_clear_month: "🗑️ Clear Month",
+            btn_export_backup: "📥 Backup",
+            btn_import_backup: "📤 Restore",
             msg_cleared: "Cleared data for this month",
             sec_cal: "📅 Work & Daily Calendar Log",
             sec1: "1. Salary & Other Income",
@@ -1287,8 +1347,8 @@
             lbl_m_add_exp_title: "💸 Daily Expenses",
             lbl_m_add_inc_title: "💰 Extra Incomes",
             btn_save_day: "Save Data",
-            toggle_cal_text: "Calendar Mode",
-            btn_clear_cal: "🧹 Clear Calendar",
+            toggle_cal_text: "Calendar",
+            btn_clear_cal: "🧹 Clear",
             txt_bd_exp_title: "💸 Expenses (Total)",
             txt_bd_inc_title: "💰 Extra Incomes (Total)",
             txt_add_month_exp: "➕ Add Monthly Expense",
@@ -1298,7 +1358,10 @@
             confirm_clear_month: "Are you sure you want to clear all data for this month?",
             confirm_clear_cal: "Are you sure you want to clear all calendar records for this month?",
             confirm_open_cal: "⚠️ Warning: Turning on calendar mode will clear existing manual OT and work day inputs and replace them with calendar records. Turn on?",
-            confirm_toggle_off: "Turning off calendar mode will clear all calendar records and related inputs. Turn off?"
+            confirm_toggle_off: "Turning off calendar mode will clear all calendar records and related inputs. Turn off?",
+            backup_success: "Backup successful! Your file is downloading.",
+            restore_success: "Data restored successfully!",
+            restore_error: "Invalid backup file. Please check the file."
         }
     };
 
@@ -1341,6 +1404,8 @@
 
         document.getElementById('txt_title').innerText = t.title;
         document.getElementById('btn_clear_month').innerText = t.btn_clear_month;
+        document.getElementById('btn_export_backup').innerText = t.btn_export_backup;
+        document.getElementById('btn_import_backup').innerText = t.btn_import_backup;
         document.getElementById('txt_sec_cal').innerText = t.sec_cal;
 
         document.getElementById('txt_sec1').innerText = t.sec1;
@@ -1426,6 +1491,79 @@
         });
 
         loadCurrentMonthData();
+    }
+
+    // --- Backup & Restore Functions ---
+    function exportDataBackup() {
+        const t = translations[currentLang];
+        const allData = {};
+        for (let i = 0; i < localStorage.length; i++) {
+            const key = localStorage.key(i);
+            if (key.startsWith(STORAGE_KEY_PREFIX)) {
+                allData[key] = localStorage.getItem(key);
+            }
+        }
+
+        const backupObj = {
+            version: "1.0",
+            app: "SalaryCalculator",
+            timestamp: new Date().toISOString(),
+            data: allData
+        };
+
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(backupObj, null, 2));
+        const downloadAnchor = document.createElement('a');
+        downloadAnchor.setAttribute("href", dataStr);
+        const dateStr = new Date().toISOString().slice(0, 10);
+        downloadAnchor.setAttribute("download", `salary_calc_backup_${dateStr}.json`);
+        document.body.appendChild(downloadAnchor);
+        downloadAnchor.click();
+        downloadAnchor.remove();
+        alert(t.backup_success);
+    }
+
+    function triggerImportBackup() {
+        document.getElementById('import-file-input').click();
+    }
+
+    function importDataBackup(event) {
+        const t = translations[currentLang];
+        const file = event.target.files[0];
+        if (!file) return;
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            try {
+                const parsed = JSON.parse(e.target.result);
+                if (!parsed.data || parsed.app !== "SalaryCalculator") {
+                    alert(t.restore_error);
+                    return;
+                }
+
+                // Clear existing prefixed storage keys
+                const keysToRemove = [];
+                for (let i = 0; i < localStorage.length; i++) {
+                    const key = localStorage.key(i);
+                    if (key.startsWith(STORAGE_KEY_PREFIX)) {
+                        keysToRemove.push(key);
+                    }
+                }
+                keysToRemove.forEach(k => localStorage.removeItem(k));
+
+                // Insert imported keys
+                Object.keys(parsed.data).forEach(k => {
+                    localStorage.setItem(k, parsed.data[k]);
+                });
+
+                loadCurrentMonthData();
+                alert(t.restore_success);
+            } catch (err) {
+                alert(t.restore_error);
+            }
+            // Reset file input
+            event.target.value = '';
+        };
+        reader.readAsText(file);
     }
 
     function renderCalendar() {
@@ -2114,7 +2252,7 @@
 
         const paddingBottom = 26;
         const paddingTop = 12;
-        const paddingLeft = 45; // เว้นพื้นที่ด้านซ้ายสำหรับแกน Y และตัวเลขสเกล
+        const paddingLeft = 45;
         const chartWidth = width - paddingLeft - 8;
         const chartHeight = height - paddingBottom - paddingTop;
         const monthWidth = chartWidth / 12;
@@ -2124,7 +2262,6 @@
         const textColor = isDark ? '#94a3b8' : '#64748b';
         const borderColor = isDark ? '#334155' : '#cbd5e1';
 
-        // วาดเส้นแกน Y และสเกลตัวเลข (0, 50%, 100%)
         ctx.strokeStyle = borderColor;
         ctx.lineWidth = 1;
         ctx.beginPath();
@@ -2133,7 +2270,6 @@
         ctx.lineTo(width - 8, height - paddingBottom);
         ctx.stroke();
 
-        // ฟังก์ชันย่อตัวเลขสเกล เช่น 50000 -> 50k หรือแสดงแบบอ่านง่าย
         function formatAxisLabel(val) {
             if (val >= 1000000) return (val / 1000000).toFixed(1) + 'M';
             if (val >= 1000) return (val / 1000).toFixed(0) + 'k';
@@ -2144,13 +2280,11 @@
         ctx.font = '9px -apple-system, sans-serif';
         ctx.textAlign = 'right';
 
-        // วาดสเกล Y 3 ระดับ (บน, กลาง, ล่าง)
         [0, 0.5, 1].forEach(ratio => {
             const val = maxVal * ratio;
             const yPos = (height - paddingBottom) - (chartHeight * ratio);
             ctx.fillText(formatAxisLabel(val), paddingLeft - 4, yPos + 3);
 
-            // เส้นประแนวนอนช่วยบอกระดับสายตา
             if (ratio > 0) {
                 ctx.save();
                 ctx.strokeStyle = isDark ? '#1e293b' : '#f1f5f9';
@@ -2165,23 +2299,19 @@
         data.forEach((d, i) => {
             const centerX = paddingLeft + (i * monthWidth) + (monthWidth / 2);
             
-            // X-Axis Month Labels
             ctx.fillStyle = textColor;
             ctx.font = '10px -apple-system, sans-serif';
             ctx.textAlign = 'center';
             ctx.fillText(d.month, centerX, height - 8);
 
-            // Bar 1: Income (Green)
             const hInc = (d.income / maxVal) * chartHeight;
             ctx.fillStyle = '#16a34a';
             ctx.fillRect(centerX - (barWidth * 1.2), (height - paddingBottom) - hInc, barWidth, hInc);
 
-            // Bar 2: Expense (Red)
             const hExp = (d.expense / maxVal) * chartHeight;
             ctx.fillStyle = '#dc2626';
             ctx.fillRect(centerX - (barWidth * 0.1), (height - paddingBottom) - hExp, barWidth, hExp);
 
-            // Bar 3: Net Balance (Blue / Dark Red if negative)
             const hNet = (Math.abs(d.net) / maxVal) * chartHeight;
             ctx.fillStyle = d.net >= 0 ? '#2563eb' : '#991b1b';
             ctx.fillRect(centerX + (barWidth * 1.0), (height - paddingBottom) - hNet, barWidth, hNet);
