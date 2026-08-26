@@ -4412,7 +4412,7 @@ const shouldShow = !isCalendarCollapsed && section1Open;
 cutoffSetting.style.display = shouldShow ? 'flex' : 'none';
 }
 
-function toggleCalendarUI(collapse) {
+function toggleCalendarUI(collapse, options = {}) {
 isCalendarCollapsed = collapse;
 const wrapper = document.getElementById('calendar-wrapper');
 const switchWrapper = document.getElementById('toggle_switch_wrapper');
@@ -4470,7 +4470,12 @@ section1Content.style.height = section1Content.scrollHeight + 'px';
 }
 });
 }
+
+// ตอนผู้ใช้กดเปิด/ปิดเองให้บันทึกตามปกติ
+// แต่ตอน load เดือนใหม่ ต้องห้าม save ก่อนข้อมูลใหม่โหลดครบ
+if (!options.skipSave) {
 saveAndCalculate();
+}
 }
 
 function confirmClearCalendar() {
@@ -4882,9 +4887,19 @@ if (dailyDataMap[key]) result[key] = dailyDataMap[key];
 return result;
 }
 
+let isChangingMonthOrYear = false;
+
 function onMonthOrYearChange() {
+if (isChangingMonthOrYear) return;
+
+isChangingMonthOrYear = true;
 selectedDayKey = null;
+
+try {
 loadCurrentMonthData();
+} finally {
+isChangingMonthOrYear = false;
+}
 }
 
 function saveAndCalculate() {
@@ -5005,8 +5020,7 @@ loadedSavings += Math.max(0, parseFloat(item && item.amount) || 0);
 savingsAmountInput.value = loadedSavings > 0 ? loadedSavings : '';
 }
 
-toggleCalendarUI(isCalendarCollapsed);
-
+// โหลดค่าของเดือนใหม่ให้ครบก่อน ห้าม toggleCalendarUI บันทึกข้อมูลระหว่างโหลด
 if (isCalendarCollapsed) {
 document.getElementById('ot1').value = data.ot1 || '';
 document.getElementById('ot15').value = data.ot15 || '';
@@ -5014,7 +5028,11 @@ document.getElementById('ot2').value = data.ot2 || '';
 document.getElementById('ot3').value = data.ot3 || '';
 document.getElementById('work_days').value = data.work_days || '';
 document.getElementById('night_days').value = data.night_days || '';
-} else {
+}
+
+toggleCalendarUI(isCalendarCollapsed, { skipSave: true });
+
+if (!isCalendarCollapsed) {
 recalculateMonthlyFromDaily();
 }
 
@@ -5468,12 +5486,30 @@ renderYearlyChart(chartData);
 function renderYearlyChart(data) {
 const canvas = document.getElementById('yearlyChart');
 if (!canvas) return;
-const ctx = canvas.getContext('2d');
 
-const dpr = window.devicePixelRatio || 1;
+const section4Content = document.getElementById('main-section-content-4');
+const section4Open =
+section4Content &&
+section4Content.classList.contains('is-open');
+
 const rect = canvas.getBoundingClientRect();
-canvas.width = rect.width * dpr;
-canvas.height = rect.height * dpr;
+
+// ถ้าข้อ 4 ยังหุบอยู่ ขนาด canvas จะเป็น 0
+// ไม่วาดตอนนี้ เพราะตอนเปิดข้อ 4 ระบบจะ calculateYearlySummary() ใหม่อีกครั้ง
+if (!section4Open || rect.width < 20 || rect.height < 20) {
+return;
+}
+
+const ctx = canvas.getContext('2d');
+const dpr = window.devicePixelRatio || 1;
+
+canvas.width = Math.round(rect.width * dpr);
+canvas.height = Math.round(rect.height * dpr);
+if (typeof ctx.resetTransform === 'function') {
+ctx.resetTransform();
+} else {
+ctx.setTransform(1, 0, 0, 1, 0, 0);
+}
 ctx.scale(dpr, dpr);
 
 const width = rect.width;
@@ -5585,8 +5621,8 @@ expenseDetailEl.style.display = 'none';
 // Main 4-section accordion
 // 0 = all sections collapsed
 // ============================================================
-const MAIN_SECTION_STATE_KEY = 'salary_ot_main_section_open_v1';
-let currentOpenMainSection = 0;
+const MAIN_SECTION_STATE_KEY = 'salary_ot_main_section_open_v2';
+let currentOpenMainSections = new Set();
 
 function isInteractiveElementInsideSectionHeader(target) {
 if (!target || !target.closest) return false;
@@ -5651,6 +5687,7 @@ requestAnimationFrame(() => calculateYearlySummary());
 }
 }
 };
+
 content.addEventListener('transitionend', onOpenEnd);
 } else {
 if (content.style.height === 'auto' || !content.style.height) {
@@ -5665,65 +5702,101 @@ content.style.opacity = '0';
 }
 }
 
-function openMainSection(sectionNo, animate = true) {
-const parsed = parseInt(sectionNo);
-sectionNo = parsed >= 1 && parsed <= 4 ? parsed : 0;
-
-for (let i = 1; i <= 4; i++) {
-setMainSectionVisualState(i, sectionNo !== 0 && i === sectionNo, animate);
-}
-
-currentOpenMainSection = sectionNo;
-
-// ตัดรอบแสดงได้เฉพาะเมื่อข้อ 1 เปิด และโหมดปฏิทินเปิดอยู่
-syncCutoffVisibility();
-
+function saveMainSectionState() {
 try {
-localStorage.setItem(MAIN_SECTION_STATE_KEY, String(sectionNo));
+const openSections = [...currentOpenMainSections]
+.filter(n => n >= 1 && n <= 4)
+.sort((a, b) => a - b);
+
+localStorage.setItem(
+MAIN_SECTION_STATE_KEY,
+JSON.stringify(openSections)
+);
 } catch (e) {}
 }
 
 function toggleMainSection(sectionNo) {
+sectionNo = parseInt(sectionNo);
+if (sectionNo < 1 || sectionNo > 4) return;
+
 const header = document.getElementById(`main-section-header-${sectionNo}`);
 if (!header) return;
 
 const isOpen = header.getAttribute('aria-expanded') === 'true';
 
-// Clicking the currently-open section now collapses everything.
 if (isOpen) {
-openMainSection(0, true);
-return;
+setMainSectionVisualState(sectionNo, false, true);
+currentOpenMainSections.delete(sectionNo);
+} else {
+setMainSectionVisualState(sectionNo, true, true);
+currentOpenMainSections.add(sectionNo);
 }
 
-// Opening another section still closes the previous one.
-openMainSection(sectionNo, true);
+saveMainSectionState();
 
-const headerRect = header.getBoundingClientRect();
-if (headerRect.top < 0 || headerRect.bottom > window.innerHeight) {
-header.scrollIntoView({ behavior: 'smooth', block: 'start' });
-}
+// ตัดรอบยังผูกกับสถานะข้อ 1 และโหมดปฏิทินเหมือนเดิม
+syncCutoffVisibility();
 }
 
 function initMainSections() {
-let saved = 0;
+let savedSections = [];
 
 try {
-const storedRaw = localStorage.getItem(MAIN_SECTION_STATE_KEY);
-if (storedRaw !== null) {
-const stored = parseInt(storedRaw);
-if (stored >= 0 && stored <= 4) saved = stored;
+const raw = localStorage.getItem(MAIN_SECTION_STATE_KEY);
+
+if (raw) {
+const parsed = JSON.parse(raw);
+
+if (Array.isArray(parsed)) {
+savedSections = parsed
+.map(Number)
+.filter(n => n >= 1 && n <= 4);
 }
-} catch (e) {}
+} else {
+// ย้ายสถานะจากเวอร์ชันเก่าที่เปิดได้ทีละหมวด
+const legacyRaw = localStorage.getItem('salary_ot_main_section_open_v1');
+const legacySection = parseInt(legacyRaw);
 
-currentOpenMainSection = saved;
-openMainSection(saved, false);
+if (legacySection >= 1 && legacySection <= 4) {
+savedSections = [legacySection];
+}
+}
+} catch (e) {
+savedSections = [];
+}
 
-if (saved === 4 && typeof calculateYearlySummary === 'function') {
-requestAnimationFrame(() => calculateYearlySummary());
+currentOpenMainSections = new Set(savedSections);
+
+for (let i = 1; i <= 4; i++) {
+setMainSectionVisualState(
+i,
+currentOpenMainSections.has(i),
+false
+);
 }
 
 syncCutoffVisibility();
+
+if (
+currentOpenMainSections.has(4) &&
+typeof calculateYearlySummary === 'function'
+) {
+requestAnimationFrame(() => calculateYearlySummary());
 }
+}
+
+
+
+let yearlyChartResizeTimer = null;
+window.addEventListener('resize', () => {
+const section4 = document.getElementById('main-section-content-4');
+if (!section4 || !section4.classList.contains('is-open')) return;
+
+clearTimeout(yearlyChartResizeTimer);
+yearlyChartResizeTimer = setTimeout(() => {
+calculateYearlySummary();
+}, 120);
+});
 
 
 // ============================================================
