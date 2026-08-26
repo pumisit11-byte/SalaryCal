@@ -91,12 +91,19 @@ border: 1px solid var(--border-color);
 background: var(--card-sub-bg);
 width: 32px;
 height: 32px;
-border-radius: 50%;
-font-size: 0.85rem;
+min-width: 32px;
+min-height: 32px;
+flex: 0 0 32px;
+aspect-ratio: 1 / 1;
+border-radius: 999px;
+padding: 0;
+line-height: 1;
+font-size: 0.9rem;
 cursor: pointer;
-display: flex;
+display: inline-flex;
 align-items: center;
 justify-content: center;
+overflow: hidden;
 }
 
 .lang-switch {
@@ -141,16 +148,32 @@ border-radius: 12px;
 padding: 8px;
 margin-bottom: 16px;
 display: flex;
+flex-direction: column;
+gap: 7px;
+width: 100%;
+min-width: 0;
+overflow: hidden;
+}
+
+.month-select-row {
+display: grid;
+grid-template-columns: 38px minmax(0, 1fr) minmax(0, 1fr) 38px 38px;
 gap: 6px;
-align-items: center;
+align-items: stretch;
+width: 100%;
+min-width: 0;
+}
+
+.month-select-row > * {
+min-width: 0;
 }
 
 .month-nav-btn {
 border: 1px solid var(--border-color);
 background: var(--card-bg);
 color: var(--text-main);
-width: 34px;
-height: 34px;
+width: 100%;
+height: 38px;
 border-radius: 8px;
 font-size: 0.9rem;
 font-weight: 700;
@@ -196,43 +219,107 @@ line-height: 1.45;
 }
 
 .month-select, .year-select {
-padding: 8px 10px;
+width: 100%;
+height: 38px;
+min-width: 0;
+padding: 0 8px;
 border-radius: 8px;
 border: 1px solid var(--border-color);
 background: var(--input-bg);
 color: var(--text-main);
-font-size: 0.85rem;
+font-size: 0.82rem;
 font-weight: 600;
 outline: none;
 }
 
-.year-select { flex: 0.8; }
-.month-select { flex: 1.2; }
-
 .period-setting {
+display: grid;
+grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+align-items: center;
+gap: 8px;
+width: 100%;
+min-width: 0;
+padding: 6px;
+border: 1px solid var(--border-color);
+background: var(--card-bg);
+border-radius: 10px;
+font-size: 0.72rem;
+font-weight: 700;
+}
+
+.cutoff-label-wrap {
 display: flex;
 align-items: center;
-gap: 6px;
-padding: 5px 8px;
-border: 1px solid var(--border-color);
+justify-content: center;
+gap: 5px;
+height: 38px;
+padding: 0 8px;
+color: var(--text-sub);
 background: var(--card-sub-bg);
+border: 1px solid var(--border-color);
 border-radius: 8px;
-font-size: 0.72rem;
-font-weight: 600;
+min-width: 0;
 white-space: nowrap;
+}
+
+.cutoff-control {
+display: grid;
+grid-template-columns: minmax(36px, 1fr) 52px minmax(36px, 1fr);
+align-items: center;
+width: 100%;
+height: 38px;
+min-width: 0;
+border: 1px solid var(--border-color);
+background: var(--card-bg);
+border-radius: 8px;
+overflow: hidden;
+box-shadow: 0 1px 2px rgba(0,0,0,0.04);
+}
+
+.cutoff-step-btn {
+width: 100%;
+height: 36px;
+border: none;
+background: var(--card-bg);
+color: var(--primary-color);
+font-size: 1.05rem;
+font-weight: 800;
+cursor: pointer;
+display: flex;
+align-items: center;
+justify-content: center;
+line-height: 1;
+}
+
+.cutoff-step-btn:hover {
+background: var(--primary-light);
+}
+
+.cutoff-step-btn:active {
+transform: scale(0.94);
 }
 
 .period-setting input {
 width: 52px;
-padding: 7px 6px;
-border-radius: 7px;
-border: 1px solid var(--border-color);
+height: 36px;
+padding: 0 3px;
+border: none;
+border-left: 1px solid var(--border-color);
+border-right: 1px solid var(--border-color);
+border-radius: 0;
 background: var(--input-bg);
 color: var(--text-main);
-font-size: 0.8rem;
-font-weight: 700;
+font-size: 0.86rem;
+font-weight: 800;
 text-align: center;
 outline: none;
+-moz-appearance: textfield;
+}
+
+.period-setting input::-webkit-outer-spin-button,
+.period-setting input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
 }
 
 .btn-clear-day {
@@ -270,8 +357,8 @@ flex: 1;
 
 .btn-clear-month {
 border: 1px solid var(--border-color);
-background: var(--card-sub-bg);
-width: 38px;
+background: var(--card-bg);
+width: 100%;
 height: 38px;
 border-radius: 10px;
 font-size: 0.95rem;
@@ -404,7 +491,7 @@ display: none;
 /* Calendar Grid Style */
 .calendar-grid {
 display: grid;
-grid-template-columns: repeat(7, 1fr);
+grid-template-columns: repeat(7, minmax(0, 1fr));
 gap: 4px;
 background: var(--card-sub-bg);
 padding: 8px;
@@ -419,6 +506,9 @@ font-size: 0.7rem;
 font-weight: 700;
 color: var(--text-sub);
 padding: 4px 0;
+min-width: 0;
+white-space: nowrap;
+overflow: hidden;
 }
 
 .cal-day-cell {
@@ -426,6 +516,7 @@ background: var(--card-bg);
 border: 1px solid var(--border-color);
 border-radius: 8px;
 min-height: 44px;
+min-width: 0;
 padding: 3px;
 display: flex;
 flex-direction: column;
@@ -466,6 +557,106 @@ font-weight: 700;
 .badge-inc { background: #dcfce7; color: #15803d; }
 .badge-ns { background: #fef3c7; color: #b45309; }
 .badge-exp { background: #fee2e2; color: #b91c1c; }
+
+
+/* Inline day dropdown editor */
+.cal-day-cell.is-selected {
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 2px color-mix(in srgb, var(--primary-color) 18%, transparent);
+    background: var(--primary-light);
+}
+
+.cal-list-item.is-selected {
+    border-color: var(--primary-color);
+    background: var(--primary-light);
+}
+
+.day-dropdown-panel {
+    grid-column: 1 / -1;
+    width: 100%;
+    min-width: 0;
+    display: grid;
+    grid-template-rows: 0fr;
+    opacity: 0;
+    transform: translateY(-8px);
+    transition: grid-template-rows 0.34s cubic-bezier(.2,.8,.2,1),
+                opacity 0.22s ease,
+                transform 0.34s cubic-bezier(.2,.8,.2,1),
+                margin 0.34s cubic-bezier(.2,.8,.2,1);
+    margin: 0;
+    position: relative;
+    z-index: 4;
+}
+
+.day-dropdown-panel.open {
+    grid-template-rows: 1fr;
+    opacity: 1;
+    transform: translateY(0);
+    margin: 5px 0 7px;
+}
+
+.day-dropdown-inner {
+    min-height: 0;
+    overflow: hidden;
+}
+
+.day-dropdown-panel::before {
+    content: '';
+    position: absolute;
+    top: -7px;
+    left: var(--arrow-left, 50%);
+    width: 13px;
+    height: 13px;
+    background: var(--card-bg);
+    border-left: 1px solid var(--primary-color);
+    border-top: 1px solid var(--primary-color);
+    transform: translateX(-50%) rotate(45deg);
+    opacity: 0;
+    transition: opacity 0.18s ease 0.08s;
+    z-index: 5;
+}
+
+.day-dropdown-panel.open::before {
+    opacity: 1;
+}
+
+.day-dropdown-panel .day-dropdown-card {
+    width: 100%;
+    max-width: none;
+    max-height: none;
+    overflow: visible;
+    margin: 0;
+    padding: 12px;
+    gap: 10px;
+    border-radius: 12px;
+    border: 1px solid var(--primary-color);
+    box-shadow: 0 8px 22px rgba(15, 23, 42, 0.10);
+    background: var(--card-bg);
+}
+
+.day-dropdown-panel .modal-header,
+.day-dropdown-panel .day-modal-actions {
+    position: static !important;
+    top: auto !important;
+    bottom: auto !important;
+    background: transparent;
+}
+
+.day-dropdown-panel.list-dropdown {
+    display: grid;
+    width: 100%;
+    flex: 0 0 auto;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .day-dropdown-panel {
+        transition: none;
+        transform: none;
+    }
+    .day-dropdown-panel::before {
+        transition: none;
+    }
+}
 
 /* Calendar List / To-Do Style Theme */
 .calendar-list-view {
@@ -653,6 +844,30 @@ display: grid;
 grid-template-columns: 1fr 1fr;
 gap: 8px;
 }
+
+
+    .day-dropdown-panel.open {
+        margin: 4px 0 6px;
+    }
+
+    .day-dropdown-panel .day-dropdown-card {
+        max-width: 100%;
+        max-height: none;
+        margin: 0;
+        padding: 9px;
+        gap: 7px;
+        border-radius: 10px;
+        overflow: visible;
+    }
+
+    .day-dropdown-panel .modal-header {
+        padding-bottom: 5px;
+        font-size: 0.84rem;
+    }
+
+    .day-dropdown-panel .day-modal-actions {
+        padding-top: 3px;
+    }
 
 @media (max-width: 360px) {
 .group-inputs { grid-template-columns: 1fr; }
@@ -1010,6 +1225,248 @@ gap: 8px;
 .breakdown-row:last-child {
 border-bottom: none;
 }
+
+/* =========================================================
+   Mobile fixes
+   - ป้องกันช่องตัดรอบล้นกรอบ
+   - ทำปฏิทิน 7 คอลัมน์ให้กว้างเท่ากัน
+   - ย่อ popup และชิดด้านบนบนมือถือ
+   ========================================================= */
+@media (max-width: 520px) {
+    body {
+        padding: 6px;
+    }
+
+    .container {
+        padding: 16px 10px 14px 10px;
+        border-radius: 14px;
+    }
+
+    h1 {
+        padding-right: 92px;
+        font-size: 1.08rem;
+    }
+
+    .month-bar {
+        gap: 6px;
+        padding: 6px;
+    }
+
+    .month-select-row {
+        grid-template-columns: 34px minmax(0, 1fr) minmax(0, 1fr) 34px 34px;
+        gap: 4px;
+    }
+
+    .month-select,
+    .year-select {
+        height: 36px;
+        padding: 0 5px;
+        font-size: 0.74rem;
+    }
+
+    .month-select-row .month-nav-btn,
+    .month-select-row .btn-clear-month {
+        height: 36px;
+    }
+
+    .period-setting {
+        grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+        padding: 5px;
+        gap: 5px;
+    }
+
+    .cutoff-label-wrap,
+    .cutoff-control {
+        height: 36px;
+    }
+
+    .cutoff-label-wrap {
+        padding: 0 5px;
+        font-size: 0.68rem;
+    }
+
+    .cutoff-control {
+        grid-template-columns: minmax(32px, 1fr) 44px minmax(32px, 1fr);
+    }
+
+    .cutoff-step-btn {
+        height: 34px;
+    }
+
+    .period-setting input {
+        width: 44px;
+        height: 34px;
+        padding: 0 2px;
+    }
+
+    .period-info-bar {
+        margin-top: -8px;
+        padding: 7px 8px;
+        font-size: 0.66rem;
+        overflow-wrap: anywhere;
+    }
+
+    .calendar-grid {
+        grid-template-columns: repeat(7, minmax(0, 1fr));
+        gap: 2px;
+        padding: 5px;
+    }
+
+    .cal-header-day {
+        font-size: 0.60rem;
+        padding: 3px 0;
+        min-width: 0;
+        white-space: nowrap;
+        overflow: visible;
+    }
+
+    .cal-day-cell {
+        min-width: 0;
+        min-height: 40px;
+        padding: 2px;
+        border-radius: 6px;
+        overflow: hidden;
+    }
+
+    .cal-day-num {
+        font-size: 0.64rem;
+    }
+
+    .cal-badges {
+        gap: 1px;
+    }
+
+    .badge {
+        max-width: 100%;
+        font-size: 0.45rem;
+        padding: 1px 2px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        white-space: nowrap;
+    }
+
+    .modal-overlay {
+        align-items: flex-start;
+        padding: 6px;
+        overflow-y: auto;
+    }
+
+    .modal-card {
+        max-width: 100%;
+        max-height: calc(100dvh - 12px);
+        margin: 0 auto;
+        padding: 10px;
+        gap: 8px;
+        border-radius: 12px;
+    }
+
+    .modal-header {
+        padding-bottom: 6px;
+        font-size: 0.88rem;
+        position: sticky;
+        top: -10px;
+        z-index: 3;
+        background: var(--card-bg);
+    }
+
+    .modal-section-title {
+        font-size: 0.76rem;
+        margin-top: 2px;
+    }
+
+    .modal-card .stacked-container {
+        gap: 8px;
+    }
+
+    .modal-card .col-box {
+        padding: 8px;
+        gap: 6px;
+    }
+
+    .modal-card .group-inputs {
+        gap: 6px;
+    }
+
+    .modal-card .input-card input {
+        padding: 7px 8px;
+        font-size: 0.82rem;
+    }
+
+    .modal-card .input-card label,
+    .modal-card .checkbox-label {
+        font-size: 0.75rem;
+    }
+
+    .modal-card .btn-add-item {
+        padding: 7px 8px;
+        margin-top: 5px;
+    }
+
+    .day-modal-actions {
+        position: sticky;
+        bottom: -10px;
+        z-index: 3;
+        background: var(--card-bg);
+        padding-top: 4px;
+    }
+}
+
+@media (max-width: 360px) {
+    .month-select-row {
+        grid-template-columns: 32px minmax(0, 1fr) minmax(0, 1fr) 32px 32px;
+        gap: 3px;
+    }
+
+    .month-select-row .month-nav-btn,
+    .month-select-row .btn-clear-month,
+    .month-select,
+    .year-select {
+        height: 34px;
+    }
+
+    .month-select,
+    .year-select {
+        font-size: 0.68rem;
+        padding-left: 2px;
+        padding-right: 2px;
+    }
+
+    .cutoff-label-wrap,
+    .cutoff-control {
+        height: 34px;
+    }
+
+    .cutoff-label-wrap {
+        font-size: 0.64rem;
+    }
+
+    .cutoff-control {
+        grid-template-columns: minmax(30px, 1fr) 40px minmax(30px, 1fr);
+    }
+
+    .cutoff-step-btn,
+    .period-setting input {
+        height: 32px;
+    }
+
+    .period-setting input {
+        width: 40px;
+    }
+
+    .calendar-grid {
+        gap: 1px;
+        padding: 4px;
+    }
+
+    .cal-header-day {
+        font-size: 0.56rem;
+    }
+
+    .cal-day-cell {
+        min-height: 38px;
+    }
+}
+
 </style>
 </head>
 <body>
@@ -1027,16 +1484,25 @@ border-bottom: none;
 <h1 id="txt_title">Salary & OT Calculator</h1>
 
 <div class="month-bar">
+<div class="month-select-row">
 <button class="month-nav-btn" onclick="goToPrevMonth()" title="เดือนก่อนหน้า">◀</button>
 <select id="year-select" class="year-select" onchange="onMonthOrYearChange()"></select>
 <select id="month-select" class="month-select" onchange="onMonthOrYearChange()"></select>
 <button class="month-nav-btn" onclick="goToNextMonth()" title="เดือนถัดไป">▶</button>
+<button class="btn-clear-month" onclick="confirmClearMonthData()" id="btn_clear_month" title="ล้างข้อมูลเดือนนี้">🗑️</button>
+</div>
 <div class="period-setting" title="กำหนดวันตัดรอบเงินเดือน/OT">
+<div class="cutoff-label-wrap">
+<span>📅</span>
 <span id="lbl_cutoff_day">ตัดรอบ</span>
-<input type="number" id="period-cutoff-day" min="1" max="31" value="25" onchange="onPeriodCutoffChange()">
 <span id="lbl_cutoff_suffix">วัน</span>
 </div>
-<button class="btn-clear-month" onclick="confirmClearMonthData()" id="btn_clear_month" title="ล้างข้อมูลเดือนนี้">🗑️</button>
+<div class="cutoff-control" aria-label="ปรับวันตัดรอบ">
+<button type="button" class="cutoff-step-btn" onclick="adjustPeriodCutoff(-1)" title="ลดวันตัดรอบ" aria-label="ลดวันตัดรอบ">−</button>
+<input type="number" id="period-cutoff-day" min="1" max="31" value="25" onchange="onPeriodCutoffChange()">
+<button type="button" class="cutoff-step-btn" onclick="adjustPeriodCutoff(1)" title="เพิ่มวันตัดรอบ" aria-label="เพิ่มวันตัดรอบ">+</button>
+</div>
+</div>
 </div>
 
 <div class="period-info-bar" id="period-info-bar">
@@ -1292,16 +1758,11 @@ border-bottom: none;
 </div>
 </div>
 
-<div class="month-nav-bottom">
-<button class="month-nav-btn" onclick="goToPrevMonth()"><span>◀</span><span id="txt_nav_prev_bottom">เดือนก่อนหน้า</span></button>
-<button class="month-nav-btn" onclick="goToNextMonth()"><span id="txt_nav_next_bottom">เดือนถัดไป</span><span>▶</span></button>
-</div>
-
 <button class="btn-danger-full" onclick="confirmClearAllData()" id="btn_clear_all">🗑️ ล้างข้อมูลทั้งหมด</button>
 </div>
 
-<div class="modal-overlay" id="day-modal" style="display: none;">
-<div class="modal-card">
+<div id="day-editor-home" style="display: none;">
+<div class="modal-card day-dropdown-card" id="day-editor-card">
 <div class="modal-header">
 <span id="modal-date-title">บันทึกข้อมูลวันที่</span>
 <button class="modal-close" onclick="closeDayModal()">✕</button>
@@ -1436,7 +1897,18 @@ cur.setDate(cur.getDate() + 1);
 return dates;
 }
 
+function adjustPeriodCutoff(delta) {
+const input = document.getElementById('period-cutoff-day');
+if (!input) return;
+let value = parseInt(input.value);
+if (isNaN(value)) value = getPeriodCutoffDay();
+value = Math.min(31, Math.max(1, value + delta));
+input.value = value;
+onPeriodCutoffChange();
+}
+
 function onPeriodCutoffChange() {
+selectedDayKey = null;
 savePeriodCutoffDay();
 // โหลดข้อมูลเดิมทั้งหมดกลับมา แล้วเปลี่ยนเฉพาะช่วงวันที่ที่แสดง
 dailyDataMap = getAllStoredDailyData();
@@ -1512,24 +1984,28 @@ const y = lang === 'th' ? d.getFullYear() + 543 : d.getFullYear();
 return `${d.getDate()} ${monthNames[lang][d.getMonth()]} ${y}`;
 }
 
-function updatePeriodInfoBar() {
+function updatePeriodInfoBar(lang = currentLang) {
 const yearEl = document.getElementById('year-select');
 const monthEl = document.getElementById('month-select');
 if (!yearEl || !monthEl || !yearEl.value || monthEl.value === '') return;
+
+const activeLang = translations[lang] ? lang : 'th';
+const t = translations[activeLang];
 const year = parseInt(yearEl.value);
 const month = parseInt(monthEl.value);
 const dates = getPeriodDates(year, month);
+if (!dates.length) return;
+
 const start = dates[0];
 const end = dates[dates.length - 1];
 const spend = getSpendMonthLabel(year, month);
-const spendYearDisplay = currentLang === 'th' ? spend.year + 543 : spend.year;
+const spendYearDisplay = activeLang === 'th' ? spend.year + 543 : spend.year;
 const el = document.getElementById('lbl_period_range');
 if (!el) return;
-if (currentLang === 'th') {
-el.innerText = `📆 รอบคำนวณเงินเดือน/โอที: ${formatPeriodDate(start, 'th')} - ${formatPeriodDate(end, 'th')} (ตัดรอบวันที่ ${getPeriodCutoffDay()}) ➜ ใช้จ่ายเดือน ${monthFullNames.th[spend.month]} ${spendYearDisplay}`;
-} else {
-el.innerText = `📆 Pay Period: ${formatPeriodDate(start, 'en')} - ${formatPeriodDate(end, 'en')} (cut-off ${getPeriodCutoffDay()}) ➜ Spending money for ${monthFullNames.en[spend.month]} ${spendYearDisplay}`;
-}
+
+el.innerText =
+`📆 ${t.period_title}: ${formatPeriodDate(start, activeLang)} - ${formatPeriodDate(end, activeLang)} ` +
+`(${t.period_cutoff} ${getPeriodCutoffDay()}) ➜ ${t.period_spending} ${monthFullNames[activeLang][spend.month]} ${spendYearDisplay}`;
 }
 
 function initTheme() {
@@ -1606,15 +2082,15 @@ net_total_deduct: "ค่าใช้จ่ายของเดือนนี�
 net_final_rem: "เงินคงเหลือสำหรับใช้เดือนนี้",
 total_prefix: "รวม: ",
 currency: " บาท",
-lbl_y_income: "รายรับรวมทั้งปี",
-lbl_y_ss: "ประกันสังคมทั้งปี",
+lbl_y_income: "รายรับที่ได้รับรวมทั้งปี",
+lbl_y_ss: "ประกันสังคมที่หักทั้งปี",
 lbl_y_expense: "รายจ่ายรวมทั้งปี",
 lbl_y_net: "คงเหลือสุทธิทั้งปี",
-chart_title: "📊 กราฟเปรียบเทียบรายรับ-รายจ่าย-คงเหลือ แต่ละรอบ",
+chart_title: "📊 กราฟเปรียบเทียบรายรับ-รายจ่าย-คงเหลือ แต่ละเดือน",
 lg_inc: "รายรับ",
 lg_exp: "รายจ่าย",
 lg_net: "คงเหลือ",
-th_month: "รอบ",
+th_month: "เดือน",
 th_income: "รายรับ",
 th_ss: "ประกันสังคม",
 th_expense: "รายจ่าย",
@@ -1629,6 +2105,9 @@ btn_save_day: "บันทึกข้อมูล",
 btn_clear_day: "🗑️ ล้างข้อมูล",
 lbl_cutoff_day: "ตัดรอบ",
 lbl_cutoff_suffix: "วัน",
+period_title: "รอบคำนวณเงินเดือน/โอที",
+period_cutoff: "ตัดรอบวันที่",
+period_spending: "ใช้จ่ายเดือน",
 toggle_cal_text: "เปิด",
 toggle_cal_off: "ปิด",
 txt_bd_exp_title: "💸 รายจ่าย (รวม)",
@@ -1696,15 +2175,15 @@ net_total_deduct: "Expenses for this month",
 net_final_rem: "Money remaining for this month",
 total_prefix: "Total: ",
 currency: " THB",
-lbl_y_income: "Yearly Gross Income",
-lbl_y_ss: "Yearly Social Security",
+lbl_y_income: "Total Income Received This Year",
+lbl_y_ss: "Social Security Withheld This Year",
 lbl_y_expense: "Yearly Total Expense",
 lbl_y_net: "Yearly Net Balance",
 chart_title: "📊 Income / Expense / Net Chart by Period",
 lg_inc: "Income",
 lg_exp: "Expense",
 lg_net: "Net Balance",
-th_month: "Period",
+th_month: "Month",
 th_income: "Income",
 th_ss: "Soc.Sec",
 th_expense: "Expense",
@@ -1719,6 +2198,9 @@ btn_save_day: "Save Data",
 btn_clear_day: "🗑️ Clear Data",
 lbl_cutoff_day: "Cut-off",
 lbl_cutoff_suffix: "day",
+period_title: "Salary / OT Pay Period",
+period_cutoff: "Cut-off day",
+period_spending: "Spending money for",
 toggle_cal_text: "On",
 toggle_cal_off: "Off",
 txt_bd_exp_title: "💸 Expenses (Total)",
@@ -1877,7 +2359,15 @@ opt.textContent = lang === 'th' ? `ปี ${y + 543}` : `Year ${y}`;
 const cutoffInput = document.getElementById('period-cutoff-day');
 if (cutoffInput) cutoffInput.value = getPeriodCutoffDay();
 
+// รีเฟรชข้อความรอบคำนวณทันทีด้วยภาษาที่เลือก
+updatePeriodInfoBar(lang);
+
 loadCurrentMonthData();
+
+// ป้องกันข้อความ/หัวปฏิทินค้างเป็นภาษาเดิมบนบาง browser มือถือ
+updatePeriodInfoBar(lang);
+renderCalendar();
+calculateYearlySummary();
 }
 
 const STORAGE_KEY_PREFIX = 'calc_data_v7_';
@@ -1887,10 +2377,39 @@ calendarViewMode = calendarViewMode === 'grid' ? 'list' : 'grid';
 renderCalendar();
 }
 
+function rehomeDayEditor() {
+const home = document.getElementById('day-editor-home');
+const card = document.getElementById('day-editor-card');
+if (home && card && card.parentElement !== home) home.appendChild(card);
+}
+
+function createDayDropdownPanel(arrowColumn = 3, listMode = false) {
+const panel = document.createElement('div');
+panel.className = 'day-dropdown-panel' + (listMode ? ' list-dropdown' : '');
+panel.id = 'day-dropdown-panel';
+const arrowLeft = listMode ? 50 : ((arrowColumn + 0.5) / 7) * 100;
+panel.style.setProperty('--arrow-left', `${arrowLeft}%`);
+
+const inner = document.createElement('div');
+inner.className = 'day-dropdown-inner';
+inner.id = 'day-dropdown-inner';
+panel.appendChild(inner);
+
+const card = document.getElementById('day-editor-card');
+if (card) inner.appendChild(card);
+
+requestAnimationFrame(() => {
+    requestAnimationFrame(() => panel.classList.add('open'));
+});
+return panel;
+}
+
 function renderCalendar() {
 const grid = document.getElementById('calendar-grid');
 const listView = document.getElementById('calendar-list-view');
 
+// ย้าย editor กลับบ้านก่อนล้าง DOM เพื่อไม่ให้ฟอร์มหาย
+rehomeDayEditor();
 grid.innerHTML = '';
 listView.innerHTML = '';
 
@@ -1918,12 +2437,16 @@ emptyCell.className = 'cal-day-cell empty';
 grid.appendChild(emptyCell);
 }
 
-periodDates.forEach(date => {
+const selectedIndex = selectedDayKey ? periodDates.findIndex(d => dateKey(d) === selectedDayKey) : -1;
+const selectedWeek = selectedIndex >= 0 ? Math.floor((firstDayIndex + selectedIndex) / 7) : -1;
+
+periodDates.forEach((date, dateIndex) => {
 const key = dateKey(date);
 const cell = document.createElement('div');
 const dayData = dailyDataMap[key];
+const isSelected = key === selectedDayKey;
 
-cell.className = 'cal-day-cell' + (dayData ? ' has-data' : '');
+cell.className = 'cal-day-cell' + (dayData ? ' has-data' : '') + (isSelected ? ' is-selected' : '');
 cell.onclick = () => openDayModal(date);
 
 let badgesHtml = '';
@@ -1957,6 +2480,15 @@ cell.innerHTML = `
 <div class="cal-badges">${badgesHtml}</div>
 `;
 grid.appendChild(cell);
+
+// วาง dropdown หลังสุดของแถวสัปดาห์ที่มีวันที่เลือกอยู่
+const gridPosition = firstDayIndex + dateIndex;
+const currentWeek = Math.floor(gridPosition / 7);
+const isWeekEnd = (gridPosition % 7 === 6) || dateIndex === periodDates.length - 1;
+if (selectedWeek >= 0 && currentWeek === selectedWeek && isWeekEnd) {
+    const selectedColumn = (firstDayIndex + selectedIndex) % 7;
+    grid.appendChild(createDayDropdownPanel(selectedColumn, false));
+}
 });
 } else {
 // โหมด To-Do List ลำดับใหม่: รายรับ ➔ รายจ่าย ➔ OT (ไม่ใส่คำว่า OT, รับ, จ่าย ถ้าไม่มีข้อมูล)
@@ -1970,7 +2502,8 @@ const item = document.createElement('div');
 const dayData = dailyDataMap[key];
 const dayOfWeek = dayHeaders[currentLang][date.getDay()];
 
-item.className = 'cal-list-item' + (dayData ? ' has-data' : '');
+const isSelected = key === selectedDayKey;
+item.className = 'cal-list-item' + (dayData ? ' has-data' : '') + (isSelected ? ' is-selected' : '');
 item.onclick = () => openDayModal(date);
 
 let incChip = '';
@@ -2016,6 +2549,9 @@ ${rowDataHtml}
 </div>
 `;
 listView.appendChild(item);
+if (isSelected) {
+    listView.appendChild(createDayDropdownPanel(3, true));
+}
 });
 }
 }
@@ -2136,10 +2672,19 @@ alert(t.msg_cleared_all);
 }
 
 function openDayModal(date) {
-selectedDayKey = dateKey(date);
-const year = document.getElementById('year-select').value;
-const month = parseInt(document.getElementById('month-select').value);
+const newKey = dateKey(date);
+
+// กดวันเดิมซ้ำ = พับ dropdown กลับ
+if (selectedDayKey === newKey && document.getElementById('day-dropdown-panel')) {
+    closeDayModal();
+    return;
+}
+
+selectedDayKey = newKey;
 const yDisplay = currentLang === 'th' ? date.getFullYear() + 543 : date.getFullYear();
+
+// render ก่อน เพื่อสร้างตำแหน่ง dropdown ใต้แถวของวันที่ที่เลือก
+renderCalendar();
 
 document.getElementById('modal-date-title').innerText = `${date.getDate()} ${monthFullNames[currentLang][date.getMonth()]} ${yDisplay}`;
 
@@ -2167,7 +2712,12 @@ d.extraIncomes.forEach(item => addModalItem('m_inc_list', item.name, item.amount
 }
 
 updateWorkCheckboxState();
-document.getElementById('day-modal').style.display = 'flex';
+
+// ช่วยให้วันที่และหัว dropdown อยู่ในจอ โดยไม่กระชากหน้าจอ
+const selectedCell = document.querySelector('.cal-day-cell.is-selected, .cal-list-item.is-selected');
+if (selectedCell && typeof selectedCell.scrollIntoView === 'function') {
+    selectedCell.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+}
 }
 
 function onModalOtChange() {
@@ -2270,14 +2820,27 @@ if (!isCalendarCollapsed) {
 recalculateMonthlyFromDaily();
 }
 
-closeDayModal();
+closeDayModal(true);
 renderCalendar();
 calculate();
 calculateYearlySummary();
 }
 
-function closeDayModal() {
-document.getElementById('day-modal').style.display = 'none';
+function closeDayModal(immediate = false) {
+const panel = document.getElementById('day-dropdown-panel');
+selectedDayKey = null;
+
+if (!panel || immediate) {
+    rehomeDayEditor();
+    renderCalendar();
+    return;
+}
+
+panel.classList.remove('open');
+window.setTimeout(() => {
+    rehomeDayEditor();
+    renderCalendar();
+}, 340);
 }
 
 function saveDayData() {
@@ -2317,7 +2880,7 @@ delete dailyDataMap[selectedDayKey];
 dailyDataMap[selectedDayKey] = { work, night, ot1, ot15, ot2, ot3, expFood, expCommute, extraExpenses, extraIncomes };
 }
 
-closeDayModal();
+closeDayModal(true);
 if (!isCalendarCollapsed) {
 recalculateMonthlyFromDaily();
 }
@@ -2409,6 +2972,7 @@ return result;
 }
 
 function onMonthOrYearChange() {
+selectedDayKey = null;
 loadCurrentMonthData();
 }
 
@@ -2453,7 +3017,10 @@ lang_allowance: document.getElementById('lang_allowance').value,
 night_days: document.getElementById('night_days').value,
 isCalendarCollapsed: isCalendarCollapsed,
 calendarViewMode: calendarViewMode,
-dailyDataMap: dailyDataMap,
+// เก็บสำเนาเฉพาะข้อมูลรายวันในรอบนี้เท่านั้น
+// ข้อมูลรายวันทั้งหมดเก็บแยกใน DAILY_GLOBAL_KEY อยู่แล้ว
+// ช่วยป้องกันข้อมูลทั้งปีถูกทำสำเนาซ้ำในทุกเดือน
+dailyDataMap: getDailyDataForCurrentPeriod(),
 monthExtraExp: monthExtraExp,
 monthExtraInc: monthExtraInc
 };
@@ -2474,9 +3041,15 @@ const data = JSON.parse(localStorage.getItem(key) || '{}');
 
 // รวมข้อมูลเดิมจากทุก period ก่อน เพื่อให้เปลี่ยนวันตัดรอบแล้วข้อมูลรายวันยังอยู่
 dailyDataMap = getAllStoredDailyData();
-// ข้อมูลจากเดือนปัจจุบันมี priority สูงสุด
+// รองรับข้อมูลเก่า: เติมข้อมูลจาก storage รายเดือนเฉพาะวันที่ที่ global ยังไม่มี
+// ห้ามใช้ snapshot เก่าของเดือนมา override DAILY_GLOBAL_KEY เพราะอาจทำให้ข้อมูลเดือนอื่นย้อนกลับ/ถูกก๊อป
 if (data.dailyDataMap && typeof data.dailyDataMap === 'object') {
-Object.assign(dailyDataMap, data.dailyDataMap);
+Object.keys(data.dailyDataMap).forEach(key => {
+if (!Object.prototype.hasOwnProperty.call(dailyDataMap, key)) {
+dailyDataMap[key] = data.dailyDataMap[key];
+}
+});
+saveAllStoredDailyData();
 }
 isCalendarCollapsed = data.isCalendarCollapsed !== undefined ? !!data.isCalendarCollapsed : true;
 calendarViewMode = data.calendarViewMode || 'grid';
@@ -2556,7 +3129,7 @@ function formatNum(num) {
 return num.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
 }
 
-function calculateMonthDataFromObj(data) {
+function calculateMonthDataFromObj(data, year = null, month = null, dailySourceMap = null) {
 const salary = parseFloat(data.salary) || 0;
 const hoursPerDay = parseFloat(data.hours) || 0;
 const workDays = parseFloat(data.work_days) || 0;
@@ -2581,8 +3154,23 @@ totalOt = (hourlyRate * ot1 * 1.0) + (hourlyRate * ot15 * 1.5) + (hourlyRate * o
 let totalExpense = 0;
 let totalExtraInc = 0;
 
-if (data.dailyDataMap) {
-Object.values(data.dailyDataMap).forEach(d => {
+// สำคัญ: ค่าใช้จ่าย/รายรับรายวันต้องคิดเฉพาะวันที่ในรอบของเดือนนั้น
+// เวอร์ชันเก่าเคยบันทึก dailyDataMap ทั้งปีซ้ำในทุก storage key ทำให้สรุปรายปี
+// นำค่าใช้จ่ายชุดเดียวกันไปบวกในหลายเดือน
+let dailyEntries = [];
+if (year !== null && month !== null) {
+const source = (dailySourceMap && typeof dailySourceMap === 'object')
+? dailySourceMap
+: ((data.dailyDataMap && typeof data.dailyDataMap === 'object') ? data.dailyDataMap : {});
+const periodKeys = new Set(getPeriodDates(parseInt(year), parseInt(month)).map(dateKey));
+Object.keys(source).forEach(key => {
+if (periodKeys.has(key) && source[key]) dailyEntries.push(source[key]);
+});
+} else if (data.dailyDataMap && typeof data.dailyDataMap === 'object') {
+dailyEntries = Object.values(data.dailyDataMap);
+}
+
+dailyEntries.forEach(d => {
 totalExpense += (parseFloat(d.expFood) || 0) + (parseFloat(d.expCommute) || 0);
 if (d.extraExpenses && Array.isArray(d.extraExpenses)) {
 d.extraExpenses.forEach(x => totalExpense += (parseFloat(x.amount) || 0));
@@ -2591,7 +3179,6 @@ if (d.extraIncomes && Array.isArray(d.extraIncomes)) {
 d.extraIncomes.forEach(x => totalExtraInc += (parseFloat(x.amount) || 0));
 }
 });
-}
 
 if (data.monthExtraExp && Array.isArray(data.monthExtraExp)) {
 data.monthExtraExp.forEach(x => totalExpense += (parseFloat(x.amount) || 0));
@@ -2741,7 +3328,8 @@ const currentMonth = parseInt(document.getElementById('month-select').value);
 const previous = getPreviousMonthLabel(currentYear, currentMonth);
 const previousKey = getStorageKey(previous.year, previous.month);
 const previousData = JSON.parse(localStorage.getItem(previousKey) || '{}');
-const previousResult = calculateMonthDataFromObj(previousData);
+const allDailyForPrevious = getAllStoredDailyData();
+const previousResult = calculateMonthDataFromObj(previousData, previous.year, previous.month, allDailyForPrevious);
 
 // เงินที่ได้รับจริงจากรอบก่อน = รายได้ทั้งหมดของรอบก่อน - ประกันสังคม
 // ไม่หักค่าใช้จ่ายของรอบก่อน เพราะค่าใช้จ่ายเหล่านั้นเป็นของเดือนก่อน
@@ -2804,37 +3392,58 @@ return { year: py, month: pm };
 }
 
 function calculateYearlySummary() {
-const year = document.getElementById('year-select').value;
+const year = parseInt(document.getElementById('year-select').value);
 const tbody = document.getElementById('yearly-table-body');
 tbody.innerHTML = '';
 
+/*
+ * หัวข้อ 4 ต้องใช้หลักเดียวกับหัวข้อ 3
+ * เดือนที่แสดง = เดือนที่นำเงินมาใช้
+ * รายรับของเดือนนั้น = รายรับจากรอบเดือนก่อนหน้า
+ * ประกันสังคม = ประกันสังคมของรอบเดือนก่อนหน้า
+ * รายจ่าย = รายจ่ายของเดือนที่แสดง
+ * คงเหลือ = รายรับรอบก่อน - ประกันสังคมรอบก่อน - รายจ่ายเดือนนี้
+ */
 let yearIncome = 0, yearSs = 0, yearExpense = 0, yearNet = 0;
 const chartData = [];
+const allDaily = getAllStoredDailyData();
 
 monthNames[currentLang].forEach((mName, mIdx) => {
-const key = getStorageKey(year, mIdx);
-const data = JSON.parse(localStorage.getItem(key) || '{}');
-const res = calculateMonthDataFromObj(data);
+// ค่าใช้จ่ายของเดือนที่กำลังสรุป
+const currentKey = getStorageKey(year, mIdx);
+const currentData = JSON.parse(localStorage.getItem(currentKey) || '{}');
+const currentResult = calculateMonthDataFromObj(currentData, year, mIdx, allDaily);
 
-yearIncome += res.income;
-yearSs += res.ss;
-yearExpense += res.expense;
-yearNet += res.net;
+// รายได้ที่นำมาใช้ในเดือนนี้ ต้องมาจากรอบเดือนก่อนหน้า
+const previous = getPreviousMonthLabel(year, mIdx);
+const previousKey = getStorageKey(previous.year, previous.month);
+const previousData = JSON.parse(localStorage.getItem(previousKey) || '{}');
+const previousResult = calculateMonthDataFromObj(previousData, previous.year, previous.month, allDaily);
+
+const receivedGross = previousResult.income;
+const receivedSs = previousResult.ss;
+const currentExpense = currentResult.expense;
+const spendingNet = receivedGross - receivedSs - currentExpense;
+
+yearIncome += receivedGross;
+yearSs += receivedSs;
+yearExpense += currentExpense;
+yearNet += spendingNet;
 
 chartData.push({
 month: mName,
-income: res.income,
-expense: res.expense + res.ss,
-net: res.net
+income: receivedGross,
+expense: currentExpense + receivedSs,
+net: spendingNet
 });
 
 const tr = document.createElement('tr');
 tr.innerHTML = `
 <td><strong>${mName}</strong></td>
-<td>${formatNum(res.income)}</td>
-<td style="color:var(--danger-color);">${res.ss > 0 ? '-' + formatNum(res.ss) : '0.00'}</td>
-<td style="color:var(--danger-color);">${res.expense > 0 ? '-' + formatNum(res.expense) : '0.00'}</td>
-<td style="font-weight:700; color:${res.net >= 0 ? 'var(--success-color)' : 'var(--danger-color)'};">${formatNum(res.net)}</td>
+<td>${formatNum(receivedGross)}</td>
+<td style="color:var(--danger-color);">${receivedSs > 0 ? '-' + formatNum(receivedSs) : '0.00'}</td>
+<td style="color:var(--danger-color);">${currentExpense > 0 ? '-' + formatNum(currentExpense) : '0.00'}</td>
+<td style="font-weight:700; color:${spendingNet >= 0 ? 'var(--success-color)' : 'var(--danger-color)'};">${formatNum(spendingNet)}</td>
 `;
 tbody.appendChild(tr);
 });
@@ -2847,7 +3456,7 @@ const yNetEl = document.getElementById('y_val_net');
 yNetEl.innerText = formatNum(yearNet);
 yNetEl.style.color = yearNet >= 0 ? 'var(--success-color)' : 'var(--danger-color)';
 
-const yearLabel = currentLang === 'th' ? `ปี ${parseInt(year) + 543}` : `Year ${year}`;
+const yearLabel = currentLang === 'th' ? `ปี ${year + 543}` : `Year ${year}`;
 document.getElementById('lbl_yearly_title_year').innerText = `(${yearLabel})`;
 
 renderYearlyChart(chartData);
