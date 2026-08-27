@@ -3623,6 +3623,405 @@ font-size: 0.63rem !important;
 }
 }
 
+
+/* ============================================================
+   Savings breakdown
+   ============================================================ */
+.savings-breakdown {
+margin-top: 3px;
+padding: 7px 9px;
+border: 1px solid color-mix(in srgb, var(--saving-color) 18%, var(--ui-line));
+border-radius: 10px;
+background: color-mix(in srgb, var(--saving-color) 4%, var(--ui-surface));
+}
+
+.savings-breakdown .summary-row {
+min-height: 29px;
+}
+
+.savings-expense-value {
+color: var(--danger-color) !important;
+font-weight: 750 !important;
+}
+
+.savings-calc-total {
+margin-top: 5px !important;
+padding-top: 8px !important;
+}
+
+.savings-calc-total .val {
+color: var(--saving-color);
+}
+
+/* ============================================================
+   Recurring expense presets
+   ============================================================ */
+.expense-preset-box {
+margin: 0 0 9px;
+padding: 9px;
+border: 1px solid var(--ui-line);
+border-radius: 10px;
+background: var(--ui-soft);
+}
+
+.expense-preset-title {
+margin-bottom: 6px;
+font-size: 0.7rem;
+font-weight: 800;
+color: var(--text-main);
+}
+
+.expense-preset-row {
+display: grid;
+grid-template-columns: minmax(0, 1fr) auto;
+gap: 6px;
+align-items: center;
+}
+
+.expense-preset-select {
+width: 100%;
+height: 36px;
+min-width: 0;
+padding: 0 8px;
+border: 1px solid var(--ui-line);
+border-radius: 8px;
+background: var(--ui-surface);
+color: var(--text-main);
+font-size: 0.74rem;
+font-weight: 650;
+outline: none;
+}
+
+.expense-preset-select:focus {
+border-color: var(--primary-color);
+box-shadow: 0 0 0 3px rgba(37, 99, 235, .08);
+}
+
+.expense-preset-actions {
+display: grid;
+grid-template-columns: minmax(0, 1fr) auto;
+gap: 6px;
+margin-top: 6px;
+}
+
+.preset-action-btn {
+min-height: 34px;
+padding: 6px 9px;
+border: 1px solid var(--ui-line);
+border-radius: 8px;
+background: var(--ui-surface);
+color: var(--text-main);
+font-size: 0.68rem;
+font-weight: 750;
+cursor: pointer;
+}
+
+.preset-action-btn.primary {
+border-color: color-mix(in srgb, var(--primary-color) 35%, var(--ui-line));
+color: var(--primary-color);
+background: var(--primary-light);
+}
+
+.preset-action-btn.danger {
+color: var(--danger-color);
+}
+
+.preset-action-btn:disabled {
+opacity: .45;
+cursor: default;
+}
+
+@media (max-width: 420px) {
+.expense-preset-box {
+padding: 8px;
+}
+
+.expense-preset-actions {
+grid-template-columns: 1fr 88px;
+}
+
+.preset-action-btn {
+font-size: .64rem;
+padding-left: 7px;
+padding-right: 7px;
+}
+}
+
+
+/* ============================================================
+   Shared Income / Expense Preset
+   ============================================================ */
+.finance-preset-box {
+margin: 0 0 10px;
+padding: 10px;
+border: 1px solid var(--ui-line);
+border-radius: 12px;
+background: var(--ui-soft);
+}
+
+.finance-preset-header {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+margin-bottom: 8px;
+}
+
+.finance-preset-title {
+font-size: 0.74rem;
+font-weight: 850;
+color: var(--text-main);
+}
+
+.finance-preset-subtitle {
+margin-top: 2px;
+font-size: 0.6rem;
+font-weight: 600;
+line-height: 1.35;
+color: var(--text-sub);
+}
+
+.finance-preset-row {
+display: grid;
+grid-template-columns: minmax(0, 1fr) 64px;
+gap: 6px;
+align-items: center;
+}
+
+.finance-preset-select {
+height: 38px;
+}
+
+#btn_save_finance_preset {
+flex-shrink: 0;
+white-space: nowrap;
+}
+
+@media (max-width: 420px) {
+.finance-preset-box {
+padding: 8px;
+}
+
+.finance-preset-header {
+align-items: flex-start;
+gap: 7px;
+}
+
+.finance-preset-title {
+font-size: 0.69rem;
+}
+
+.finance-preset-subtitle {
+font-size: 0.56rem;
+}
+
+#btn_save_finance_preset {
+font-size: 0.61rem;
+padding-left: 7px;
+padding-right: 7px;
+}
+}
+
+
+/* ============================================================
+   Section 2 preset wraps both income + expense
+   ============================================================ */
+.finance-preset-wrap {
+margin: 0;
+padding: 11px;
+border-radius: 13px;
+}
+
+.finance-preset-select-row {
+display: block !important;
+margin-bottom: 7px;
+}
+
+.finance-preset-select-row .finance-preset-select {
+width: 100%;
+}
+
+.finance-preset-actions {
+display: grid !important;
+grid-template-columns: minmax(0, 1fr) minmax(76px, .42fr) !important;
+gap: 7px !important;
+margin: 0 0 10px !important;
+}
+
+.finance-preset-actions .preset-action-btn {
+width: 100%;
+min-height: 35px;
+}
+
+.finance-preset-content {
+display: flex;
+flex-direction: column;
+gap: 9px;
+}
+
+.finance-preset-section {
+margin: 0 !important;
+padding: 10px !important;
+border-radius: 11px !important;
+box-shadow: none !important;
+}
+
+/* รายรับเพิ่มเติม = เขียว */
+.finance-income-section {
+border: 1px solid color-mix(in srgb, var(--success-color) 28%, var(--ui-line)) !important;
+background: color-mix(in srgb, var(--success-color) 5%, var(--ui-surface)) !important;
+}
+
+.finance-income-section .col-title.inc {
+color: var(--success-color) !important;
+}
+
+.finance-income-section #lbl_sum_bd_inc {
+color: var(--success-color) !important;
+}
+
+/* รายจ่าย = แดง */
+.finance-expense-section {
+border: 1px solid color-mix(in srgb, var(--danger-color) 28%, var(--ui-line)) !important;
+background: color-mix(in srgb, var(--danger-color) 5%, var(--ui-surface)) !important;
+}
+
+.finance-expense-section .col-title.exp {
+color: var(--danger-color) !important;
+}
+
+.finance-expense-section #lbl_sum_bd_exp {
+color: var(--danger-color) !important;
+}
+
+.finance-section-add {
+border-top: 1px dashed var(--border-color);
+padding-top: 8px;
+margin-top: 6px;
+}
+
+.finance-section-add-title {
+font-size: .75rem;
+font-weight: 700;
+color: var(--text-sub);
+margin-bottom: 6px;
+}
+
+@media (max-width: 420px) {
+.finance-preset-wrap {
+padding: 8px;
+}
+
+.finance-preset-actions {
+grid-template-columns: minmax(0, 1fr) 76px !important;
+gap: 6px !important;
+}
+
+.finance-preset-actions .preset-action-btn {
+min-height: 34px;
+font-size: .64rem;
+}
+
+.finance-preset-section {
+padding: 9px !important;
+}
+}
+
+
+/* ============================================================
+   Section 2 - neutral cards with colored left accent
+   ============================================================ */
+.finance-preset-section {
+background: var(--ui-surface) !important;
+border: 1px solid var(--ui-line) !important;
+border-left-width: 5px !important;
+padding: 11px 12px !important;
+}
+
+.finance-income-section {
+background: var(--ui-surface) !important;
+border-color: var(--ui-line) !important;
+border-left-color: var(--success-color) !important;
+}
+
+.finance-expense-section {
+background: var(--ui-surface) !important;
+border-color: var(--ui-line) !important;
+border-left-color: var(--danger-color) !important;
+}
+
+.finance-income-section .col-title.inc,
+.finance-income-section #lbl_sum_bd_inc {
+color: var(--success-color) !important;
+}
+
+.finance-expense-section .col-title.exp,
+.finance-expense-section #lbl_sum_bd_exp {
+color: var(--danger-color) !important;
+}
+
+/* Preset: [เลือกรายการ] [บันทึก] [ลบ] on one row */
+.finance-preset-control-row {
+display: grid;
+grid-template-columns: minmax(0, 1fr) auto auto;
+gap: 6px;
+align-items: center;
+margin-bottom: 10px;
+}
+
+.finance-preset-control-row .finance-preset-select {
+width: 100%;
+min-width: 0;
+height: 36px;
+}
+
+.finance-preset-control-row .preset-action-btn.compact {
+width: auto !important;
+min-width: 58px;
+min-height: 36px;
+height: 36px;
+padding: 0 10px;
+white-space: nowrap;
+font-size: 0.67rem;
+}
+
+.finance-preset-control-row #btn_delete_finance_preset {
+min-width: 48px;
+}
+
+@media (max-width: 420px) {
+.finance-preset-section {
+padding: 10px !important;
+}
+
+.finance-preset-control-row {
+grid-template-columns: minmax(0, 1fr) 62px 48px;
+gap: 5px;
+}
+
+.finance-preset-control-row .preset-action-btn.compact {
+min-width: 0;
+width: 100% !important;
+padding: 0 5px;
+font-size: 0.62rem;
+}
+}
+
+
+/* Remove the old gray strip beside the colored left accent */
+.finance-preset-section::before {
+display: none !important;
+content: none !important;
+}
+
+.finance-income-section {
+border-left: 5px solid var(--success-color) !important;
+}
+
+.finance-expense-section {
+border-left: 5px solid var(--danger-color) !important;
+}
+
 </style>
 </head>
 <body class="easysal-loading">
@@ -3776,7 +4175,7 @@ font-size: 0.63rem !important;
 </div>
 <div class="group-inputs">
 <div class="input-card">
-<label id="lbl_in_work_days">จำนวนวันเดินทาง (มี OT)</label>
+<label id="lbl_in_work_days">จำนวนวันที่มาทำงาน</label>
 <input type="number" id="work_days" placeholder="0" oninput="saveAndCalculate()">
 </div>
 <div class="input-card">
@@ -3820,36 +4219,70 @@ font-size: 0.63rem !important;
 </div>
 </div>
 <div class="main-section-content" id="main-section-content-2">
-<div class="stacked-container">
-<div class="col-box">
-<div class="col-title exp">
-<span id="txt_bd_exp_title">💸 รายจ่าย (รวม)</span>
-<span id="lbl_sum_bd_exp">0 บาท</span>
-</div>
-<div class="breakdown-list" id="list_bd_exp"></div>
-<div style="border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 6px;">
-<div style="font-size: 0.75rem; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;" id="txt_add_month_exp">➕ เพิ่มรายจ่ายประจำเดือน</div>
-<div class="dynamic-list" id="month_exp_list"></div>
-<button class="btn-add-item" id="btn_add_month_exp" onclick="addMonthItem('month_exp_list')">+ เพิ่มรายการจ่าย</button>
+<div class="finance-preset-box finance-preset-wrap">
+
+<div class="finance-preset-header">
+<div>
+<div class="finance-preset-title" id="txt_finance_preset_title">⚡ Preset รายรับ / รายจ่าย</div>
+<div class="finance-preset-subtitle" id="txt_finance_preset_subtitle">เลือก Preset แล้วใช้งานทันที • เลือก “เลือกรายการ” เพื่อกลับค่าก่อนหน้า</div>
 </div>
 </div>
 
-<div class="col-box">
+<div class="finance-preset-control-row">
+<select id="finance_preset_select"
+        class="expense-preset-select finance-preset-select"
+        aria-label="Preset รายรับและรายจ่าย"
+        onchange="onFinancePresetChange()"></select>
+
+<button type="button"
+        class="preset-action-btn primary compact"
+        id="btn_save_finance_preset"
+        onclick="saveCurrentFinanceAsPreset()">บันทึก</button>
+
+<button type="button"
+        class="preset-action-btn danger compact"
+        id="btn_delete_finance_preset"
+        onclick="deleteFinancePreset()">ลบ</button>
+</div>
+
+<div class="finance-preset-content">
+
+<!-- รายรับเพิ่มเติม: อยู่ด้านบน -->
+<div class="col-box finance-preset-section finance-income-section">
 <div class="col-title inc">
 <span id="txt_bd_inc_title">💰 รายรับเพิ่มเติม (รวม)</span>
 <span id="lbl_sum_bd_inc">0 บาท</span>
 </div>
+
 <div class="breakdown-list" id="list_bd_inc"></div>
-<div style="border-top: 1px dashed var(--border-color); padding-top: 8px; margin-top: 6px;">
-<div style="font-size: 0.75rem; font-weight: 700; color: var(--text-sub); margin-bottom: 6px;" id="txt_add_month_inc">➕ เพิ่มรายรับประจำเดือน</div>
+
+<div class="finance-section-add">
+<div class="finance-section-add-title" id="txt_add_month_inc">➕ เพิ่มรายรับประจำเดือน</div>
 <div class="dynamic-list" id="month_inc_list"></div>
 <button class="btn-add-item" id="btn_add_month_inc" onclick="addMonthItem('month_inc_list')">+ เพิ่มรายการรับ</button>
 </div>
 </div>
 
+<!-- รายจ่าย: อยู่ด้านล่าง -->
+<div class="col-box finance-preset-section finance-expense-section">
+<div class="col-title exp">
+<span id="txt_bd_exp_title">💸 รายจ่าย (รวม)</span>
+<span id="lbl_sum_bd_exp">0 บาท</span>
+</div>
+
+<div class="breakdown-list" id="list_bd_exp"></div>
+
+<div class="finance-section-add">
+<div class="finance-section-add-title" id="txt_add_month_exp">➕ เพิ่มรายจ่ายประจำเดือน</div>
+<div class="dynamic-list" id="month_exp_list"></div>
+<button class="btn-add-item" id="btn_add_month_exp" onclick="addMonthItem('month_exp_list')">+ เพิ่มรายการจ่าย</button>
+</div>
+</div>
 
 </div>
 </div>
+</div>
+
 
 <div class="section-title main-section-header"
      id="main-section-header-3"
@@ -3869,7 +4302,7 @@ font-size: 0.63rem !important;
 <div class="summary-dashboard summary-dashboard-simple">
 
 <div class="summary-block simple-finance-card salary-ot-simple">
-<div class="summary-block-title" id="txt_block_income_title">🔵 เงินเดือน + OT</div>
+<div class="summary-block-title" id="txt_block_income_title">🔵 เงินเดือน + OT (ของเดือนนี้)</div>
 
 <div class="summary-row">
 <span class="label" id="txt_sum_salary">เงินเดือน</span>
@@ -3936,8 +4369,21 @@ font-size: 0.63rem !important;
 </div>
 </div>
 
-<div class="summary-row savings-formula-note">
-<span id="txt_savings_formula">เงินใช้ทั้งหมด − รายจ่าย = เงินเก็บ</span>
+<div class="savings-breakdown">
+<div class="summary-row">
+<span class="label" id="txt_savings_money_available">เงินใช้ทั้งหมดเดือนนี้</span>
+<span class="val" id="lbl_savings_money_available">-</span>
+</div>
+
+<div class="summary-row">
+<span class="label" id="txt_savings_expense">ลบ รายจ่ายเดือนนี้</span>
+<span class="val savings-expense-value" id="lbl_savings_expense">-</span>
+</div>
+
+<div class="summary-row simple-card-total savings-calc-total">
+<span id="txt_savings_formula">เงินเก็บหลังหักรายจ่าย</span>
+<span class="val savings-value" id="lbl_savings_calc_result">-</span>
+</div>
 </div>
 
 <div class="savings-progress-wrap">
@@ -3951,10 +4397,6 @@ font-size: 0.63rem !important;
 <div class="savings-progress-text" id="lbl_savings_progress">-</div>
 </div>
 
-<div class="summary-row simple-card-total savings-total-row">
-<span id="txt_sum_savings">เงินเก็บเดือนนี้</span>
-<span class="val savings-value" id="lbl_savings">-</span>
-</div>
 </div>
 
 </div>
@@ -4333,14 +4775,14 @@ lbl_ot1: "OT x1.0 (ชม.)",
 lbl_ot15: "OT x1.5 (ชม.)",
 lbl_ot2: "OT x2.0 (ชม.)",
 lbl_ot3: "OT x3.0 (ชม.)",
-lbl_in_work_days: "จำนวนวันเดินทาง (มี OT)",
+lbl_in_work_days: "จำนวนวันที่มาทำงาน",
 lbl_in_travel: "อัตรา (บาท/วัน)",
 lbl_in_night_days: "กะกลางคืน (วัน)",
 lbl_in_lang: "ค่าภาษา (บาท)",
 item_name: "ชื่อรายการ",
 item_amt: "จำนวนเงิน",
 btn_del: "ลบ",
-block_income_title: "🔵 เงินเดือน + OT",
+block_income_title: "🔵 เงินเดือน + OT (ของเดือนนี้)",
 block_deduct_title: "🔴 รายจ่ายเดือนนี้",
 block_net_title: "🟢 เงินใช้ของเดือนนี้",
 block_savings_title: "🟣 เงินเก็บ",
@@ -4361,7 +4803,25 @@ net_savings: "เงินเก็บของเดือนนี้",
 net_final_rem: "เงินใช้ทั้งหมดเดือนนี้",
 current_extra_note: "เบี้ยเลี้ยง + รายรับอื่น",
 income_detail_title: "รายรับเพิ่มเติมเดือนนี้",
-savings_formula: "เงินใช้ทั้งหมด − รายจ่าย = เงินเก็บ",
+savings_formula: "เงินเก็บหลังหักรายจ่าย",
+savings_money_available: "เงินใช้ทั้งหมดเดือนนี้",
+savings_expense: "ลบ รายจ่ายเดือนนี้",
+expense_preset_title: "⚡ Preset รายจ่ายประจำ",
+finance_preset_title: "⚡ Preset รายรับ / รายจ่าย",
+finance_preset_subtitle: "เลือก Preset แล้วใช้งานทันที • เลือก “เลือกรายการ” เพื่อกลับค่าก่อนหน้า",
+finance_preset_original: "เลือกรายการ",
+finance_preset_select: "เลือก Preset",
+finance_preset_save: "บันทึก",
+finance_preset_delete: "ลบ",
+expense_preset_select: "เลือก Preset",
+expense_preset_apply: "ใช้",
+expense_preset_save: "บันทึกรายการปัจจุบันเป็น Preset",
+expense_preset_delete: "ลบ Preset",
+expense_preset_name_prompt: "ตั้งชื่อ Preset รายรับ / รายจ่าย",
+expense_preset_empty: "กรุณาเพิ่มรายรับหรือรายจ่ายอย่างน้อย 1 รายการก่อนบันทึก Preset",
+expense_preset_select_first: "กรุณาเลือก Preset ก่อน",
+expense_preset_delete_confirm: "ต้องการลบ Preset นี้หรือไม่?",
+expense_preset_overwrite_confirm: "มี Preset ชื่อนี้อยู่แล้ว ต้องการเขียนทับหรือไม่?",
 savings_goal_percent: "เป้าหมาย",
 savings_goal: "เป้าหมายเงินเก็บ",
 travel_income_category: "เบี้ยเลี้ยงเดินทาง",
@@ -4446,14 +4906,14 @@ lbl_ot1: "OT x1.0 (hrs)",
 lbl_ot15: "OT x1.5 (hrs)",
 lbl_ot2: "OT x2.0 (hrs)",
 lbl_ot3: "OT x3.0 (hrs)",
-lbl_in_work_days: "Travel Days (With OT)",
+lbl_in_work_days: "Days Worked",
 lbl_in_travel: "Rate (THB/day)",
 lbl_in_night_days: "Night Shift (Days)",
 lbl_in_lang: "Language Allowance",
 item_name: "Item Name",
 item_amt: "Amount",
 btn_del: "Delete",
-block_income_title: "🔵 Salary + OT",
+block_income_title: "🔵 Salary + OT (This Month)",
 block_deduct_title: "🔴 Expenses This Month",
 block_net_title: "🟢 Money Available This Month",
 block_savings_title: "🟣 Savings",
@@ -4474,7 +4934,25 @@ net_savings: "Savings for this month",
 net_final_rem: "Total Money Available This Month",
 current_extra_note: "Travel allowance + other income",
 income_detail_title: "Additional income this month",
-savings_formula: "Money available − expenses = savings",
+savings_formula: "Savings after expenses",
+savings_money_available: "Total money available this month",
+savings_expense: "Less expenses this month",
+expense_preset_title: "⚡ Recurring expense preset",
+finance_preset_title: "⚡ Income / Expense Preset",
+finance_preset_subtitle: "Applies immediately • choose “Select items” to restore previous values",
+finance_preset_original: "Select items",
+finance_preset_select: "Select preset",
+finance_preset_save: "Save",
+finance_preset_delete: "Delete",
+expense_preset_select: "Select preset",
+expense_preset_apply: "Apply",
+expense_preset_save: "Save current items as preset",
+expense_preset_delete: "Delete preset",
+expense_preset_name_prompt: "Name this income / expense preset",
+expense_preset_empty: "Add at least one income or expense item before saving a preset",
+expense_preset_select_first: "Please select a preset first",
+expense_preset_delete_confirm: "Delete this preset?",
+expense_preset_overwrite_confirm: "A preset with this name already exists. Overwrite it?",
 savings_goal_percent: "Goal",
 savings_goal: "Savings target",
 travel_income_category: "Travel allowance",
@@ -4539,6 +5017,8 @@ confirm_toggle_off: "Turning off log mode will clear all log records and related
 };
 
 function initYearMonthDropdowns() {
+refreshFinancePresetSelect();
+
 const savingsGoalInput = document.getElementById('savings_goal_percent');
 if (savingsGoalInput) savingsGoalInput.value = getSavingsGoalPercent();
 
@@ -4667,7 +5147,27 @@ if (txt_sum_ssEl) txt_sum_ssEl.innerText = t.sum_ss;
 const sumExpenseLabel = document.getElementById('txt_sum_expense');
 if (sumExpenseLabel) sumExpenseLabel.innerText = t.sum_expense;
 document.getElementById('txt_sum_total_deduct').innerText = t.sum_total_deduct;
-document.getElementById('txt_sum_savings').innerText = t.sum_savings;
+const txtSumSavingsEl = document.getElementById('txt_sum_savings');
+if (txtSumSavingsEl) txtSumSavingsEl.innerText = t.sum_savings;
+const savingsMoneyAvailableLabelEl = document.getElementById('txt_savings_money_available');
+if (savingsMoneyAvailableLabelEl) savingsMoneyAvailableLabelEl.innerText = t.savings_money_available;
+
+const savingsExpenseLabelEl = document.getElementById('txt_savings_expense');
+if (savingsExpenseLabelEl) savingsExpenseLabelEl.innerText = t.savings_expense;
+
+const financePresetTitleEl = document.getElementById('txt_finance_preset_title');
+if (financePresetTitleEl) financePresetTitleEl.innerText = t.finance_preset_title;
+
+const financePresetSubtitleEl = document.getElementById('txt_finance_preset_subtitle');
+if (financePresetSubtitleEl) financePresetSubtitleEl.innerText = t.finance_preset_subtitle;
+
+const saveFinancePresetBtn = document.getElementById('btn_save_finance_preset');
+if (saveFinancePresetBtn) saveFinancePresetBtn.innerText = t.finance_preset_save;
+
+const deleteFinancePresetBtn = document.getElementById('btn_delete_finance_preset');
+if (deleteFinancePresetBtn) deleteFinancePresetBtn.innerText = t.finance_preset_delete;
+
+refreshFinancePresetSelect();
 const savingsGoalPercentEl = document.getElementById('lbl_savings_goal_percent');
 if (savingsGoalPercentEl) savingsGoalPercentEl.innerText = t.savings_goal_percent;
 const savingsGoalEl = document.getElementById('txt_savings_goal');
@@ -4740,6 +5240,534 @@ calculateYearlySummary();
 }
 
 const STORAGE_KEY_PREFIX = 'calc_data_v7_';
+
+const EXPENSE_PRESET_KEY = 'salary_expense_presets_v1';
+
+// Snapshot ชั่วคราวของรายการก่อนเลือก Preset
+// ไม่เก็บลง localStorage เพราะใช้เฉพาะการสลับไป-กลับในหน้าปัจจุบัน
+let financePresetOriginalSnapshot = null;
+let activeFinancePresetId = '';
+
+function getFinancePresets() {
+try {
+const parsed = JSON.parse(
+localStorage.getItem(EXPENSE_PRESET_KEY) || '[]'
+);
+
+if (!Array.isArray(parsed)) return [];
+
+// รองรับ Preset เวอร์ชันเก่า:
+// { items: [...] } = รายจ่ายอย่างเดียว
+return parsed
+.filter(preset =>
+preset &&
+typeof preset === 'object' &&
+preset.id &&
+preset.name
+)
+.map(preset => ({
+id: preset.id,
+name: preset.name,
+
+expenses: Array.isArray(preset.expenses)
+? preset.expenses
+: (
+Array.isArray(preset.items)
+? preset.items
+: []
+),
+
+incomes: Array.isArray(preset.incomes)
+? preset.incomes
+: []
+}));
+} catch (e) {
+return [];
+}
+}
+
+function saveFinancePresets(presets) {
+localStorage.setItem(
+EXPENSE_PRESET_KEY,
+JSON.stringify(
+Array.isArray(presets)
+? presets
+: []
+)
+);
+}
+
+function collectMonthlyItems(containerId) {
+const items = [];
+
+document.querySelectorAll(
+`#${containerId} .dynamic-item`
+).forEach(row => {
+const inputs =
+row.querySelectorAll('input');
+
+const name =
+(inputs[0] && inputs[0].value || '')
+.trim();
+
+const amount =
+parseFloat(
+inputs[1] && inputs[1].value
+) || 0;
+
+if (
+name ||
+amount > 0
+) {
+items.push({
+name,
+amount:
+amount > 0
+? String(amount)
+: ''
+});
+}
+});
+
+return items;
+}
+
+function collectCurrentFinanceSnapshot() {
+return {
+expenses:
+collectMonthlyItems(
+'month_exp_list'
+),
+
+incomes:
+collectMonthlyItems(
+'month_inc_list'
+)
+};
+}
+
+function renderMonthlyItems(
+containerId,
+items
+) {
+const container =
+document.getElementById(
+containerId
+);
+
+if (!container) return;
+
+container.innerHTML = '';
+
+(Array.isArray(items)
+? items
+: [])
+.forEach(item => {
+addMonthItem(
+containerId,
+item && item.name || '',
+item && item.amount || ''
+);
+});
+}
+
+function restoreFinanceSnapshot(snapshot) {
+const safe =
+snapshot &&
+typeof snapshot === 'object'
+? snapshot
+: {
+expenses: [],
+incomes: []
+};
+
+renderMonthlyItems(
+'month_exp_list',
+safe.expenses
+);
+
+renderMonthlyItems(
+'month_inc_list',
+safe.incomes
+);
+
+saveAndCalculate();
+}
+
+function refreshFinancePresetSelect(
+selectedId = null
+) {
+const select =
+document.getElementById(
+'finance_preset_select'
+);
+
+if (!select) return;
+
+const t =
+translations[currentLang];
+
+const presets =
+getFinancePresets();
+
+let desired =
+selectedId !== null
+? selectedId
+: (
+select.value ||
+activeFinancePresetId ||
+''
+);
+
+select.innerHTML = '';
+
+// "เลือกรายการ" = snapshot ก่อนเลือก preset
+const originalOption =
+document.createElement('option');
+
+originalOption.value =
+'__original__';
+
+originalOption.textContent =
+t.finance_preset_original;
+
+select.appendChild(
+originalOption
+);
+
+// separator-like disabled label
+const chooseOption =
+document.createElement('option');
+
+chooseOption.value = '';
+chooseOption.textContent =
+'──────────';
+chooseOption.disabled = true;
+
+select.appendChild(
+chooseOption
+);
+
+presets.forEach(preset => {
+const option =
+document.createElement('option');
+
+option.value =
+preset.id;
+
+const totalItems =
+(preset.expenses || []).length +
+(preset.incomes || []).length;
+
+option.textContent =
+`${preset.name} (${totalItems})`;
+
+select.appendChild(
+option
+);
+});
+
+if (
+desired &&
+(
+desired === '__original__' ||
+presets.some(
+p => p.id === desired
+)
+)
+) {
+select.value =
+desired;
+} else {
+select.value =
+'__original__';
+}
+
+const deleteBtn =
+document.getElementById(
+'btn_delete_finance_preset'
+);
+
+if (deleteBtn) {
+deleteBtn.disabled =
+!select.value ||
+select.value === '__original__';
+}
+}
+
+function saveCurrentFinanceAsPreset() {
+const t =
+translations[currentLang];
+
+const snapshot =
+collectCurrentFinanceSnapshot();
+
+const hasItems =
+snapshot.expenses.length > 0 ||
+snapshot.incomes.length > 0;
+
+if (!hasItems) {
+alert(
+t.expense_preset_empty
+);
+return;
+}
+
+const presetName =
+prompt(
+t.expense_preset_name_prompt
+);
+
+if (!presetName) return;
+
+const cleanName =
+presetName.trim();
+
+if (!cleanName) return;
+
+const presets =
+getFinancePresets();
+
+const existingIndex =
+presets.findIndex(
+p =>
+String(
+p.name
+)
+.trim()
+.toLowerCase() ===
+cleanName.toLowerCase()
+);
+
+let selectedId = '';
+
+if (existingIndex >= 0) {
+if (
+!confirm(
+t.expense_preset_overwrite_confirm
+)
+) {
+return;
+}
+
+selectedId =
+presets[existingIndex].id;
+
+presets[existingIndex] = {
+id:
+presets[existingIndex].id,
+name:
+cleanName,
+expenses:
+snapshot.expenses,
+incomes:
+snapshot.incomes
+};
+} else {
+selectedId =
+'preset_' +
+Date.now() +
+'_' +
+Math.random()
+.toString(36)
+.slice(2, 7);
+
+presets.push({
+id:
+selectedId,
+name:
+cleanName,
+expenses:
+snapshot.expenses,
+incomes:
+snapshot.incomes
+});
+}
+
+saveFinancePresets(
+presets
+);
+
+activeFinancePresetId =
+selectedId;
+
+refreshFinancePresetSelect(
+selectedId
+);
+}
+
+function onFinancePresetChange() {
+const select =
+document.getElementById(
+'finance_preset_select'
+);
+
+if (!select) return;
+
+const selectedId =
+select.value;
+
+// เลือก "เลือกรายการ" เพื่อคืนค่าก่อนใช้ Preset
+if (
+selectedId === '__original__'
+) {
+if (
+financePresetOriginalSnapshot
+) {
+restoreFinanceSnapshot(
+financePresetOriginalSnapshot
+);
+}
+
+financePresetOriginalSnapshot =
+null;
+
+activeFinancePresetId =
+'';
+
+refreshFinancePresetSelect(
+'__original__'
+);
+
+return;
+}
+
+if (!selectedId) return;
+
+const preset =
+getFinancePresets()
+.find(
+p =>
+p.id === selectedId
+);
+
+if (!preset) {
+refreshFinancePresetSelect(
+'__original__'
+);
+return;
+}
+
+// สำคัญ:
+// จำค่าเดิมเฉพาะตอนเริ่มใช้ Preset ครั้งแรก
+// เปลี่ยน Preset A -> B จะยังย้อนกลับไปค่าเดิมก่อน A ได้
+if (
+!financePresetOriginalSnapshot
+) {
+financePresetOriginalSnapshot =
+collectCurrentFinanceSnapshot();
+}
+
+activeFinancePresetId =
+selectedId;
+
+// เลือกแล้วแทนค่าทันทีทั้งรายจ่ายและรายรับ
+renderMonthlyItems(
+'month_exp_list',
+preset.expenses
+);
+
+renderMonthlyItems(
+'month_inc_list',
+preset.incomes
+);
+
+saveAndCalculate();
+
+refreshFinancePresetSelect(
+selectedId
+);
+}
+
+function deleteFinancePreset() {
+const t =
+translations[currentLang];
+
+const select =
+document.getElementById(
+'finance_preset_select'
+);
+
+if (
+!select ||
+!select.value ||
+select.value === '__original__'
+) {
+return;
+}
+
+if (
+!confirm(
+t.expense_preset_delete_confirm
+)
+) {
+return;
+}
+
+const selectedId =
+select.value;
+
+const presets =
+getFinancePresets()
+.filter(
+p =>
+p.id !== selectedId
+);
+
+saveFinancePresets(
+presets
+);
+
+// ถ้ากำลังใช้ preset ที่ถูกลบ
+// คืนรายการก่อนเลือก preset กลับมา
+if (
+activeFinancePresetId ===
+selectedId
+) {
+if (
+financePresetOriginalSnapshot
+) {
+restoreFinanceSnapshot(
+financePresetOriginalSnapshot
+);
+}
+
+financePresetOriginalSnapshot =
+null;
+
+activeFinancePresetId =
+'';
+}
+
+refreshFinancePresetSelect(
+'__original__'
+);
+}
+
+// aliases เก่าเพื่อไม่ให้ event/โค้ดเวอร์ชันก่อนพัง
+function getExpensePresets() {
+return getFinancePresets();
+}
+
+function saveExpensePresets(presets) {
+saveFinancePresets(presets);
+}
+
+function refreshExpensePresetSelect() {
+refreshFinancePresetSelect();
+}
+
+function saveCurrentExpenseAsPreset() {
+saveCurrentFinanceAsPreset();
+}
+
+function applyExpensePreset() {
+onFinancePresetChange();
+}
+
+function deleteExpensePreset() {
+deleteFinancePreset();
+}
 
 const SAVINGS_GOAL_PERCENT_KEY = 'salary_savings_goal_percent_v1';
 
@@ -5248,6 +6276,10 @@ div.className = 'dynamic-item';
 div.id = itemId;
 
 const t = translations[currentLang];
+localStorage.removeItem(EXPENSE_PRESET_KEY);
+financePresetOriginalSnapshot = null;
+activeFinancePresetId = '';
+refreshFinancePresetSelect('__original__');
 localStorage.removeItem(YEARLY_CHART_METRIC_KEY);
 yearlyChartMetric = 'income';
 localStorage.removeItem(SAVINGS_GOAL_PERCENT_KEY);
@@ -5482,6 +6514,9 @@ return result;
 let isChangingMonthOrYear = false;
 
 function onMonthOrYearChange() {
+financePresetOriginalSnapshot = null;
+activeFinancePresetId = '';
+
 if (isChangingMonthOrYear) return;
 
 isChangingMonthOrYear = true;
@@ -5520,6 +6555,7 @@ const expContainer=document.getElementById('month_exp_list'); expContainer.inner
 const incContainer=document.getElementById('month_inc_list'); incContainer.innerHTML=''; if(Array.isArray(data.monthExtraInc)) data.monthExtraInc.forEach(item=>addMonthItem('month_inc_list',item.name,item.amount));
 if(isCalendarCollapsed){ document.getElementById('ot1').value=data.ot1||''; document.getElementById('ot15').value=data.ot15||''; document.getElementById('ot2').value=data.ot2||''; document.getElementById('ot3').value=data.ot3||''; document.getElementById('work_days').value=data.work_days||''; document.getElementById('night_days').value=data.night_days||''; }
 toggleCalendarUI(isCalendarCollapsed,{skipSave:true}); if(!isCalendarCollapsed) recalculateMonthlyFromDaily(); renderCalendar(); calculate(); calculateYearlySummary(); updatePeriodInfoBar();
+refreshFinancePresetSelect('__original__');
 }
 
 function clearCurrentMonthData() {
@@ -5860,21 +6896,35 @@ formatNum(totalExpense) + t.currency;
 const automaticSavings =
 moneyAvailableThisMonth - totalExpense;
 
-const savingsEl =
-document.getElementById('lbl_savings');
+const savingsMoneyAvailableEl =
+document.getElementById('lbl_savings_money_available');
 
-savingsEl.innerText =
+if (savingsMoneyAvailableEl) {
+savingsMoneyAvailableEl.innerText =
+formatNum(moneyAvailableThisMonth) + t.currency;
+}
+
+const savingsExpenseEl =
+document.getElementById('lbl_savings_expense');
+
+if (savingsExpenseEl) {
+savingsExpenseEl.innerText =
+'-' + formatNum(totalExpense) + t.currency;
+}
+
+const savingsCalcResultEl =
+document.getElementById('lbl_savings_calc_result');
+
+if (savingsCalcResultEl) {
+savingsCalcResultEl.innerText =
 formatNum(automaticSavings) + t.currency;
 
-savingsEl.classList.toggle(
-'is-negative-savings',
-automaticSavings < 0
-);
-
-savingsEl.style.color =
+savingsCalcResultEl.style.color =
 automaticSavings >= 0
 ? 'var(--saving-color)'
 : 'var(--danger-color)';
+}
+
 
 // เป้าหมายเงินเก็บ
 updateSavingsGoalUI(
