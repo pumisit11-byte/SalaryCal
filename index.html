@@ -3147,6 +3147,482 @@ margin-right: 0;
 clear: both;
 }
 
+
+/* ============================================================
+   Section 3 - Simple 4-card financial summary
+   ============================================================ */
+.summary-dashboard-simple {
+gap: 11px;
+}
+
+.simple-finance-card {
+position: relative;
+overflow: hidden;
+border: 1px solid var(--ui-line) !important;
+border-left-width: 5px !important;
+padding: 13px 14px !important;
+background: var(--ui-soft) !important;
+}
+
+.simple-finance-card .summary-block-title {
+font-size: 0.84rem;
+font-weight: 800;
+padding-bottom: 8px;
+margin-bottom: 7px;
+}
+
+.salary-ot-simple {
+border-left-color: #3b82f6 !important;
+background: color-mix(in srgb, #3b82f6 6%, var(--ui-soft)) !important;
+}
+
+.salary-ot-simple .summary-block-title,
+.salary-ot-simple .simple-card-total .val {
+color: #2563eb;
+}
+
+.spending-simple {
+border-left-color: #16a34a !important;
+background: color-mix(in srgb, #16a34a 6%, var(--ui-soft)) !important;
+}
+
+.spending-simple .summary-block-title,
+.spending-simple .simple-card-total .val {
+color: var(--success-color);
+}
+
+.expense-simple {
+border-left-color: #dc2626 !important;
+background: color-mix(in srgb, #dc2626 5%, var(--ui-soft)) !important;
+}
+
+.expense-simple .summary-block-title,
+.expense-simple .simple-card-total .val {
+color: var(--danger-color);
+}
+
+.savings-simple {
+border-left-color: #7c3aed !important;
+background: color-mix(in srgb, #7c3aed 6%, var(--ui-soft)) !important;
+}
+
+.savings-simple .summary-block-title,
+.savings-simple .simple-card-total .val {
+color: var(--saving-color);
+}
+
+.simple-card-total {
+margin-top: 7px;
+padding-top: 9px !important;
+border-top: 1px solid var(--ui-line);
+font-size: 0.9rem !important;
+font-weight: 800;
+}
+
+.simple-card-total .val {
+font-size: 0.94rem !important;
+font-weight: 850 !important;
+}
+
+.simple-extra-note {
+min-height: auto !important;
+padding-top: 0 !important;
+margin-top: -2px;
+font-size: 0.66rem !important;
+color: var(--text-sub);
+}
+
+.simple-extra-note span {
+opacity: 0.9;
+}
+
+.savings-total-row {
+margin-top: 0;
+border-top: none;
+padding-top: 2px !important;
+}
+
+.summary-dashboard-simple #summary_expense_detail {
+margin: 0 !important;
+padding: 0 !important;
+}
+
+.summary-dashboard-simple #summary_expense_detail .expense-detail-row {
+padding: 4px 0 !important;
+}
+
+@media (max-width: 520px) {
+.simple-finance-card {
+padding: 11px 12px !important;
+border-radius: 12px !important;
+}
+
+.simple-finance-card .summary-block-title {
+font-size: 0.8rem;
+}
+
+.simple-finance-card .summary-row {
+font-size: 0.78rem;
+}
+
+.simple-card-total {
+font-size: 0.84rem !important;
+}
+
+.simple-card-total .val {
+font-size: 0.88rem !important;
+}
+}
+
+
+/* ============================================================
+   Section 3 detailed income + automatic savings
+   ============================================================ */
+.summary-section-label { margin: 7px 0 3px; padding-top: 8px; border-top: 1px solid var(--ui-muted-line); font-size: 0.7rem; font-weight: 800; color: var(--text-sub); }
+.summary-income-detail { margin: 0; padding: 0; }
+.summary-income-detail:empty { display: none; }
+.summary-income-detail .income-detail-row,
+.summary-expense-detail .expense-detail-row { display:flex; justify-content:space-between; align-items:center; gap:8px; min-height:28px; padding:4px 0; font-size:0.8rem; }
+.summary-income-detail .income-detail-row .label,
+.summary-expense-detail .expense-detail-row .label { color:var(--text-sub); min-width:0; overflow-wrap:anywhere; }
+.summary-income-detail .income-detail-row .val,
+.summary-expense-detail .expense-detail-row .val { font-weight:700; white-space:nowrap; flex-shrink:0; }
+.savings-formula-note { min-height:auto !important; padding:2px 0 5px !important; font-size:0.68rem !important; color:var(--text-sub); }
+.savings-total-row .val.is-negative-savings { color:var(--danger-color) !important; }
+#main-section-content-4 .chart-legend { gap:14px; }
+@media (max-width:520px) { .summary-income-detail .income-detail-row, .summary-expense-detail .expense-detail-row { font-size:0.76rem; } }
+
+
+/* Section 3 salary package + missing previous month state */
+.salary-ss-row {
+margin-top: 4px;
+padding-top: 7px !important;
+border-top: 1px dashed var(--ui-line);
+}
+
+.salary-ss-row .val {
+color: var(--danger-color) !important;
+}
+
+.value-unavailable {
+color: var(--text-sub) !important;
+font-style: italic;
+font-weight: 700;
+}
+
+
+/* ============================================================
+   Savings target / progress
+   ============================================================ */
+.savings-title-row {
+display:flex;
+align-items:center;
+justify-content:space-between;
+gap:10px;
+}
+.savings-goal-control {
+display:flex;
+align-items:center;
+gap:6px;
+margin-left:auto;
+}
+.savings-goal-control label {
+font-size:.64rem;
+font-weight:700;
+color:var(--text-sub);
+white-space:nowrap;
+}
+.savings-goal-input-wrap {
+display:inline-flex;
+align-items:center;
+height:30px;
+overflow:hidden;
+border:1px solid color-mix(in srgb, var(--saving-color) 35%, var(--ui-line));
+border-radius:8px;
+background:var(--ui-surface);
+}
+.savings-goal-input-wrap input {
+width:46px;
+height:28px;
+padding:0 4px;
+border:0;
+outline:none;
+background:transparent;
+color:var(--saving-color);
+font-size:.78rem;
+font-weight:800;
+text-align:right;
+-moz-appearance:textfield;
+}
+.savings-goal-input-wrap input::-webkit-outer-spin-button,
+.savings-goal-input-wrap input::-webkit-inner-spin-button {
+-webkit-appearance:none;
+margin:0;
+}
+.savings-goal-input-wrap span {
+padding:0 7px 0 2px;
+font-size:.7rem;
+font-weight:800;
+color:var(--saving-color);
+}
+.savings-progress-wrap {
+margin-top:8px;
+padding:9px 10px;
+border:1px solid color-mix(in srgb, var(--saving-color) 22%, var(--ui-line));
+border-radius:10px;
+background:color-mix(in srgb, var(--saving-color) 5%, var(--ui-surface));
+}
+.savings-progress-top {
+display:flex;
+justify-content:space-between;
+gap:8px;
+margin-bottom:7px;
+font-size:.7rem;
+font-weight:700;
+color:var(--text-sub);
+}
+#lbl_savings_goal_amount {
+color:var(--saving-color);
+font-weight:800;
+white-space:nowrap;
+}
+.savings-progress-track {
+width:100%;
+height:7px;
+overflow:hidden;
+border-radius:999px;
+background:color-mix(in srgb, var(--saving-color) 12%, var(--ui-line));
+}
+.savings-progress-fill {
+width:0%;
+height:100%;
+border-radius:inherit;
+background:var(--saving-color);
+transition:width .28s ease;
+}
+.savings-progress-text {
+margin-top:6px;
+font-size:.72rem;
+font-weight:800;
+color:var(--saving-color);
+text-align:right;
+}
+.savings-progress-wrap.is-negative .savings-progress-fill {
+width:0% !important;
+}
+.savings-progress-wrap.is-negative .savings-progress-text {
+color:var(--danger-color);
+}
+@media (max-width:420px) {
+.savings-title-row { align-items:flex-start; }
+.savings-goal-control { gap:4px; }
+.savings-goal-control label { font-size:.59rem; }
+.savings-goal-input-wrap { height:28px; }
+.savings-goal-input-wrap input { width:40px; height:26px; font-size:.72rem; }
+.savings-progress-wrap { padding:8px; }
+}
+
+
+/* ============================================================
+   Section 4 - selectable yearly chart + savings goal progress
+   ============================================================ */
+.yearly-chart-tabs {
+display: grid;
+grid-template-columns: repeat(3, minmax(0, 1fr));
+gap: 6px;
+margin: 0 0 12px;
+padding: 4px;
+border: 1px solid var(--ui-line);
+border-radius: 10px;
+background: var(--ui-surface);
+}
+
+.yearly-chart-tab {
+min-width: 0;
+height: 34px;
+padding: 0 8px;
+border: 1px solid transparent;
+border-radius: 7px;
+background: transparent;
+color: var(--text-sub);
+font-size: 0.72rem;
+font-weight: 800;
+cursor: pointer;
+transition: background-color .18s ease, color .18s ease, border-color .18s ease;
+}
+
+.yearly-chart-tab.income.active {
+background: color-mix(in srgb, var(--success-color) 12%, var(--ui-surface));
+border-color: color-mix(in srgb, var(--success-color) 35%, var(--ui-line));
+color: var(--success-color);
+}
+
+.yearly-chart-tab.expense.active {
+background: color-mix(in srgb, var(--danger-color) 10%, var(--ui-surface));
+border-color: color-mix(in srgb, var(--danger-color) 35%, var(--ui-line));
+color: var(--danger-color);
+}
+
+.yearly-chart-tab.savings.active {
+background: color-mix(in srgb, var(--saving-color) 12%, var(--ui-surface));
+border-color: color-mix(in srgb, var(--saving-color) 35%, var(--ui-line));
+color: var(--saving-color);
+}
+
+.yearly-chart-tab:active {
+transform: scale(.97);
+}
+
+.yearly-savings-cell {
+min-width: 164px;
+vertical-align: middle;
+}
+
+.yearly-saving-progress {
+display: flex;
+flex-direction: column;
+gap: 5px;
+min-width: 150px;
+}
+
+.yearly-saving-progress-text {
+font-size: 0.68rem;
+font-weight: 800;
+line-height: 1.25;
+white-space: nowrap;
+text-align: right;
+color: var(--saving-color);
+}
+
+.yearly-saving-progress-track {
+width: 100%;
+height: 6px;
+overflow: hidden;
+border-radius: 999px;
+background: color-mix(in srgb, var(--saving-color) 12%, var(--ui-line));
+}
+
+.yearly-saving-progress-fill {
+height: 100%;
+border-radius: inherit;
+background: var(--saving-color);
+}
+
+.yearly-saving-progress.is-negative .yearly-saving-progress-text {
+color: var(--danger-color);
+}
+
+.yearly-saving-progress.is-negative .yearly-saving-progress-fill {
+width: 0 !important;
+background: var(--danger-color);
+}
+
+.yearly-saving-progress.is-complete .yearly-saving-progress-track {
+box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--saving-color) 28%, transparent);
+}
+
+.yearly-total-row .yearly-saving-progress-text {
+font-weight: 900;
+}
+
+#main-section-content-4 .yearly-table {
+min-width: 575px;
+}
+
+#main-section-content-4 .yearly-table th:last-child {
+min-width: 170px;
+}
+
+@media (max-width: 520px) {
+.yearly-chart-tabs {
+gap: 4px;
+padding: 3px;
+margin-bottom: 10px;
+}
+
+.yearly-chart-tab {
+height: 32px;
+padding: 0 5px;
+font-size: 0.68rem;
+}
+
+.yearly-saving-progress {
+min-width: 140px;
+}
+
+.yearly-saving-progress-text {
+font-size: 0.64rem;
+}
+}
+
+
+/* ============================================================
+   Section 4 - ALL chart + compact savings goal bar
+   ============================================================ */
+.yearly-chart-tabs {
+grid-template-columns: repeat(4, minmax(0, 1fr)) !important;
+}
+
+.yearly-chart-tab.all.active {
+background: var(--ui-soft-2);
+border-color: var(--primary-color);
+color: var(--primary-color);
+}
+
+.yearly-savings-cell {
+min-width: 150px !important;
+width: 150px;
+}
+
+.yearly-saving-progress {
+min-width: 0 !important;
+width: 136px;
+margin-left: auto;
+}
+
+.yearly-saving-progress-track {
+width: 118px !important;
+margin-left: auto;
+}
+
+.yearly-saving-progress-text {
+font-size: 0.66rem !important;
+}
+
+#main-section-content-4 .yearly-table {
+min-width: 555px !important;
+}
+
+#main-section-content-4 .yearly-table th:last-child {
+min-width: 150px !important;
+width: 150px;
+}
+
+@media (max-width: 520px) {
+.yearly-chart-tab {
+font-size: 0.64rem !important;
+padding-left: 3px !important;
+padding-right: 3px !important;
+}
+
+.yearly-savings-cell {
+min-width: 138px !important;
+width: 138px;
+}
+
+.yearly-saving-progress {
+width: 126px;
+}
+
+.yearly-saving-progress-track {
+width: 108px !important;
+}
+
+.yearly-saving-progress-text {
+font-size: 0.63rem !important;
+}
+}
+
 </style>
 </head>
 <body class="easysal-loading">
@@ -3340,7 +3816,7 @@ clear: both;
      onkeydown="handleMainSectionHeaderKeydown(2, event)">
 <div class="main-section-heading">
 <span class="main-section-chevron" id="main-section-chevron-2"></span>
-<span id="txt_sec_breakdown">2. เพิ่มเติม รายรับ / รายจ่าย / เงินเก็บ</span>
+<span id="txt_sec_breakdown">2. เพิ่มเติม รายรับ / รายจ่าย</span>
 </div>
 </div>
 <div class="main-section-content" id="main-section-content-2">
@@ -3371,17 +3847,7 @@ clear: both;
 </div>
 </div>
 
-<div class="col-box savings-box">
-<div class="col-title save">
-<span id="txt_bd_save_title">🏦 เงินเก็บ (แยกจากรายจ่าย)</span>
-<span id="lbl_sum_savings">0 บาท</span>
-</div>
-<div class="savings-note" id="txt_savings_note">เงินส่วนนี้จะถูกกันออกจากเงินใช้จ่าย แต่ไม่ถูกนับเป็นรายจ่าย</div>
-<div class="input-card savings-amount-only">
-<label id="lbl_savings_amount_input">จำนวนเงินเก็บ (บาท)</label>
-<input type="number" id="month_savings_amount" inputmode="decimal" min="0" step="0.01" placeholder="0" oninput="saveAndCalculate()">
-</div>
-</div>
+
 </div>
 </div>
 
@@ -3395,87 +3861,105 @@ clear: both;
      onkeydown="handleMainSectionHeaderKeydown(3, event)">
 <div class="main-section-heading">
 <span class="main-section-chevron" id="main-section-chevron-3"></span>
-<span id="txt_sec3">3. สรุปผลคำนวณประจำเดือน</span>
+<span id="txt_sec3">3. สรุปเงินเดือนและการใช้เงิน</span>
 </div>
 </div>
-<div class="main-section-content" id="main-section-content-3">
 
-<div class="summary-dashboard">
-<div class="summary-block income-block">
-<div class="summary-block-title" id="txt_block_income_title">🟢 สรุปรายได้ (Income)</div>
+<div class="main-section-content" id="main-section-content-3">
+<div class="summary-dashboard summary-dashboard-simple">
+
+<div class="summary-block simple-finance-card salary-ot-simple">
+<div class="summary-block-title" id="txt_block_income_title">🔵 เงินเดือน + OT</div>
+
 <div class="summary-row">
-<span class="label" id="txt_sum_salary">เงินเดือนฐาน</span>
+<span class="label" id="txt_sum_salary">เงินเดือน</span>
 <span class="val" id="lbl_salary">-</span>
 </div>
+
 <div class="summary-row">
-<span class="label" id="txt_sum_ot">รวมค่า OT</span>
+<span class="label" id="txt_sum_ot">OT</span>
 <span class="val" id="lbl_ot">-</span>
 </div>
-<div class="summary-row sub-detail" id="lbl_ot_detail">-</div>
+
+<div class="summary-row sub-detail" id="lbl_ot_detail"></div>
+
 <div class="summary-row">
 <span class="label" id="txt_sum_travel">เบี้ยเลี้ยงเดินทาง</span>
 <span class="val" id="lbl_travel">-</span>
 </div>
+
 <div class="summary-row">
-<span class="label" id="txt_sum_night">ค่ากะกลางคืน (50 บ./วัน)</span>
+<span class="label" id="txt_sum_night">ค่ากะกลางคืน</span>
 <span class="val" id="lbl_night">-</span>
 </div>
+
 <div class="summary-row">
 <span class="label" id="txt_sum_lang">ค่าภาษา</span>
 <span class="val" id="lbl_lang">-</span>
 </div>
-<div class="summary-row">
-<span class="label" id="txt_sum_daily_inc">รายรับเพิ่มเติมอื่นๆ</span>
-<span class="val" id="lbl_daily_inc">-</span>
+
+<div class="summary-row salary-ss-row">
+<span class="label" id="txt_sum_ss">ประกันสังคม (5%)</span>
+<span class="val" id="lbl_ss">-</span>
 </div>
-<div class="summary-row highlight-income">
-<span id="txt_sum_total_income">รวมรายรับทั้งหมด (Gross)</span>
+
+<div class="summary-row simple-card-total">
+<span id="txt_sum_total_income">สุทธิ เงินเดือน + OT</span>
 <span class="val" id="lbl_total_income">-</span>
 </div>
 </div>
 
-<div class="summary-block deduct-block">
-<div class="summary-block-title" id="txt_block_deduct_title">🔴 สรุปการหักค่าใช้จ่าย & ประกันสังคม</div>
-<div class="summary-row">
-<span class="label" id="txt_sum_ss">หัก ประกันสังคม (5%)</span>
-<span class="val" id="lbl_ss" style="color:var(--danger-color);">-</span>
+<div class="summary-block simple-finance-card spending-simple">
+<div class="summary-block-title" id="txt_block_net_title">🟢 เงินใช้ของเดือนนี้</div>
+<div class="summary-row"><span class="label" id="txt_net_gross_inc">เงินเดือน + OT เดือนที่แล้ว (สุทธิหลังประกันสังคม)</span><span class="val" id="lbl_card_net_inc">-</span></div>
+<div class="summary-section-label" id="txt_income_detail_title">รายรับเพิ่มเติมเดือนนี้</div>
+<div class="summary-income-detail" id="summary_income_detail"></div>
+<div class="summary-row simple-card-total"><span id="txt_net_final_rem">เงินใช้ทั้งหมดเดือนนี้</span><span class="val" id="lbl_card_net_final">-</span></div>
 </div>
+
+<div class="summary-block simple-finance-card expense-simple">
+<div class="summary-block-title" id="txt_block_deduct_title">🔴 รายจ่ายเดือนนี้</div>
 <div class="summary-expense-detail" id="summary_expense_detail"></div>
-<div class="summary-row highlight-deduct">
-<span id="txt_sum_total_deduct">รวมยอดหักทั้งหมด</span>
-<span class="val" id="lbl_total_deduct">-</span>
+<div class="summary-row simple-card-total"><span id="txt_sum_total_deduct">รวมรายจ่ายเดือนนี้</span><span class="val" id="lbl_total_deduct">-</span></div>
+</div>
+
+<div class="summary-block simple-finance-card savings-simple">
+<div class="summary-block-title savings-title-row">
+<span id="txt_block_savings_title">🟣 เงินเก็บ</span>
+<div class="savings-goal-control">
+<label for="savings_goal_percent" id="lbl_savings_goal_percent">เป้าหมาย</label>
+<div class="savings-goal-input-wrap">
+<input type="number" id="savings_goal_percent" min="0" max="100" step="1" value="50"
+       inputmode="decimal" oninput="onSavingsGoalPercentInput()" onchange="onSavingsGoalPercentChange()">
+<span>%</span>
+</div>
 </div>
 </div>
 
-<div class="summary-block savings-block">
-<div class="summary-block-title" id="txt_block_savings_title">🏦 สรุปเงินเก็บเดือนนี้</div>
-<div class="summary-row">
-<span class="label" id="txt_sum_savings">เงินที่แยกเก็บทั้งหมด</span>
+<div class="summary-row savings-formula-note">
+<span id="txt_savings_formula">เงินใช้ทั้งหมด − รายจ่าย = เงินเก็บ</span>
+</div>
+
+<div class="savings-progress-wrap">
+<div class="savings-progress-top">
+<span id="txt_savings_goal">เป้าหมายเงินเก็บ</span>
+<span id="lbl_savings_goal_amount">-</span>
+</div>
+<div class="savings-progress-track">
+<div class="savings-progress-fill" id="savings_progress_fill"></div>
+</div>
+<div class="savings-progress-text" id="lbl_savings_progress">-</div>
+</div>
+
+<div class="summary-row simple-card-total savings-total-row">
+<span id="txt_sum_savings">เงินเก็บเดือนนี้</span>
 <span class="val savings-value" id="lbl_savings">-</span>
 </div>
 </div>
 
-<div class="summary-block net-block">
-<div class="summary-block-title" id="txt_block_net_title">💳 เงินสำหรับใช้จ่ายเดือนนี้</div>
-<div class="summary-row">
-<span class="label" id="txt_net_gross_inc">รายได้สุทธิจากรอบเดือนที่แล้ว</span>
-<span class="val" id="lbl_card_net_inc" style="color:var(--success-color);">-</span>
-</div>
-<div class="summary-row">
-<span class="label" id="txt_net_total_deduct">ค่าใช้จ่ายของเดือนนี้</span>
-<span class="val" id="lbl_card_net_deduct" style="color:var(--danger-color);">-</span>
-</div>
-<div class="summary-row">
-<span class="label" id="txt_net_savings">เงินเก็บของเดือนนี้</span>
-<span class="val savings-value" id="lbl_card_net_savings">-</span>
-</div>
-<div class="summary-row highlight-net">
-<span id="txt_net_final_rem">เงินคงเหลือสำหรับใช้เดือนนี้</span>
-<span class="val" id="lbl_card_net_final">-</span>
 </div>
 </div>
-</div>
-</div>
+
 
 <div class="section-title main-section-header"
      id="main-section-header-4"
@@ -3495,14 +3979,39 @@ clear: both;
 <div class="yearly-card yearly-card-clean">
 
 <div class="chart-container">
-<div class="chart-title" id="txt_chart_title">📊 กราฟเปรียบเทียบรายรับ-รายจ่าย-คงเหลือ แต่ละเดือน</div>
-<canvas id="yearlyChart" class="chart-canvas"></canvas>
-<div class="chart-legend">
-<div class="legend-item"><div class="legend-color" style="background:#16a34a;"></div><span id="lg_inc">รายรับ</span></div>
-<div class="legend-item"><div class="legend-color" style="background:#dc2626;"></div><span id="lg_exp">รายจ่าย</span></div>
-<div class="legend-item"><div class="legend-color" style="background:#7c3aed;"></div><span id="lg_savings">เงินเก็บ</span></div>
-<div class="legend-item"><div class="legend-color" style="background:#2563eb;"></div><span id="lg_net">คงเหลือ</span></div>
+<div class="chart-title" id="txt_chart_title">📊 กราฟรายปีแยกตามประเภท</div>
+
+<div class="yearly-chart-tabs" role="group" aria-label="เลือกประเภทกราฟ">
+<button type="button"
+        class="yearly-chart-tab all"
+        id="yearly_chart_tab_all"
+        onclick="setYearlyChartMetric('all')">
+<span id="lg_all">All</span>
+</button>
+
+<button type="button"
+        class="yearly-chart-tab income active"
+        id="yearly_chart_tab_income"
+        onclick="setYearlyChartMetric('income')">
+<span id="lg_inc">รายรับ</span>
+</button>
+
+<button type="button"
+        class="yearly-chart-tab expense"
+        id="yearly_chart_tab_expense"
+        onclick="setYearlyChartMetric('expense')">
+<span id="lg_exp">รายจ่าย</span>
+</button>
+
+<button type="button"
+        class="yearly-chart-tab savings"
+        id="yearly_chart_tab_savings"
+        onclick="setYearlyChartMetric('savings')">
+<span id="lg_savings">เงินเก็บ</span>
+</button>
 </div>
+
+<canvas id="yearlyChart" class="chart-canvas"></canvas>
 </div>
 
 <div class="yearly-monthly-label" id="txt_yearly_monthly_label">แยกตามเดือน</div>
@@ -3515,7 +4024,6 @@ clear: both;
 <th id="th_ss">ประกันสังคม</th>
 <th id="th_expense">รายจ่าย</th>
 <th id="th_savings">เงินเก็บ</th>
-<th id="th_net">คงเหลือ</th>
 </tr>
 </thead>
 <tbody id="yearly-table-body"></tbody>
@@ -3808,8 +4316,8 @@ msg_cleared: "ล้างข้อมูลรอบนี้เรียบร
 msg_cleared_all: "ล้างข้อมูลทั้งหมดเรียบร้อยแล้ว",
 sec_cal: "📅 บันทึกการทำงาน & รายวัน",
 sec1: "1. เงินเดือน & รายรับอื่นๆ",
-sec_breakdown: "2. เพิ่มเติม รายรับ / รายจ่าย / เงินเก็บ",
-sec3: "3. เงินสำหรับใช้จ่ายประจำเดือน",
+sec_breakdown: "2. เพิ่มเติม รายรับ / รายจ่าย",
+sec3: "3. สรุปเงินเดือนและการใช้เงิน",
 sec4: "4. สรุปภาพรวมรายปี",
 net_block_title: "💳 เงินสำหรับใช้จ่ายเดือนนี้",
 net_previous_income: "รายได้สุทธิจากรอบเดือนที่แล้ว",
@@ -3832,25 +4340,31 @@ lbl_in_lang: "ค่าภาษา (บาท)",
 item_name: "ชื่อรายการ",
 item_amt: "จำนวนเงิน",
 btn_del: "ลบ",
-block_income_title: "🟢 สรุปรายได้ (Income)",
-block_deduct_title: "🔴 สรุปการหักค่าใช้จ่าย & ประกันสังคม",
-block_net_title: "💳 เงินสำหรับใช้จ่ายเดือนนี้",
-block_savings_title: "🏦 สรุปเงินเก็บเดือนนี้",
-sum_salary: "เงินเดือนฐาน",
+block_income_title: "🔵 เงินเดือน + OT",
+block_deduct_title: "🔴 รายจ่ายเดือนนี้",
+block_net_title: "🟢 เงินใช้ของเดือนนี้",
+block_savings_title: "🟣 เงินเก็บ",
+sum_salary: "เงินเดือน",
 sum_lang: "ค่าภาษา",
-sum_ot: "รวมค่า OT",
+sum_ot: "OT",
 sum_travel: "เบี้ยเลี้ยงเดินทาง",
-sum_night: "ค่ากะกลางคืน (50 บ./วัน)",
+sum_night: "ค่ากะกลางคืน",
 sum_daily_inc: "รายรับเพิ่มเติมอื่นๆ",
-sum_total_income: "รวมรายรับทั้งหมด (Gross)",
+sum_total_income: "สุทธิ เงินเดือน + OT",
 sum_ss: "หัก ประกันสังคม (5%)",
 sum_expense: "รวมค่าใช้จ่ายทั้งหมด",
-sum_total_deduct: "รวมยอดหักทั้งหมด",
-sum_savings: "เงินที่แยกเก็บทั้งหมด",
-net_gross_inc: "รายได้สุทธิจากรอบเดือนที่แล้ว",
-net_total_deduct: "ค่าใช้จ่ายของเดือนนี้",
+sum_total_deduct: "รวมรายจ่ายเดือนนี้",
+sum_savings: "เงินเก็บเดือนนี้",
+net_gross_inc: "เงินเดือน + OT เดือนที่แล้ว (สุทธิหลังประกันสังคม)",
+net_total_deduct: "รายรับเพิ่มเติมเดือนนี้",
 net_savings: "เงินเก็บของเดือนนี้",
-net_final_rem: "เงินคงเหลือสำหรับใช้เดือนนี้",
+net_final_rem: "เงินใช้ทั้งหมดเดือนนี้",
+current_extra_note: "เบี้ยเลี้ยง + รายรับอื่น",
+income_detail_title: "รายรับเพิ่มเติมเดือนนี้",
+savings_formula: "เงินใช้ทั้งหมด − รายจ่าย = เงินเก็บ",
+savings_goal_percent: "เป้าหมาย",
+savings_goal: "เป้าหมายเงินเก็บ",
+travel_income_category: "เบี้ยเลี้ยงเดินทาง",
 total_prefix: "รวม: ",
 currency: " บาท",
 lbl_y_income: "รายรับที่ได้รับรวมทั้งปี",
@@ -3858,7 +4372,8 @@ lbl_y_ss: "ประกันสังคมที่หักทั้งปี
 lbl_y_expense: "รายจ่ายรวมทั้งปี",
 lbl_y_savings: "เงินเก็บรวมทั้งปี",
 lbl_y_net: "คงเหลือสุทธิทั้งปี",
-chart_title: "📊 กราฟรายรับ-รายจ่าย-เงินเก็บ-คงเหลือ แต่ละเดือน",
+chart_title: "📊 กราฟรายปีแยกตามประเภท",
+lg_all: "ทั้งหมด",
 lg_inc: "รายรับ",
 lg_exp: "รายจ่าย",
 lg_savings: "เงินเก็บ",
@@ -3914,8 +4429,8 @@ msg_cleared: "Cleared data for this period",
 msg_cleared_all: "All data has been cleared",
 sec_cal: "📅 Work & Daily Log",
 sec1: "1. Salary & Other Income",
-sec_breakdown: "2. Additional Income / Expenses / Savings",
-sec3: "3. Period Summary",
+sec_breakdown: "2. Additional Income / Expenses",
+sec3: "3. Salary & Monthly Money Summary",
 sec4: "4. Yearly Overview",
 net_block_title: "💳 Money Available for This Month",
 net_previous_income: "Net income from previous pay period",
@@ -3938,25 +4453,31 @@ lbl_in_lang: "Language Allowance",
 item_name: "Item Name",
 item_amt: "Amount",
 btn_del: "Delete",
-block_income_title: "🟢 Gross Income Summary",
-block_deduct_title: "🔴 Deductions & Expenses",
-block_net_title: "💳 Period Net Balance",
-block_savings_title: "🏦 Savings This Month",
-sum_salary: "Base Salary",
+block_income_title: "🔵 Salary + OT",
+block_deduct_title: "🔴 Expenses This Month",
+block_net_title: "🟢 Money Available This Month",
+block_savings_title: "🟣 Savings",
+sum_salary: "Salary",
 sum_lang: "Language Allowance",
-sum_ot: "Total OT",
+sum_ot: "OT",
 sum_travel: "Travel Allowance",
-sum_night: "Night Shift (50 THB/day)",
+sum_night: "Night Shift",
 sum_daily_inc: "Other Extra Incomes",
-sum_total_income: "Total Gross Income",
+sum_total_income: "Net Salary + OT",
 sum_ss: "Social Security (5%)",
 sum_expense: "Total Expenses",
-sum_total_deduct: "Total Deductions",
-sum_savings: "Total money set aside",
-net_gross_inc: "Total Gross Income",
-net_total_deduct: "Expenses for this month",
+sum_total_deduct: "Total Expenses This Month",
+sum_savings: "Savings This Month",
+net_gross_inc: "Previous Month Salary + OT (net after social security)",
+net_total_deduct: "Additional Income This Month",
 net_savings: "Savings for this month",
-net_final_rem: "Money remaining for this month",
+net_final_rem: "Total Money Available This Month",
+current_extra_note: "Travel allowance + other income",
+income_detail_title: "Additional income this month",
+savings_formula: "Money available − expenses = savings",
+savings_goal_percent: "Goal",
+savings_goal: "Savings target",
+travel_income_category: "Travel allowance",
 total_prefix: "Total: ",
 currency: " THB",
 lbl_y_income: "Total Income Received This Year",
@@ -3964,7 +4485,8 @@ lbl_y_ss: "Social Security Withheld This Year",
 lbl_y_expense: "Yearly Total Expense",
 lbl_y_savings: "Total Savings This Year",
 lbl_y_net: "Yearly Net Balance",
-chart_title: "📊 Income / Expense / Savings / Net by Month",
+chart_title: "📊 Yearly chart by category",
+lg_all: "All",
 lg_inc: "Income",
 lg_exp: "Expense",
 lg_savings: "Savings",
@@ -4017,6 +4539,9 @@ confirm_toggle_off: "Turning off log mode will clear all log records and related
 };
 
 function initYearMonthDropdowns() {
+const savingsGoalInput = document.getElementById('savings_goal_percent');
+if (savingsGoalInput) savingsGoalInput.value = getSavingsGoalPercent();
+
 const cutoffInput = document.getElementById('period-cutoff-day');
 if (cutoffInput) cutoffInput.value = getPeriodCutoffDay();
 
@@ -4112,8 +4637,10 @@ document.getElementById('txt_bd_exp_title').innerText = t.txt_bd_exp_title;
 document.getElementById('txt_bd_inc_title').innerText = t.txt_bd_inc_title;
 document.getElementById('txt_add_month_exp').innerText = t.txt_add_month_exp;
 document.getElementById('txt_add_month_inc').innerText = t.txt_add_month_inc;
-document.getElementById('txt_bd_save_title').innerText = t.txt_bd_save_title;
-document.getElementById('txt_savings_note').innerText = t.txt_savings_note;
+const txt_bd_save_titleEl = document.getElementById('txt_bd_save_title');
+if (txt_bd_save_titleEl) txt_bd_save_titleEl.innerText = t.txt_bd_save_title;
+const txt_savings_noteEl = document.getElementById('txt_savings_note');
+if (txt_savings_noteEl) txt_savings_noteEl.innerText = t.txt_savings_note;
 document.getElementById('btn_add_month_exp').innerText = t.btn_add_month_exp;
 document.getElementById('btn_add_month_inc').innerText = t.btn_add_month_inc;
 const savingsAmountLabel = document.getElementById('lbl_savings_amount_input');
@@ -4125,43 +4652,69 @@ document.getElementById('txt_block_net_title').innerText = t.block_net_title;
 document.getElementById('txt_block_savings_title').innerText = t.block_savings_title;
 
 document.getElementById('txt_sum_salary').innerText = t.sum_salary;
-document.getElementById('txt_sum_lang').innerText = t.sum_lang;
+const txt_sum_langEl = document.getElementById('txt_sum_lang');
+if (txt_sum_langEl) txt_sum_langEl.innerText = t.sum_lang;
 document.getElementById('txt_sum_ot').innerText = t.sum_ot;
-document.getElementById('txt_sum_travel').innerText = t.sum_travel;
-document.getElementById('txt_sum_night').innerText = t.sum_night;
-document.getElementById('txt_sum_daily_inc').innerText = t.sum_daily_inc;
+const txt_sum_travelEl = document.getElementById('txt_sum_travel');
+if (txt_sum_travelEl) txt_sum_travelEl.innerText = t.sum_travel;
+const txt_sum_nightEl = document.getElementById('txt_sum_night');
+if (txt_sum_nightEl) txt_sum_nightEl.innerText = t.sum_night;
+const txt_sum_daily_incEl = document.getElementById('txt_sum_daily_inc');
+if (txt_sum_daily_incEl) txt_sum_daily_incEl.innerText = t.sum_daily_inc;
 document.getElementById('txt_sum_total_income').innerText = t.sum_total_income;
-document.getElementById('txt_sum_ss').innerText = t.sum_ss;
+const txt_sum_ssEl = document.getElementById('txt_sum_ss');
+if (txt_sum_ssEl) txt_sum_ssEl.innerText = t.sum_ss;
 const sumExpenseLabel = document.getElementById('txt_sum_expense');
 if (sumExpenseLabel) sumExpenseLabel.innerText = t.sum_expense;
 document.getElementById('txt_sum_total_deduct').innerText = t.sum_total_deduct;
 document.getElementById('txt_sum_savings').innerText = t.sum_savings;
+const savingsGoalPercentEl = document.getElementById('lbl_savings_goal_percent');
+if (savingsGoalPercentEl) savingsGoalPercentEl.innerText = t.savings_goal_percent;
+const savingsGoalEl = document.getElementById('txt_savings_goal');
+if (savingsGoalEl) savingsGoalEl.innerText = t.savings_goal;
 
 document.getElementById('txt_net_gross_inc').innerText = t.net_gross_inc;
-document.getElementById('txt_net_total_deduct').innerText = t.net_total_deduct;
-document.getElementById('txt_net_savings').innerText = t.net_savings;
+const txt_net_total_deductEl = document.getElementById('txt_net_total_deduct');
+if (txt_net_total_deductEl) txt_net_total_deductEl.innerText = t.net_total_deduct;
+const txt_net_savingsEl = document.getElementById('txt_net_savings');
+if (txt_net_savingsEl) txt_net_savingsEl.innerText = t.net_savings;
 document.getElementById('txt_net_final_rem').innerText = t.net_final_rem;
+const currentExtraNoteEl = document.getElementById('txt_current_extra_note');
+if (currentExtraNoteEl) currentExtraNoteEl.innerText = t.current_extra_note;
+const incomeDetailTitleEl = document.getElementById('txt_income_detail_title');
+if (incomeDetailTitleEl) incomeDetailTitleEl.innerText = t.income_detail_title;
+const savingsFormulaEl = document.getElementById('txt_savings_formula');
+if (savingsFormulaEl) savingsFormulaEl.innerText = t.savings_formula;
 
-document.getElementById('lbl_y_income').innerText = t.lbl_y_income;
-document.getElementById('lbl_y_ss').innerText = t.lbl_y_ss;
-document.getElementById('lbl_y_expense').innerText = t.lbl_y_expense;
-document.getElementById('lbl_y_savings').innerText = t.lbl_y_savings;
-document.getElementById('lbl_y_net').innerText = t.lbl_y_net;
+const lbl_y_incomeEl = document.getElementById('lbl_y_income');
+if (lbl_y_incomeEl) lbl_y_incomeEl.innerText = t.lbl_y_income;
+const lbl_y_ssEl = document.getElementById('lbl_y_ss');
+if (lbl_y_ssEl) lbl_y_ssEl.innerText = t.lbl_y_ss;
+const lbl_y_expenseEl = document.getElementById('lbl_y_expense');
+if (lbl_y_expenseEl) lbl_y_expenseEl.innerText = t.lbl_y_expense;
+const lbl_y_savingsEl = document.getElementById('lbl_y_savings');
+if (lbl_y_savingsEl) lbl_y_savingsEl.innerText = t.lbl_y_savings;
+const lbl_y_netEl = document.getElementById('lbl_y_net');
+if (lbl_y_netEl) lbl_y_netEl.innerText = t.lbl_y_net;
 
 document.getElementById('txt_chart_title').innerText = t.chart_title;
 const yearlyMonthlyLabel = document.getElementById('txt_yearly_monthly_label');
 if (yearlyMonthlyLabel) yearlyMonthlyLabel.innerText = t.yearly_monthly_label || (lang === 'th' ? 'แยกตามเดือน' : 'Monthly breakdown');
+const lgAllEl = document.getElementById('lg_all');
+if (lgAllEl) lgAllEl.innerText = t.lg_all;
 document.getElementById('lg_inc').innerText = t.lg_inc;
 document.getElementById('lg_exp').innerText = t.lg_exp;
 document.getElementById('lg_savings').innerText = t.lg_savings;
-document.getElementById('lg_net').innerText = t.lg_net;
+const lg_netEl = document.getElementById('lg_net');
+if (lg_netEl) lg_netEl.innerText = t.lg_net;
 
 document.getElementById('th_month').innerText = t.th_month;
 document.getElementById('th_income').innerText = t.th_income;
 document.getElementById('th_ss').innerText = t.th_ss;
 document.getElementById('th_expense').innerText = t.th_expense;
 document.getElementById('th_savings').innerText = t.th_savings;
-document.getElementById('th_net').innerText = t.th_net;
+const th_netEl = document.getElementById('th_net');
+if (th_netEl) th_netEl.innerText = t.th_net;
 
 const selMonth = parseInt(document.getElementById('month-select').value) || 0;
 renderMonthOptions(selMonth);
@@ -4187,6 +4740,72 @@ calculateYearlySummary();
 }
 
 const STORAGE_KEY_PREFIX = 'calc_data_v7_';
+
+const SAVINGS_GOAL_PERCENT_KEY = 'salary_savings_goal_percent_v1';
+
+function getSavingsGoalPercent() {
+const saved = parseFloat(localStorage.getItem(SAVINGS_GOAL_PERCENT_KEY));
+if (isNaN(saved)) return 50;
+return Math.min(100, Math.max(0, saved));
+}
+
+function saveSavingsGoalPercent() {
+const input = document.getElementById('savings_goal_percent');
+if (!input) return getSavingsGoalPercent();
+let value = parseFloat(input.value);
+if (isNaN(value)) value = 50;
+value = Math.min(100, Math.max(0, value));
+input.value = value;
+localStorage.setItem(SAVINGS_GOAL_PERCENT_KEY, String(value));
+return value;
+}
+
+function onSavingsGoalPercentInput() {
+const input = document.getElementById('savings_goal_percent');
+if (!input) return;
+
+let value = parseFloat(input.value);
+
+if (!isNaN(value)) {
+if (value > 100) input.value = 100;
+if (value < 0) input.value = 0;
+}
+
+calculate();
+calculateYearlySummary();
+}
+
+function onSavingsGoalPercentChange() {
+saveSavingsGoalPercent();
+calculate();
+calculateYearlySummary();
+}
+
+function updateSavingsGoalUI(moneyAvailable, savingsAmount) {
+const t = translations[currentLang];
+const amountEl = document.getElementById('lbl_savings_goal_amount');
+const progressTextEl = document.getElementById('lbl_savings_progress');
+const progressFillEl = document.getElementById('savings_progress_fill');
+const progressWrapEl = progressFillEl ? progressFillEl.closest('.savings-progress-wrap') : null;
+
+if (!amountEl || !progressTextEl || !progressFillEl) return;
+
+const goalPercent = getSavingsGoalPercent();
+const goalAmount = Math.max(0, moneyAvailable * goalPercent / 100);
+const actualSavings = Number.isFinite(savingsAmount) ? savingsAmount : 0;
+const progressPercent = goalAmount > 0 ? (actualSavings / goalAmount) * 100 : 0;
+const visualPercent = Math.max(0, Math.min(100, progressPercent));
+
+amountEl.innerText = formatNum(goalAmount) + t.currency;
+progressTextEl.innerText =
+`${formatNum(actualSavings)} / ${formatNum(goalAmount)} (${formatNum(Math.max(0, progressPercent))}%)`;
+progressFillEl.style.width = visualPercent + '%';
+
+if (progressWrapEl) {
+progressWrapEl.classList.toggle('is-negative', actualSavings < 0);
+}
+}
+
 
 function toggleCalendarTheme() {
 calendarViewMode = calendarViewMode === 'grid' ? 'list' : 'grid';
@@ -4512,37 +5131,7 @@ clearAllData();
 }
 
 function clearAllData() {
-const t = translations[currentLang];
-
-const keysToRemove = [];
-for (let i = 0; i < localStorage.length; i++) {
-const key = localStorage.key(i);
-if (key && (key.startsWith(STORAGE_KEY_PREFIX) || key === DAILY_GLOBAL_KEY || key === PERIOD_CUTOFF_KEY)) {
-keysToRemove.push(key);
-}
-}
-keysToRemove.forEach(k => localStorage.removeItem(k));
-
-dailyDataMap = {};
-isCalendarCollapsed = true;
-calendarViewMode = 'grid';
-
-['salary', 'hours', 'ot1', 'ot15', 'ot2', 'ot3', 'work_days', 'travel', 'lang_allowance', 'night_days'].forEach(id => {
-document.getElementById(id).value = '';
-});
-document.getElementById('period-cutoff-day').value = 25;
-
-document.getElementById('month_exp_list').innerHTML = '';
-document.getElementById('month_inc_list').innerHTML = '';
-const savingsAmountInputClear = document.getElementById('month_savings_amount');
-if (savingsAmountInputClear) savingsAmountInputClear.value = '';
-
-toggleCalendarUI(true);
-renderCalendar();
-calculate();
-calculateYearlySummary();
-updatePeriodInfoBar();
-alert(t.msg_cleared_all);
+const t=translations[currentLang]; const keysToRemove=[]; for(let i=0;i<localStorage.length;i++){ const key=localStorage.key(i); if(key&&(key.startsWith(STORAGE_KEY_PREFIX)||key===DAILY_GLOBAL_KEY||key===PERIOD_CUTOFF_KEY)) keysToRemove.push(key); } keysToRemove.forEach(k=>localStorage.removeItem(k)); dailyDataMap={}; isCalendarCollapsed=true; calendarViewMode='grid'; ['salary','hours','ot1','ot15','ot2','ot3','work_days','travel','lang_allowance','night_days'].forEach(id=>document.getElementById(id).value=''); document.getElementById('period-cutoff-day').value=25; document.getElementById('month_exp_list').innerHTML=''; document.getElementById('month_inc_list').innerHTML=''; toggleCalendarUI(true); renderCalendar(); calculate(); calculateYearlySummary(); updatePeriodInfoBar(); alert(t.msg_cleared_all);
 }
 
 function openDayModal(date) {
@@ -4659,6 +5248,9 @@ div.className = 'dynamic-item';
 div.id = itemId;
 
 const t = translations[currentLang];
+localStorage.removeItem(YEARLY_CHART_METRIC_KEY);
+yearlyChartMetric = 'income';
+localStorage.removeItem(SAVINGS_GOAL_PERCENT_KEY);
 
 div.innerHTML = `
 <input type="text" placeholder="${t.item_name}" value="${name}" oninput="scheduleDayAutoSave()">
@@ -4910,166 +5502,29 @@ calculateYearlySummary();
 }
 
 function saveCurrentMonthData() {
-const year = document.getElementById('year-select').value;
-const month = document.getElementById('month-select').value;
-const key = getStorageKey(year, month);
-
-const monthExtraExp = [];
-document.querySelectorAll('#month_exp_list .dynamic-item').forEach(row => {
-const inputs = row.querySelectorAll('input');
-if (inputs[0].value || inputs[1].value) {
-monthExtraExp.push({ name: inputs[0].value, amount: inputs[1].value });
-}
-});
-
-const monthExtraInc = [];
-document.querySelectorAll('#month_inc_list .dynamic-item').forEach(row => {
-const inputs = row.querySelectorAll('input');
-if (inputs[0].value || inputs[1].value) {
-monthExtraInc.push({ name: inputs[0].value, amount: inputs[1].value });
-}
-});
-
-const savingsAmountEl = document.getElementById('month_savings_amount');
-const monthSavingsAmount = savingsAmountEl ? Math.max(0, parseFloat(savingsAmountEl.value) || 0) : 0;
-// เก็บ array แบบเดิมไว้ด้วยเพื่อรองรับข้อมูล/โค้ดเวอร์ชันเก่า
-const monthSavings = monthSavingsAmount > 0 ? [{ amount: String(monthSavingsAmount) }] : [];
-
-const data = {
-salary: document.getElementById('salary').value,
-hours: document.getElementById('hours').value,
-ot1: document.getElementById('ot1').value,
-ot15: document.getElementById('ot15').value,
-ot2: document.getElementById('ot2').value,
-ot3: document.getElementById('ot3').value,
-work_days: document.getElementById('work_days').value,
-travel: document.getElementById('travel').value,
-lang_allowance: document.getElementById('lang_allowance').value,
-night_days: document.getElementById('night_days').value,
-isCalendarCollapsed: isCalendarCollapsed,
-calendarViewMode: calendarViewMode,
-// เก็บสำเนาเฉพาะข้อมูลรายวันในรอบนี้เท่านั้น
-// ข้อมูลรายวันทั้งหมดเก็บแยกใน DAILY_GLOBAL_KEY อยู่แล้ว
-// ช่วยป้องกันข้อมูลทั้งปีถูกทำสำเนาซ้ำในทุกเดือน
-dailyDataMap: getDailyDataForCurrentPeriod(),
-monthExtraExp: monthExtraExp,
-monthExtraInc: monthExtraInc,
-monthSavingsAmount: monthSavingsAmount,
-monthSavings: monthSavings
-};
-
-localStorage.setItem(key, JSON.stringify(data));
-saveAllStoredDailyData();
+const year=document.getElementById('year-select').value; const month=document.getElementById('month-select').value; const key=getStorageKey(year,month);
+const monthExtraExp=[]; document.querySelectorAll('#month_exp_list .dynamic-item').forEach(row=>{ const inputs=row.querySelectorAll('input'); if(inputs[0].value||inputs[1].value) monthExtraExp.push({name:inputs[0].value,amount:inputs[1].value}); });
+const monthExtraInc=[]; document.querySelectorAll('#month_inc_list .dynamic-item').forEach(row=>{ const inputs=row.querySelectorAll('input'); if(inputs[0].value||inputs[1].value) monthExtraInc.push({name:inputs[0].value,amount:inputs[1].value}); });
+const data={ salary:document.getElementById('salary').value, hours:document.getElementById('hours').value, ot1:document.getElementById('ot1').value, ot15:document.getElementById('ot15').value, ot2:document.getElementById('ot2').value, ot3:document.getElementById('ot3').value, work_days:document.getElementById('work_days').value, travel:document.getElementById('travel').value, lang_allowance:document.getElementById('lang_allowance').value, night_days:document.getElementById('night_days').value, isCalendarCollapsed, calendarViewMode, dailyDataMap:getDailyDataForCurrentPeriod(), monthExtraExp, monthExtraInc };
+localStorage.setItem(key,JSON.stringify(data)); saveAllStoredDailyData();
 }
 
 function loadCurrentMonthData() {
-const cutoffInput = document.getElementById('period-cutoff-day');
-if (cutoffInput) cutoffInput.value = getPeriodCutoffDay();
-
-const year = document.getElementById('year-select').value;
-const month = document.getElementById('month-select').value;
-const key = getStorageKey(year, month);
-
-const data = JSON.parse(localStorage.getItem(key) || '{}');
-
-// รวมข้อมูลเดิมจากทุก period ก่อน เพื่อให้เปลี่ยนวันตัดรอบแล้วข้อมูลรายวันยังอยู่
-dailyDataMap = getAllStoredDailyData();
-// รองรับข้อมูลเก่า: เติมข้อมูลจาก storage รายเดือนเฉพาะวันที่ที่ global ยังไม่มี
-// ห้ามใช้ snapshot เก่าของเดือนมา override DAILY_GLOBAL_KEY เพราะอาจทำให้ข้อมูลเดือนอื่นย้อนกลับ/ถูกก๊อป
-if (data.dailyDataMap && typeof data.dailyDataMap === 'object') {
-Object.keys(data.dailyDataMap).forEach(key => {
-if (!Object.prototype.hasOwnProperty.call(dailyDataMap, key)) {
-dailyDataMap[key] = data.dailyDataMap[key];
-}
-});
-saveAllStoredDailyData();
-}
-isCalendarCollapsed = data.isCalendarCollapsed !== undefined ? !!data.isCalendarCollapsed : true;
-calendarViewMode = data.calendarViewMode || 'grid';
-
-document.getElementById('salary').value = data.salary || '';
-document.getElementById('hours').value = data.hours || '';
-document.getElementById('travel').value = data.travel || '';
-document.getElementById('lang_allowance').value = data.lang_allowance || '';
-
-const expContainer = document.getElementById('month_exp_list');
-expContainer.innerHTML = '';
-if (data.monthExtraExp && Array.isArray(data.monthExtraExp)) {
-data.monthExtraExp.forEach(item => addMonthItem('month_exp_list', item.name, item.amount));
-}
-
-const incContainer = document.getElementById('month_inc_list');
-incContainer.innerHTML = '';
-if (data.monthExtraInc && Array.isArray(data.monthExtraInc)) {
-data.monthExtraInc.forEach(item => addMonthItem('month_inc_list', item.name, item.amount));
-}
-
-const savingsAmountInput = document.getElementById('month_savings_amount');
-if (savingsAmountInput) {
-let loadedSavings = 0;
-
-if (data.monthSavingsAmount !== undefined && data.monthSavingsAmount !== null && data.monthSavingsAmount !== '') {
-loadedSavings = Math.max(0, parseFloat(data.monthSavingsAmount) || 0);
-} else if (data.monthSavings && Array.isArray(data.monthSavings)) {
-// รองรับข้อมูลเก่า: รวมทุกกองเดิมให้เป็นยอดเดียว
-data.monthSavings.forEach(item => {
-loadedSavings += Math.max(0, parseFloat(item && item.amount) || 0);
-});
-}
-
-savingsAmountInput.value = loadedSavings > 0 ? loadedSavings : '';
-}
-
-// โหลดค่าของเดือนใหม่ให้ครบก่อน ห้าม toggleCalendarUI บันทึกข้อมูลระหว่างโหลด
-if (isCalendarCollapsed) {
-document.getElementById('ot1').value = data.ot1 || '';
-document.getElementById('ot15').value = data.ot15 || '';
-document.getElementById('ot2').value = data.ot2 || '';
-document.getElementById('ot3').value = data.ot3 || '';
-document.getElementById('work_days').value = data.work_days || '';
-document.getElementById('night_days').value = data.night_days || '';
-}
-
-toggleCalendarUI(isCalendarCollapsed, { skipSave: true });
-
-if (!isCalendarCollapsed) {
-recalculateMonthlyFromDaily();
-}
-
-renderCalendar();
-calculate();
-calculateYearlySummary();
-updatePeriodInfoBar();
+const cutoffInput=document.getElementById('period-cutoff-day'); if(cutoffInput) cutoffInput.value=getPeriodCutoffDay();
+const year=document.getElementById('year-select').value; const month=document.getElementById('month-select').value; const key=getStorageKey(year,month); const data=JSON.parse(localStorage.getItem(key)||'{}');
+dailyDataMap=getAllStoredDailyData();
+if(data.dailyDataMap&&typeof data.dailyDataMap==='object'){ Object.keys(data.dailyDataMap).forEach(k=>{ if(!Object.prototype.hasOwnProperty.call(dailyDataMap,k)) dailyDataMap[k]=data.dailyDataMap[k]; }); saveAllStoredDailyData(); }
+isCalendarCollapsed=data.isCalendarCollapsed!==undefined?!!data.isCalendarCollapsed:true; calendarViewMode=data.calendarViewMode||'grid';
+document.getElementById('salary').value=data.salary||''; document.getElementById('hours').value=data.hours||''; document.getElementById('travel').value=data.travel||''; document.getElementById('lang_allowance').value=data.lang_allowance||'';
+const expContainer=document.getElementById('month_exp_list'); expContainer.innerHTML=''; if(Array.isArray(data.monthExtraExp)) data.monthExtraExp.forEach(item=>addMonthItem('month_exp_list',item.name,item.amount));
+const incContainer=document.getElementById('month_inc_list'); incContainer.innerHTML=''; if(Array.isArray(data.monthExtraInc)) data.monthExtraInc.forEach(item=>addMonthItem('month_inc_list',item.name,item.amount));
+if(isCalendarCollapsed){ document.getElementById('ot1').value=data.ot1||''; document.getElementById('ot15').value=data.ot15||''; document.getElementById('ot2').value=data.ot2||''; document.getElementById('ot3').value=data.ot3||''; document.getElementById('work_days').value=data.work_days||''; document.getElementById('night_days').value=data.night_days||''; }
+toggleCalendarUI(isCalendarCollapsed,{skipSave:true}); if(!isCalendarCollapsed) recalculateMonthlyFromDaily(); renderCalendar(); calculate(); calculateYearlySummary(); updatePeriodInfoBar();
 }
 
 function clearCurrentMonthData() {
-const t = translations[currentLang];
-const year = document.getElementById('year-select').value;
-const month = document.getElementById('month-select').value;
-const key = getStorageKey(year, month);
-
-// ล้างข้อมูลเฉพาะรอบปัจจุบัน โดยไม่กระทบข้อมูลวันที่อยู่นอกช่วง
-const periodKeys = new Set(getPeriodDates(parseInt(year), parseInt(month)).map(dateKey));
-const allDaily = getAllStoredDailyData();
-periodKeys.forEach(k => delete allDaily[k]);
-dailyDataMap = allDaily;
-saveAllStoredDailyData();
-localStorage.removeItem(key);
-
-['salary', 'hours', 'ot1', 'ot15', 'ot2', 'ot3', 'work_days', 'travel', 'lang_allowance', 'night_days'].forEach(id => {
-document.getElementById(id).value = '';
-});
-
-document.getElementById('month_exp_list').innerHTML = '';
-document.getElementById('month_inc_list').innerHTML = '';
-const savingsAmountInputClearMonth = document.getElementById('month_savings_amount');
-if (savingsAmountInputClearMonth) savingsAmountInputClearMonth.value = '';
-
-recalculateMonthlyFromDaily();
-renderCalendar();
-calculate();
-calculateYearlySummary();
-alert(t.msg_cleared);
+const t=translations[currentLang]; const year=document.getElementById('year-select').value; const month=document.getElementById('month-select').value; const key=getStorageKey(year,month); const periodKeys=new Set(getPeriodDates(parseInt(year),parseInt(month)).map(dateKey)); const allDaily=getAllStoredDailyData(); periodKeys.forEach(k=>delete allDaily[k]); dailyDataMap=allDaily; saveAllStoredDailyData(); localStorage.removeItem(key);
+['salary','hours','ot1','ot15','ot2','ot3','work_days','travel','lang_allowance','night_days'].forEach(id=>document.getElementById(id).value=''); document.getElementById('month_exp_list').innerHTML=''; document.getElementById('month_inc_list').innerHTML=''; recalculateMonthlyFromDaily(); renderCalendar(); calculate(); calculateYearlySummary(); alert(t.msg_cleared);
 }
 
 function getNum(id) {
@@ -5084,6 +5539,8 @@ return num.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDi
 }
 
 function calculateMonthDataFromObj(data, year = null, month = null, dailySourceMap = null) {
+data = data || {};
+
 const salary = parseFloat(data.salary) || 0;
 const hoursPerDay = parseFloat(data.hours) || 0;
 const workDays = parseFloat(data.work_days) || 0;
@@ -5100,176 +5557,186 @@ const ot2 = parseFloat(data.ot2) || 0;
 const ot3 = parseFloat(data.ot3) || 0;
 
 let totalOt = 0;
+
 if (salary > 0 && hoursPerDay > 0) {
 const hourlyRate = salary / 30 / hoursPerDay;
-totalOt = (hourlyRate * ot1 * 1.0) + (hourlyRate * ot15 * 1.5) + (hourlyRate * ot2 * 2.0) + (hourlyRate * ot3 * 3.0);
+
+totalOt =
+(hourlyRate * ot1) +
+(hourlyRate * ot15 * 1.5) +
+(hourlyRate * ot2 * 2) +
+(hourlyRate * ot3 * 3);
 }
 
 let totalExpense = 0;
 let totalExtraInc = 0;
-let totalSavings = 0;
-
-// สำคัญ: ค่าใช้จ่าย/รายรับรายวันต้องคิดเฉพาะวันที่ในรอบของเดือนนั้น
-// เวอร์ชันเก่าเคยบันทึก dailyDataMap ทั้งปีซ้ำในทุก storage key ทำให้สรุปรายปี
-// นำค่าใช้จ่ายชุดเดียวกันไปบวกในหลายเดือน
 let dailyEntries = [];
+
 if (year !== null && month !== null) {
-const source = (dailySourceMap && typeof dailySourceMap === 'object')
+const source =
+(dailySourceMap && typeof dailySourceMap === 'object')
 ? dailySourceMap
-: ((data.dailyDataMap && typeof data.dailyDataMap === 'object') ? data.dailyDataMap : {});
-const periodKeys = new Set(getPeriodDates(parseInt(year), parseInt(month)).map(dateKey));
+: (
+(data.dailyDataMap && typeof data.dailyDataMap === 'object')
+? data.dailyDataMap
+: {}
+);
+
+const periodKeys =
+new Set(
+getPeriodDates(
+parseInt(year),
+parseInt(month)
+).map(dateKey)
+);
+
 Object.keys(source).forEach(key => {
-if (periodKeys.has(key) && source[key]) dailyEntries.push(source[key]);
+if (periodKeys.has(key) && source[key]) {
+dailyEntries.push(source[key]);
+}
 });
-} else if (data.dailyDataMap && typeof data.dailyDataMap === 'object') {
+} else if (
+data.dailyDataMap &&
+typeof data.dailyDataMap === 'object'
+) {
 dailyEntries = Object.values(data.dailyDataMap);
 }
 
 dailyEntries.forEach(d => {
-totalExpense += (parseFloat(d.expFood) || 0) + (parseFloat(d.expCommute) || 0);
-if (d.extraExpenses && Array.isArray(d.extraExpenses)) {
-d.extraExpenses.forEach(x => totalExpense += (parseFloat(x.amount) || 0));
+totalExpense +=
+(parseFloat(d.expFood) || 0) +
+(parseFloat(d.expCommute) || 0);
+
+if (Array.isArray(d.extraExpenses)) {
+d.extraExpenses.forEach(x => {
+totalExpense += parseFloat(x && x.amount) || 0;
+});
 }
-if (d.extraIncomes && Array.isArray(d.extraIncomes)) {
-d.extraIncomes.forEach(x => totalExtraInc += (parseFloat(x.amount) || 0));
+
+if (Array.isArray(d.extraIncomes)) {
+d.extraIncomes.forEach(x => {
+totalExtraInc += parseFloat(x && x.amount) || 0;
+});
 }
 });
 
-if (data.monthExtraExp && Array.isArray(data.monthExtraExp)) {
-data.monthExtraExp.forEach(x => totalExpense += (parseFloat(x.amount) || 0));
+if (Array.isArray(data.monthExtraExp)) {
+data.monthExtraExp.forEach(x => {
+totalExpense += parseFloat(x && x.amount) || 0;
+});
 }
 
-if (data.monthExtraInc && Array.isArray(data.monthExtraInc)) {
-data.monthExtraInc.forEach(x => totalExtraInc += (parseFloat(x.amount) || 0));
+if (Array.isArray(data.monthExtraInc)) {
+data.monthExtraInc.forEach(x => {
+totalExtraInc += parseFloat(x && x.amount) || 0;
+});
 }
 
-if (data.monthSavingsAmount !== undefined && data.monthSavingsAmount !== null && data.monthSavingsAmount !== '') {
-totalSavings = Math.max(0, parseFloat(data.monthSavingsAmount) || 0);
-} else if (data.monthSavings && Array.isArray(data.monthSavings)) {
-data.monthSavings.forEach(x => totalSavings += Math.max(0, parseFloat(x && x.amount) || 0));
-}
+const socialSecurity =
+salary > 0
+? Math.min(salary * 0.05, 875)
+: 0;
 
-if (salary <= 0 || hoursPerDay <= 0) {
-return { income: totalExtraInc, ss: 0, expense: totalExpense, savings: totalSavings, net: totalExtraInc - totalExpense - totalSavings };
-}
+// เงินเดือน + OT รวมค่าเดินทาง / กะ / ภาษา
+const coreGross =
+salary +
+totalOt +
+totalTravel +
+totalNight +
+langAllowance;
 
-const socialSecurity = Math.min(salary * 0.05, 875.0);
-const totalIncome = salary + totalOt + totalTravel + totalNight + langAllowance + totalExtraInc;
-const net = totalIncome - socialSecurity - totalExpense - totalSavings;
+const coreNet =
+coreGross -
+socialSecurity;
 
-return { income: totalIncome, ss: socialSecurity, expense: totalExpense, savings: totalSavings, net: net };
+// รายรับเพิ่มเติม = เฉพาะรายการจากข้อ 2
+const additionalIncome =
+totalExtraInc;
+
+const totalIncome =
+coreGross +
+additionalIncome;
+
+const automaticSavings =
+totalIncome -
+socialSecurity -
+totalExpense;
+
+return {
+income: totalIncome,
+ss: socialSecurity,
+expense: totalExpense,
+savings: automaticSavings,
+net: automaticSavings,
+
+salary,
+ot: totalOt,
+travel: totalTravel,
+night: totalNight,
+language: langAllowance,
+extraIncome: totalExtraInc,
+
+coreGross,
+coreNet,
+additionalIncome,
+
+hasSalaryBase: salary > 0
+};
 }
 
 function renderBreakdowns() {
 const t = translations[currentLang];
 const expCategoryMap = {};
 const incCategoryMap = {};
-
 let sumFood = 0;
 let sumCommute = 0;
 
 Object.values(getDailyDataForCurrentPeriod()).forEach(d => {
-sumFood += (parseFloat(d.expFood) || 0);
-sumCommute += (parseFloat(d.expCommute) || 0);
-
-if (d.extraExpenses && Array.isArray(d.extraExpenses)) {
-d.extraExpenses.forEach(x => {
-const name = (x.name || '').trim() || 'อื่นๆ';
-const amt = parseFloat(x.amount) || 0;
-expCategoryMap[name] = (expCategoryMap[name] || 0) + amt;
-});
-}
-
-if (d.extraIncomes && Array.isArray(d.extraIncomes)) {
-d.extraIncomes.forEach(x => {
-const name = (x.name || '').trim() || 'อื่นๆ';
-const amt = parseFloat(x.amount) || 0;
-incCategoryMap[name] = (incCategoryMap[name] || 0) + amt;
-});
-}
+sumFood += parseFloat(d.expFood) || 0;
+sumCommute += parseFloat(d.expCommute) || 0;
+if (Array.isArray(d.extraExpenses)) d.extraExpenses.forEach(x => { const name=(x.name||'').trim() || (currentLang==='th'?'อื่นๆ':'Other'); const amt=parseFloat(x.amount)||0; if(amt>0) expCategoryMap[name]=(expCategoryMap[name]||0)+amt; });
+if (Array.isArray(d.extraIncomes)) d.extraIncomes.forEach(x => { const name=(x.name||'').trim() || (currentLang==='th'?'อื่นๆ':'Other'); const amt=parseFloat(x.amount)||0; if(amt>0) incCategoryMap[name]=(incCategoryMap[name]||0)+amt; });
 });
 
 if (sumFood > 0) expCategoryMap[t.food_default] = (expCategoryMap[t.food_default] || 0) + sumFood;
 if (sumCommute > 0) expCategoryMap[t.commute_default] = (expCategoryMap[t.commute_default] || 0) + sumCommute;
 
-document.querySelectorAll('#month_exp_list .dynamic-item').forEach(row => {
-const inputs = row.querySelectorAll('input');
-const name = (inputs[0].value || '').trim() || 'อื่นๆ';
-const amt = parseFloat(inputs[1].value) || 0;
-if (amt > 0) expCategoryMap[name] = (expCategoryMap[name] || 0) + amt;
-});
+document.querySelectorAll('#month_exp_list .dynamic-item').forEach(row => { const inputs=row.querySelectorAll('input'); const name=(inputs[0].value||'').trim() || (currentLang==='th'?'อื่นๆ':'Other'); const amt=parseFloat(inputs[1].value)||0; if(amt>0) expCategoryMap[name]=(expCategoryMap[name]||0)+amt; });
+document.querySelectorAll('#month_inc_list .dynamic-item').forEach(row => { const inputs=row.querySelectorAll('input'); const name=(inputs[0].value||'').trim() || (currentLang==='th'?'อื่นๆ':'Other'); const amt=parseFloat(inputs[1].value)||0; if(amt>0) incCategoryMap[name]=(incCategoryMap[name]||0)+amt; });
 
-document.querySelectorAll('#month_inc_list .dynamic-item').forEach(row => {
-const inputs = row.querySelectorAll('input');
-const name = (inputs[0].value || '').trim() || 'อื่นๆ';
-const amt = parseFloat(inputs[1].value) || 0;
-if (amt > 0) incCategoryMap[name] = (incCategoryMap[name] || 0) + amt;
-});
+const listExp=document.getElementById('list_bd_exp'); listExp.innerHTML=''; let totalExpSum=0;
+Object.keys(expCategoryMap).forEach(key=>{ const amt=expCategoryMap[key]; totalExpSum+=amt; const row=document.createElement('div'); row.className='breakdown-row'; row.innerHTML=`<span>${key}</span><span style="font-weight:600; color:var(--danger-color);">${formatNum(amt)}</span>`; listExp.appendChild(row); });
+document.getElementById('lbl_sum_bd_exp').innerText=`${formatNum(totalExpSum)}${t.currency}`;
 
-const listExp = document.getElementById('list_bd_exp');
-listExp.innerHTML = '';
-let totalExpSum = 0;
-Object.keys(expCategoryMap).forEach(key => {
-const amt = expCategoryMap[key];
-totalExpSum += amt;
-const row = document.createElement('div');
-row.className = 'breakdown-row';
-row.innerHTML = `<span>${key}</span><span style="font-weight:600; color:var(--danger-color);">${formatNum(amt)}</span>`;
-listExp.appendChild(row);
-});
-document.getElementById('lbl_sum_bd_exp').innerText = `${formatNum(totalExpSum)}${t.currency}`;
+const summaryExpenseDetail=document.getElementById('summary_expense_detail');
+if(summaryExpenseDetail){ summaryExpenseDetail.innerHTML=''; Object.keys(expCategoryMap).forEach(key=>{ const amt=expCategoryMap[key]; if(amt<=0)return; const row=document.createElement('div'); row.className='summary-row expense-detail-row'; const label=document.createElement('span'); label.className='label'; label.textContent=key; const value=document.createElement('span'); value.className='val'; value.style.color='var(--danger-color)'; value.textContent=formatNum(amt); row.append(label,value); summaryExpenseDetail.appendChild(row); }); summaryExpenseDetail.style.display=summaryExpenseDetail.children.length?'block':'none'; }
 
-// ข้อ 3 ใช้ข้อมูลชุดเดียวกับ "รายจ่าย (รวม)" ในข้อ 2
-// แต่แสดงเป็น summary-row ปกติ เพื่อไม่ให้เป็นกล่องโดดออกมา
-const summaryExpenseDetail = document.getElementById('summary_expense_detail');
-if (summaryExpenseDetail) {
-summaryExpenseDetail.innerHTML = '';
+const listInc=document.getElementById('list_bd_inc'); listInc.innerHTML=''; let totalIncSum=0;
+Object.keys(incCategoryMap).forEach(key=>{ const amt=incCategoryMap[key]; totalIncSum+=amt; const row=document.createElement('div'); row.className='breakdown-row'; row.innerHTML=`<span>${key}</span><span style="font-weight:600; color:var(--success-color);">${formatNum(amt)}</span>`; listInc.appendChild(row); });
+document.getElementById('lbl_sum_bd_inc').innerText=`${formatNum(totalIncSum)}${t.currency}`;
 
-Object.keys(expCategoryMap).forEach(key => {
-const amt = expCategoryMap[key];
-if (amt <= 0) return;
+const summaryIncomeDetail=document.getElementById('summary_income_detail');
+if(summaryIncomeDetail){ summaryIncomeDetail.innerHTML=''; Object.keys(incCategoryMap).forEach(key=>{ const amt=incCategoryMap[key]; if(amt<=0)return; const row=document.createElement('div'); row.className='summary-row income-detail-row'; const label=document.createElement('span'); label.className='label'; label.textContent=key; const value=document.createElement('span'); value.className='val'; value.style.color='var(--success-color)'; value.textContent='+'+formatNum(amt); row.append(label,value); summaryIncomeDetail.appendChild(row); }); summaryIncomeDetail.style.display=summaryIncomeDetail.children.length?'block':'none'; }
 
-const row = document.createElement('div');
-row.className = 'summary-row expense-detail-row';
-
-const label = document.createElement('span');
-label.className = 'label';
-label.textContent = key;
-
-const value = document.createElement('span');
-value.className = 'val';
-value.style.color = 'var(--danger-color)';
-value.textContent = '-' + formatNum(amt);
-
-row.appendChild(label);
-row.appendChild(value);
-summaryExpenseDetail.appendChild(row);
-});
-
-summaryExpenseDetail.style.display = summaryExpenseDetail.children.length ? 'block' : 'none';
+return { totalExpSum, totalIncSum, expCategoryMap, incCategoryMap };
 }
 
-const listInc = document.getElementById('list_bd_inc');
-listInc.innerHTML = '';
-let totalIncSum = 0;
-Object.keys(incCategoryMap).forEach(key => {
-const amt = incCategoryMap[key];
-totalIncSum += amt;
-const row = document.createElement('div');
-row.className = 'breakdown-row';
-row.innerHTML = `<span>${key}</span><span style="font-weight:600; color:var(--success-color);">${formatNum(amt)}</span>`;
-listInc.appendChild(row);
-});
-document.getElementById('lbl_sum_bd_inc').innerText = `${formatNum(totalIncSum)}${t.currency}`;
+function calculateSalaryPackageFromObj(data) {
+const result = calculateMonthDataFromObj(data || {});
 
-const savingsAmountInputCurrent = document.getElementById('month_savings_amount');
-const totalSavingsSum = savingsAmountInputCurrent
-? Math.max(0, parseFloat(savingsAmountInputCurrent.value) || 0)
-: 0;
-document.getElementById('lbl_sum_savings').innerText = `${formatNum(totalSavingsSum)}${t.currency}`;
-
-return { totalExpSum, totalIncSum, totalSavingsSum };
+return {
+salary: result.salary || 0,
+ot: result.ot || 0,
+travel: result.travel || 0,
+night: result.night || 0,
+language: result.language || 0,
+gross: result.coreGross || 0,
+socialSecurity: result.ss || 0,
+net: result.coreNet || 0,
+hasSalaryBase: !!result.hasSalaryBase
+};
 }
+
 
 function calculate() {
 const t = translations[currentLang];
@@ -5290,61 +5757,52 @@ const ot15 = getNum('ot15');
 const ot2 = getNum('ot2');
 const ot3 = getNum('ot3');
 
-let moneyOt1 = 0, moneyOt15 = 0, moneyOt2 = 0, moneyOt3 = 0, totalOt = 0;
+let moneyOt1 = 0;
+let moneyOt15 = 0;
+let moneyOt2 = 0;
+let moneyOt3 = 0;
+let totalOt = 0;
 
 if (salary > 0 && hoursPerDay > 0) {
 const hourlyRate = salary / 30 / hoursPerDay;
-moneyOt1 = hourlyRate * ot1 * 1.0;
+moneyOt1 = hourlyRate * ot1;
 moneyOt15 = hourlyRate * ot15 * 1.5;
-moneyOt2 = hourlyRate * ot2 * 2.0;
-moneyOt3 = hourlyRate * ot3 * 3.0;
+moneyOt2 = hourlyRate * ot2 * 2;
+moneyOt3 = hourlyRate * ot3 * 3;
 totalOt = moneyOt1 + moneyOt15 + moneyOt2 + moneyOt3;
 }
 
 const breakdowns = renderBreakdowns();
 const totalExpense = breakdowns.totalExpSum;
-const totalExtraInc = breakdowns.totalIncSum;
-const totalSavings = breakdowns.totalSavingsSum;
+const currentAdditionalIncome = breakdowns.totalIncSum;
 
-const totalExtraCombined = langAllowance + totalNight + totalExtraInc;
+document.getElementById('lbl_base_preview').innerText =
+`${t.total_prefix}${formatNum(salary)}${t.currency}`;
+document.getElementById('lbl_ot_preview').innerText =
+`${t.total_prefix}${formatNum(totalOt)}${t.currency}`;
+document.getElementById('lbl_travel_preview').innerText =
+`${t.total_prefix}${formatNum(totalTravel)}${t.currency}`;
+document.getElementById('lbl_extra_preview').innerText =
+`${t.total_prefix}${formatNum(totalNight + langAllowance + currentAdditionalIncome)}${t.currency}`;
 
-document.getElementById('lbl_base_preview').innerText = `${t.total_prefix}${formatNum(salary)}${t.currency}`;
-document.getElementById('lbl_ot_preview').innerText = `${t.total_prefix}${formatNum(totalOt)}${t.currency}`;
-document.getElementById('lbl_travel_preview').innerText = `${t.total_prefix}${formatNum(totalTravel)}${t.currency}`;
-document.getElementById('lbl_extra_preview').innerText = `${t.total_prefix}${formatNum(totalExtraCombined)}${t.currency}`;
+// เงินเดือน + OT + ค่าเดินทาง + กะ + ภาษา - ประกันสังคม
+const socialSecurity = salary > 0 ? Math.min(salary * 0.05, 875) : 0;
+const currentSalaryPackageGross =
+salary + totalOt + totalTravel + totalNight + langAllowance;
+const currentSalaryPackageNet =
+currentSalaryPackageGross - socialSecurity;
 
-/*
- * IMPORTANT:
- * หัวข้อ 3 ใช้เงินที่ได้รับจากรอบเดือนที่แล้วเป็นเงินตั้งต้น
- * เพราะเงินเดือนของรอบปัจจุบันจะถูกนำไปใช้ในเดือนถัดไป
- *
- * ตัวอย่าง:
- * เลือก ส.ค. -> ใช้รายได้จากรอบ ก.ค. เป็นเงินสำหรับใช้จ่ายใน ส.ค.
- */
-const currentYear = parseInt(document.getElementById('year-select').value);
-const currentMonth = parseInt(document.getElementById('month-select').value);
-const previous = getPreviousMonthLabel(currentYear, currentMonth);
-const previousKey = getStorageKey(previous.year, previous.month);
-const previousData = JSON.parse(localStorage.getItem(previousKey) || '{}');
-const allDailyForPrevious = getAllStoredDailyData();
-const previousResult = calculateMonthDataFromObj(previousData, previous.year, previous.month, allDailyForPrevious);
+document.getElementById('lbl_salary').innerText = formatNum(salary) + t.currency;
+document.getElementById('lbl_ot').innerText = formatNum(totalOt) + t.currency;
+document.getElementById('lbl_travel').innerText = formatNum(totalTravel) + t.currency;
+document.getElementById('lbl_night').innerText = formatNum(totalNight) + t.currency;
+document.getElementById('lbl_lang').innerText = formatNum(langAllowance) + t.currency;
+document.getElementById('lbl_ss').innerText =
+socialSecurity > 0 ? '-' + formatNum(socialSecurity) + t.currency : formatNum(0) + t.currency;
 
-// เงินที่ได้รับจริงจากรอบก่อน = รายได้ทั้งหมดของรอบก่อน - ประกันสังคม
-// ไม่หักค่าใช้จ่ายของรอบก่อน เพราะค่าใช้จ่ายเหล่านั้นเป็นของเดือนก่อน
-const previousNetIncome = previousResult.income - previousResult.ss;
-const spendingBalance = previousNetIncome - totalExpense - totalSavings;
-
-// ส่วนรายละเอียดด้านบนยังคงแสดงข้อมูลของรอบที่กำลังเลือก
-if (salary > 0 && hoursPerDay > 0) {
-const socialSecurity = Math.min(salary * 0.05, 875.0);
-const totalIncome = salary + totalOt + totalTravel + totalNight + langAllowance + totalExtraInc;
-const totalDeduct = socialSecurity + totalExpense;
-
-document.getElementById('lbl_salary').innerText = formatNum(salary);
-document.getElementById('lbl_lang').innerText = formatNum(langAllowance);
-document.getElementById('lbl_ot').innerText = formatNum(totalOt);
 const otDetailEl = document.getElementById('lbl_ot_detail');
 const hasOtDetail = moneyOt1 > 0 || moneyOt15 > 0 || moneyOt2 > 0 || moneyOt3 > 0;
+
 if (hasOtDetail) {
 otDetailEl.innerText =
 `x1.0: ${formatNum(moneyOt1)} | x1.5: ${formatNum(moneyOt15)} | x2.0: ${formatNum(moneyOt2)} | x3.0: ${formatNum(moneyOt3)}`;
@@ -5353,39 +5811,76 @@ otDetailEl.style.display = 'flex';
 otDetailEl.innerText = '';
 otDetailEl.style.display = 'none';
 }
-document.getElementById('lbl_travel').innerText = formatNum(totalTravel);
-document.getElementById('lbl_night').innerText = formatNum(totalNight);
-document.getElementById('lbl_daily_inc').innerText = formatNum(totalExtraInc);
-document.getElementById('lbl_total_income').innerText = formatNum(totalIncome);
 
-document.getElementById('lbl_ss').innerText = '-' + formatNum(socialSecurity);
-document.getElementById('lbl_total_deduct').innerText = '-' + formatNum(totalDeduct);
-document.getElementById('lbl_savings').innerText = formatNum(totalSavings) + t.currency;
-} else {
-// ไม่มีข้อมูลรายได้ของรอบปัจจุบัน แต่ยังสามารถคำนวณเงินใช้จ่ายจากรอบก่อนหน้าได้
-document.getElementById('lbl_salary').innerText = '-';
-document.getElementById('lbl_lang').innerText = '-';
-document.getElementById('lbl_ot').innerText = '-';
-const otDetailElEmpty = document.getElementById('lbl_ot_detail');
-otDetailElEmpty.innerText = '';
-otDetailElEmpty.style.display = 'none';
-document.getElementById('lbl_travel').innerText = '-';
-document.getElementById('lbl_night').innerText = '-';
-document.getElementById('lbl_daily_inc').innerText = '-';
-document.getElementById('lbl_total_income').innerText = '-';
-document.getElementById('lbl_ss').innerText = '-';
-document.getElementById('lbl_total_deduct').innerText = '-';
-document.getElementById('lbl_savings').innerText = formatNum(totalSavings) + t.currency;
-}
+document.getElementById('lbl_total_income').innerText =
+formatNum(currentSalaryPackageNet) + t.currency;
 
-// หัวข้อ 3: ใช้รายได้จากรอบเดือนที่แล้ว
-document.getElementById('lbl_card_net_inc').innerText = formatNum(previousNetIncome) + t.currency;
-document.getElementById('lbl_card_net_deduct').innerText = '-' + formatNum(totalExpense) + t.currency;
-document.getElementById('lbl_card_net_savings').innerText = '-' + formatNum(totalSavings) + t.currency;
+// เงินใช้ของเดือนนี้
+const currentYear = parseInt(document.getElementById('year-select').value);
+const currentMonth = parseInt(document.getElementById('month-select').value);
+const previous = getPreviousMonthLabel(currentYear, currentMonth);
 
-const cardNetFinal = document.getElementById('lbl_card_net_final');
-cardNetFinal.innerText = formatNum(spendingBalance) + t.currency;
-cardNetFinal.style.color = spendingBalance >= 0 ? 'var(--success-color)' : 'var(--danger-color)';
+const previousData = JSON.parse(
+localStorage.getItem(
+getStorageKey(previous.year, previous.month)
+) || '{}'
+);
+
+const previousPackage =
+calculateSalaryPackageFromObj(previousData);
+
+// ไม่มีข้อมูลเดือนก่อน = 0 บาท
+const previousPackageNet =
+previousPackage.hasSalaryBase
+? previousPackage.net
+: 0;
+
+document.getElementById('lbl_card_net_inc').innerText =
+formatNum(previousPackageNet) + t.currency;
+
+const moneyAvailableThisMonth =
+previousPackageNet + currentAdditionalIncome;
+
+const moneyAvailableEl =
+document.getElementById('lbl_card_net_final');
+
+moneyAvailableEl.innerText =
+formatNum(moneyAvailableThisMonth) + t.currency;
+
+moneyAvailableEl.style.color =
+moneyAvailableThisMonth >= 0
+? 'var(--success-color)'
+: 'var(--danger-color)';
+
+// รายจ่าย
+document.getElementById('lbl_total_deduct').innerText =
+formatNum(totalExpense) + t.currency;
+
+// เงินเก็บ
+const automaticSavings =
+moneyAvailableThisMonth - totalExpense;
+
+const savingsEl =
+document.getElementById('lbl_savings');
+
+savingsEl.innerText =
+formatNum(automaticSavings) + t.currency;
+
+savingsEl.classList.toggle(
+'is-negative-savings',
+automaticSavings < 0
+);
+
+savingsEl.style.color =
+automaticSavings >= 0
+? 'var(--saving-color)'
+: 'var(--danger-color)';
+
+// เป้าหมายเงินเก็บ
+updateSavingsGoalUI(
+moneyAvailableThisMonth,
+automaticSavings
+);
 }
 
 function getPreviousMonthLabel(year, month) {
@@ -5400,201 +5895,754 @@ py -= 1;
 return { year: py, month: pm };
 }
 
+
+const YEARLY_CHART_METRIC_KEY = 'salary_yearly_chart_metric_v1';
+let yearlyChartMetric =
+localStorage.getItem(YEARLY_CHART_METRIC_KEY) || 'income';
+
+let lastYearlyChartData = [];
+
+function normalizeYearlyChartMetric(metric) {
+return ['all', 'income', 'expense', 'savings'].includes(metric)
+? metric
+: 'income';
+}
+
+function syncYearlyChartMetricButtons() {
+yearlyChartMetric =
+normalizeYearlyChartMetric(yearlyChartMetric);
+
+['all', 'income', 'expense', 'savings'].forEach(metric => {
+const btn =
+document.getElementById(
+`yearly_chart_tab_${metric}`
+);
+
+if (!btn) return;
+
+const active =
+metric === yearlyChartMetric;
+
+btn.classList.toggle(
+'active',
+active
+);
+
+btn.setAttribute(
+'aria-pressed',
+active ? 'true' : 'false'
+);
+});
+}
+
+function setYearlyChartMetric(metric) {
+yearlyChartMetric =
+normalizeYearlyChartMetric(metric);
+
+localStorage.setItem(
+YEARLY_CHART_METRIC_KEY,
+yearlyChartMetric
+);
+
+syncYearlyChartMetricButtons();
+
+if (lastYearlyChartData.length) {
+renderYearlyChart(
+lastYearlyChartData
+);
+} else {
+calculateYearlySummary();
+}
+}
+
+function buildYearlySavingsProgressHtml(
+actualSavings,
+goalAmount
+) {
+const actual =
+Number.isFinite(actualSavings)
+? actualSavings
+: 0;
+
+const goal =
+Number.isFinite(goalAmount)
+? Math.max(0, goalAmount)
+: 0;
+
+const percent =
+goal > 0
+? (actual / goal) * 100
+: 0;
+
+const visualPercent =
+Math.max(
+0,
+Math.min(
+100,
+percent
+)
+);
+
+const negative =
+actual < 0;
+
+const complete =
+goal > 0 &&
+percent >= 100;
+
+const classes = [
+'yearly-saving-progress'
+];
+
+if (negative) {
+classes.push(
+'is-negative'
+);
+}
+
+if (complete) {
+classes.push(
+'is-complete'
+);
+}
+
+return `
+<div class="${classes.join(' ')}">
+<div class="yearly-saving-progress-text">
+${formatNum(actual)} / ${formatNum(goal)} (${formatNum(Math.max(0, percent))}%)
+</div>
+<div class="yearly-saving-progress-track">
+<div class="yearly-saving-progress-fill" style="width:${visualPercent}%"></div>
+</div>
+</div>
+`;
+}
+
 function calculateYearlySummary() {
-const year = parseInt(document.getElementById('year-select').value);
-const tbody = document.getElementById('yearly-table-body');
+const year =
+parseInt(
+document.getElementById(
+'year-select'
+).value
+);
+
+const tbody =
+document.getElementById(
+'yearly-table-body'
+);
+
 tbody.innerHTML = '';
 
-/*
- * หัวข้อ 4 ต้องใช้หลักเดียวกับหัวข้อ 3
- * เดือนที่แสดง = เดือนที่นำเงินมาใช้
- * รายรับของเดือนนั้น = รายรับจากรอบเดือนก่อนหน้า
- * ประกันสังคม = ประกันสังคมของรอบเดือนก่อนหน้า
- * รายจ่าย = รายจ่ายของเดือนที่แสดง
- * คงเหลือ = รายรับรอบก่อน - ประกันสังคมรอบก่อน - รายจ่ายเดือนนี้
- */
-let yearIncome = 0, yearSs = 0, yearExpense = 0, yearSavings = 0, yearNet = 0;
+let yearIncome = 0;
+let yearSs = 0;
+let yearExpense = 0;
+let yearSavings = 0;
+let yearSavingsGoal = 0;
+
+const goalPercent =
+getSavingsGoalPercent();
+
 const chartData = [];
-const allDaily = getAllStoredDailyData();
+const allDaily =
+getAllStoredDailyData();
 
-monthNames[currentLang].forEach((mName, mIdx) => {
-// ค่าใช้จ่ายของเดือนที่กำลังสรุป
-const currentKey = getStorageKey(year, mIdx);
-const currentData = JSON.parse(localStorage.getItem(currentKey) || '{}');
-const currentResult = calculateMonthDataFromObj(currentData, year, mIdx, allDaily);
+monthNames[currentLang]
+.forEach(
+(mName, mIdx) => {
 
-// รายได้ที่นำมาใช้ในเดือนนี้ ต้องมาจากรอบเดือนก่อนหน้า
-const previous = getPreviousMonthLabel(year, mIdx);
-const previousKey = getStorageKey(previous.year, previous.month);
-const previousData = JSON.parse(localStorage.getItem(previousKey) || '{}');
-const previousResult = calculateMonthDataFromObj(previousData, previous.year, previous.month, allDaily);
+const currentData =
+JSON.parse(
+localStorage.getItem(
+getStorageKey(
+year,
+mIdx
+)
+) || '{}'
+);
 
-const receivedGross = previousResult.income;
-const receivedSs = previousResult.ss;
-const currentExpense = currentResult.expense;
-const currentSavings = currentResult.savings || 0;
-const spendingNet = receivedGross - receivedSs - currentExpense - currentSavings;
+const currentResult =
+calculateMonthDataFromObj(
+currentData,
+year,
+mIdx,
+allDaily
+);
 
-yearIncome += receivedGross;
-yearSs += receivedSs;
-yearExpense += currentExpense;
-yearSavings += currentSavings;
-yearNet += spendingNet;
+const previous =
+getPreviousMonthLabel(
+year,
+mIdx
+);
+
+const previousData =
+JSON.parse(
+localStorage.getItem(
+getStorageKey(
+previous.year,
+previous.month
+)
+) || '{}'
+);
+
+const previousResult =
+calculateMonthDataFromObj(
+previousData,
+previous.year,
+previous.month,
+allDaily
+);
+
+// ไม่มีข้อมูลเดือนก่อน = 0
+const previousCoreGross =
+previousResult.hasSalaryBase
+? (
+previousResult.coreGross ||
+0
+)
+: 0;
+
+const receivedSs =
+previousResult.hasSalaryBase
+? (
+previousResult.ss ||
+0
+)
+: 0;
+
+const currentAdditionalIncome =
+currentResult.additionalIncome ||
+0;
+
+const receivedGross =
+previousCoreGross +
+currentAdditionalIncome;
+
+const currentExpense =
+currentResult.expense ||
+0;
+
+// เงินใช้ทั้งหมดของเดือนนั้นหลังหัก SS
+const moneyAvailable =
+receivedGross -
+receivedSs;
+
+const currentSavings =
+moneyAvailable -
+currentExpense;
+
+// เป้าหมายเงินเก็บของเดือนนั้น
+const currentSavingsGoal =
+Math.max(
+0,
+moneyAvailable *
+(goalPercent / 100)
+);
+
+yearIncome +=
+receivedGross;
+
+yearSs +=
+receivedSs;
+
+yearExpense +=
+currentExpense;
+
+yearSavings +=
+currentSavings;
+
+yearSavingsGoal +=
+currentSavingsGoal;
 
 chartData.push({
 month: mName,
 income: receivedGross,
-expense: currentExpense + receivedSs,
+expense:
+currentExpense +
+receivedSs,
 savings: currentSavings,
-net: spendingNet
+savingsGoal: currentSavingsGoal
 });
 
-const tr = document.createElement('tr');
+const tr =
+document.createElement(
+'tr'
+);
+
 tr.innerHTML = `
 <td><strong>${mName}</strong></td>
 <td>${formatNum(receivedGross)}</td>
-<td style="color:var(--danger-color);">${receivedSs > 0 ? formatNum(receivedSs) : '0.00'}</td>
-<td style="color:var(--danger-color);">${currentExpense > 0 ? formatNum(currentExpense) : '0.00'}</td>
-<td class="savings-value">${currentSavings > 0 ? formatNum(currentSavings) : '0.00'}</td>
-<td style="font-weight:700; color:${spendingNet >= 0 ? 'var(--success-color)' : 'var(--danger-color)'};">${formatNum(spendingNet)}</td>
+<td style="color:var(--danger-color);">${formatNum(receivedSs)}</td>
+<td style="color:var(--danger-color);">${formatNum(currentExpense)}</td>
+<td class="yearly-savings-cell">
+${buildYearlySavingsProgressHtml(
+currentSavings,
+currentSavingsGoal
+)}
+</td>
 `;
-tbody.appendChild(tr);
+
+tbody.appendChild(
+tr
+);
 });
 
-// แถวรวมทั้งปีท้ายตารางรายเดือน
-const totalTr = document.createElement('tr');
-totalTr.className = 'yearly-total-row';
+const totalTr =
+document.createElement(
+'tr'
+);
+
+totalTr.className =
+'yearly-total-row';
+
 totalTr.innerHTML = `
 <td>${currentLang === 'th' ? 'รวมทั้งปี' : 'Year Total'}</td>
 <td>${formatNum(yearIncome)}</td>
-<td style="color:var(--danger-color);">${yearSs > 0 ? formatNum(yearSs) : '0.00'}</td>
-<td style="color:var(--danger-color);">${yearExpense > 0 ? formatNum(yearExpense) : '0.00'}</td>
-<td class="savings-value">${yearSavings > 0 ? formatNum(yearSavings) : '0.00'}</td>
-<td style="color:${yearNet >= 0 ? 'var(--success-color)' : 'var(--danger-color)'};">${formatNum(yearNet)}</td>
+<td style="color:var(--danger-color);">${formatNum(yearSs)}</td>
+<td style="color:var(--danger-color);">${formatNum(yearExpense)}</td>
+<td class="yearly-savings-cell">
+${buildYearlySavingsProgressHtml(
+yearSavings,
+yearSavingsGoal
+)}
+</td>
 `;
-tbody.appendChild(totalTr);
 
-// กล่องสรุป 5 กล่องถูกนำออกแล้ว
-// จึงอัปเดตเฉพาะปี + ตาราง + กราฟ
-const yearLabel = currentLang === 'th' ? `ปี ${year + 543}` : `Year ${year}`;
-const yearlyTitleYear = document.getElementById('lbl_yearly_title_year');
-if (yearlyTitleYear) yearlyTitleYear.innerText = `(${yearLabel})`;
+tbody.appendChild(
+totalTr
+);
 
-renderYearlyChart(chartData);
+const yearLabel =
+currentLang === 'th'
+? `ปี ${year + 543}`
+: `Year ${year}`;
+
+const yearlyTitleYear =
+document.getElementById(
+'lbl_yearly_title_year'
+);
+
+if (yearlyTitleYear) {
+yearlyTitleYear.innerText =
+`(${yearLabel})`;
+}
+
+lastYearlyChartData =
+chartData;
+
+syncYearlyChartMetricButtons();
+
+renderYearlyChart(
+chartData
+);
 }
 
 function renderYearlyChart(data) {
-const canvas = document.getElementById('yearlyChart');
+const canvas =
+document.getElementById(
+'yearlyChart'
+);
+
 if (!canvas) return;
 
-const section4Content = document.getElementById('main-section-content-4');
+const section4Content =
+document.getElementById(
+'main-section-content-4'
+);
+
 const section4Open =
 section4Content &&
-section4Content.classList.contains('is-open');
+section4Content.classList.contains(
+'is-open'
+);
 
-const rect = canvas.getBoundingClientRect();
+const rect =
+canvas.getBoundingClientRect();
 
-// ถ้าข้อ 4 ยังหุบอยู่ ขนาด canvas จะเป็น 0
-// ไม่วาดตอนนี้ เพราะตอนเปิดข้อ 4 ระบบจะ calculateYearlySummary() ใหม่อีกครั้ง
-if (!section4Open || rect.width < 20 || rect.height < 20) {
+if (
+!section4Open ||
+rect.width < 20 ||
+rect.height < 20
+) {
 return;
 }
 
-const ctx = canvas.getContext('2d');
-const dpr = window.devicePixelRatio || 1;
+yearlyChartMetric =
+normalizeYearlyChartMetric(
+yearlyChartMetric
+);
 
-canvas.width = Math.round(rect.width * dpr);
-canvas.height = Math.round(rect.height * dpr);
-if (typeof ctx.resetTransform === 'function') {
+syncYearlyChartMetricButtons();
+
+const ctx =
+canvas.getContext('2d');
+
+const dpr =
+window.devicePixelRatio ||
+1;
+
+canvas.width =
+Math.round(
+rect.width *
+dpr
+);
+
+canvas.height =
+Math.round(
+rect.height *
+dpr
+);
+
+if (
+typeof ctx.resetTransform ===
+'function'
+) {
 ctx.resetTransform();
 } else {
-ctx.setTransform(1, 0, 0, 1, 0, 0);
+ctx.setTransform(
+1, 0, 0, 1, 0, 0
+);
 }
-ctx.scale(dpr, dpr);
 
-const width = rect.width;
-const height = rect.height;
+ctx.scale(
+dpr,
+dpr
+);
 
-ctx.clearRect(0, 0, width, height);
+const width =
+rect.width;
 
-let maxVal = 1000;
+const height =
+rect.height;
+
+ctx.clearRect(
+0,
+0,
+width,
+height
+);
+
+const metric =
+yearlyChartMetric;
+
+const metricsToCheck =
+metric === 'all'
+? ['income', 'expense', 'savings']
+: [metric];
+
+let maxVal =
+1000;
+
 data.forEach(d => {
-if (d.income > maxVal) maxVal = d.income;
-if (d.expense > maxVal) maxVal = d.expense;
-if ((d.savings || 0) > maxVal) maxVal = d.savings || 0;
-if (Math.abs(d.net) > maxVal) maxVal = Math.abs(d.net);
+metricsToCheck.forEach(key => {
+const value =
+Math.abs(
+parseFloat(
+d[key]
+) || 0
+);
+
+maxVal =
+Math.max(
+maxVal,
+value
+);
 });
-maxVal = maxVal * 1.15;
+});
 
-const paddingBottom = 26;
-const paddingTop = 12;
-const paddingLeft = 45;
-const chartWidth = width - paddingLeft - 8;
-const chartHeight = height - paddingBottom - paddingTop;
-const monthWidth = chartWidth / 12;
-const barWidth = Math.max(monthWidth / 5.6, 1.8);
+maxVal *=
+1.15;
 
-const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
-const textColor = isDark ? '#94a3b8' : '#64748b';
-const borderColor = isDark ? '#334155' : '#cbd5e1';
+const paddingBottom =
+28;
 
-ctx.strokeStyle = borderColor;
-ctx.lineWidth = 1;
+const paddingTop =
+20;
+
+const paddingLeft =
+45;
+
+const chartWidth =
+width -
+paddingLeft -
+8;
+
+const chartHeight =
+height -
+paddingBottom -
+paddingTop;
+
+const monthWidth =
+chartWidth /
+12;
+
+const isAll =
+metric === 'all';
+
+const singleBarWidth =
+Math.max(
+Math.min(
+monthWidth *
+0.56,
+26
+),
+4
+);
+
+const allBarWidth =
+Math.max(
+Math.min(
+monthWidth /
+4.4,
+8
+),
+2.4
+);
+
+const isDark =
+document.documentElement
+.getAttribute(
+'data-theme'
+) ===
+'dark';
+
+const textColor =
+isDark
+? '#94a3b8'
+: '#64748b';
+
+const borderColor =
+isDark
+? '#334155'
+: '#cbd5e1';
+
+ctx.strokeStyle =
+borderColor;
+
+ctx.lineWidth =
+1;
+
 ctx.beginPath();
-ctx.moveTo(paddingLeft, paddingTop);
-ctx.lineTo(paddingLeft, height - paddingBottom);
-ctx.lineTo(width - 8, height - paddingBottom);
+
+ctx.moveTo(
+paddingLeft,
+paddingTop
+);
+
+ctx.lineTo(
+paddingLeft,
+height -
+paddingBottom
+);
+
+ctx.lineTo(
+width - 8,
+height -
+paddingBottom
+);
+
 ctx.stroke();
 
 function formatAxisLabel(val) {
-if (val >= 1000000) return (val / 1000000).toFixed(1) + 'M';
-if (val >= 1000) return (val / 1000).toFixed(0) + 'k';
+if (val >= 1000000) {
+return (
+val /
+1000000
+).toFixed(1) + 'M';
+}
+
+if (val >= 1000) {
+return (
+val /
+1000
+).toFixed(0) + 'k';
+}
+
 return val.toFixed(0);
 }
 
-ctx.fillStyle = textColor;
-ctx.font = '9px PK Samut Sakhon, sans-serif';
-ctx.textAlign = 'right';
+ctx.fillStyle =
+textColor;
 
-[0, 0.5, 1].forEach(ratio => {
-const val = maxVal * ratio;
-const yPos = (height - paddingBottom) - (chartHeight * ratio);
-ctx.fillText(formatAxisLabel(val), paddingLeft - 4, yPos + 3);
+ctx.font =
+'9px PK Samut Sakhon, sans-serif';
+
+ctx.textAlign =
+'right';
+
+[0, .5, 1]
+.forEach(ratio => {
+const val =
+maxVal *
+ratio;
+
+const yPos =
+(height -
+paddingBottom) -
+(chartHeight *
+ratio);
+
+ctx.fillText(
+formatAxisLabel(val),
+paddingLeft - 4,
+yPos + 3
+);
 
 if (ratio > 0) {
 ctx.save();
-ctx.strokeStyle = isDark ? '#1e293b' : '#f1f5f9';
+
+ctx.strokeStyle =
+isDark
+? '#1e293b'
+: '#f1f5f9';
+
 ctx.beginPath();
-ctx.moveTo(paddingLeft, yPos);
-ctx.lineTo(width - 8, yPos);
+
+ctx.moveTo(
+paddingLeft,
+yPos
+);
+
+ctx.lineTo(
+width - 8,
+yPos
+);
+
 ctx.stroke();
+
 ctx.restore();
 }
 });
 
 data.forEach((d, i) => {
-const centerX = paddingLeft + (i * monthWidth) + (monthWidth / 2);
+const centerX =
+paddingLeft +
+(i *
+monthWidth) +
+(monthWidth / 2);
 
-ctx.fillStyle = textColor;
-ctx.font = '10px PK Samut Sakhon, sans-serif';
-ctx.textAlign = 'center';
-ctx.fillText(d.month, centerX, height - 8);
+ctx.fillStyle =
+textColor;
 
-const hInc = (d.income / maxVal) * chartHeight;
-ctx.fillStyle = '#16a34a';
-ctx.fillRect(centerX - (barWidth * 1.8), (height - paddingBottom) - hInc, barWidth, hInc);
+ctx.font =
+'10px PK Samut Sakhon, sans-serif';
 
-const hExp = (d.expense / maxVal) * chartHeight;
-ctx.fillStyle = '#dc2626';
-ctx.fillRect(centerX - (barWidth * 0.6), (height - paddingBottom) - hExp, barWidth, hExp);
+ctx.textAlign =
+'center';
 
-const hSavings = ((d.savings || 0) / maxVal) * chartHeight;
-ctx.fillStyle = '#7c3aed';
-ctx.fillRect(centerX + (barWidth * 0.6), (height - paddingBottom) - hSavings, barWidth, hSavings);
+ctx.fillText(
+d.month,
+centerX,
+height - 8
+);
 
-const hNet = (Math.abs(d.net) / maxVal) * chartHeight;
-ctx.fillStyle = d.net >= 0 ? '#2563eb' : '#991b1b';
-ctx.fillRect(centerX + (barWidth * 1.8), (height - paddingBottom) - hNet, barWidth, hNet);
+if (isAll) {
+const income =
+parseFloat(d.income) || 0;
+
+const expense =
+parseFloat(d.expense) || 0;
+
+const savings =
+parseFloat(d.savings) || 0;
+
+const hIncome =
+(Math.abs(income) / maxVal) *
+chartHeight;
+
+const hExpense =
+(Math.abs(expense) / maxVal) *
+chartHeight;
+
+const hSavings =
+(Math.abs(savings) / maxVal) *
+chartHeight;
+
+// รายรับ
+ctx.fillStyle =
+'#16a34a';
+
+ctx.fillRect(
+centerX -
+(allBarWidth * 1.7),
+(height -
+paddingBottom) -
+hIncome,
+allBarWidth,
+hIncome
+);
+
+// รายจ่าย
+ctx.fillStyle =
+'#dc2626';
+
+ctx.fillRect(
+centerX -
+(allBarWidth * 0.5),
+(height -
+paddingBottom) -
+hExpense,
+allBarWidth,
+hExpense
+);
+
+// เงินเก็บ
+ctx.fillStyle =
+savings >= 0
+? '#7c3aed'
+: '#991b1b';
+
+ctx.fillRect(
+centerX +
+(allBarWidth * 0.7),
+(height -
+paddingBottom) -
+hSavings,
+allBarWidth,
+hSavings
+);
+
+return;
+}
+
+const rawValue =
+parseFloat(
+d[metric]
+) || 0;
+
+const value =
+Math.abs(
+rawValue
+);
+
+const barHeight =
+(value /
+maxVal) *
+chartHeight;
+
+const metricColor =
+metric === 'income'
+? '#16a34a'
+: (
+metric === 'expense'
+? '#dc2626'
+: '#7c3aed'
+);
+
+ctx.fillStyle =
+metric === 'savings' &&
+rawValue < 0
+? '#991b1b'
+: metricColor;
+
+ctx.fillRect(
+centerX -
+(singleBarWidth / 2),
+(height -
+paddingBottom) -
+barHeight,
+singleBarWidth,
+barHeight
+);
 });
 }
 
