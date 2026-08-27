@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="th">
 <head>
@@ -3147,6 +3148,248 @@ margin-right: 0;
 clear: both;
 }
 
+
+/* ============================================================
+   Dual period settings dropdown
+   ============================================================ */
+.period-setting.period-setting-compact.period-settings-menu {
+position: relative;
+width: auto;
+padding: 0;
+border: 0;
+background: transparent;
+overflow: visible;
+}
+
+.period-settings-trigger {
+height: 30px;
+display: inline-flex;
+align-items: center;
+justify-content: center;
+gap: 5px;
+padding: 0 9px;
+border: 1px solid var(--ui-line);
+border-radius: 8px;
+background: var(--ui-surface);
+color: var(--text-sub);
+font-size: 0.66rem;
+font-weight: 700;
+white-space: nowrap;
+cursor: pointer;
+}
+
+.period-settings-trigger:hover,
+.period-settings-menu.settings-open .period-settings-trigger {
+border-color: var(--primary-color);
+color: var(--primary-color);
+background: var(--primary-light);
+}
+
+.period-settings-chevron {
+display: inline-block;
+font-size: 0.72rem;
+transition: transform 0.2s ease;
+}
+
+.period-settings-menu.settings-open .period-settings-chevron {
+transform: rotate(180deg);
+}
+
+.period-settings-dropdown {
+position: absolute;
+top: calc(100% + 7px);
+right: 0;
+z-index: 120;
+width: 280px;
+max-width: calc(100vw - 28px);
+display: none;
+flex-direction: column;
+gap: 4px;
+padding: 8px;
+border: 1px solid var(--ui-line);
+border-radius: 12px;
+background: var(--ui-surface);
+box-shadow: 0 14px 32px rgba(15, 23, 42, 0.18);
+}
+
+.period-settings-menu.settings-open .period-settings-dropdown {
+display: flex;
+animation: periodSettingsDrop 0.18s ease both;
+}
+
+.period-setting-row {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+padding: 8px;
+border-radius: 9px;
+background: var(--ui-soft);
+}
+
+.period-setting-row-label {
+display: flex;
+flex-direction: column;
+gap: 1px;
+min-width: 0;
+}
+
+.period-setting-row-label > span {
+font-size: 0.74rem;
+font-weight: 750;
+color: var(--text-main);
+}
+
+.period-setting-row-label > small {
+font-size: 0.6rem;
+font-weight: 600;
+color: var(--text-sub);
+white-space: nowrap;
+}
+
+.period-settings-dropdown .cutoff-control {
+display: grid;
+grid-template-columns: 27px 36px 27px;
+width: 90px;
+min-width: 90px;
+height: 30px;
+overflow: hidden;
+border: 1px solid var(--ui-line);
+border-radius: 8px;
+background: var(--ui-surface);
+}
+
+.period-settings-dropdown .cutoff-step-btn {
+width: 27px;
+height: 28px;
+padding: 0;
+border: 0;
+background: transparent;
+color: var(--text-main);
+font-size: 0.95rem;
+font-weight: 700;
+cursor: pointer;
+}
+
+.period-settings-dropdown input {
+width: 36px;
+height: 28px;
+padding: 0;
+border: 0;
+border-left: 1px solid var(--ui-line);
+border-right: 1px solid var(--ui-line);
+background: transparent;
+color: var(--text-main);
+text-align: center;
+font-size: 0.76rem;
+font-weight: 800;
+outline: none;
+-moz-appearance: textfield;
+}
+
+.period-settings-dropdown input::-webkit-outer-spin-button,
+.period-settings-dropdown input::-webkit-inner-spin-button {
+-webkit-appearance: none;
+margin: 0;
+}
+
+.period-info-bar {
+display: block;
+}
+
+#lbl_period_range {
+display: flex;
+flex-direction: column;
+gap: 5px;
+}
+
+.period-info-line {
+display: flex;
+align-items: center;
+justify-content: space-between;
+gap: 10px;
+font-size: 0.67rem;
+line-height: 1.35;
+}
+
+.period-info-line span {
+color: var(--text-sub);
+font-weight: 700;
+white-space: nowrap;
+}
+
+.period-info-line strong {
+color: var(--text-main);
+font-size: 0.68rem;
+font-weight: 750;
+text-align: right;
+}
+
+.period-info-ot strong {
+color: var(--primary-color);
+}
+
+.period-info-spend strong {
+color: var(--success-color);
+}
+
+.period-info-calendar {
+padding-top: 5px;
+margin-top: 1px;
+border-top: 1px dashed var(--ui-line);
+}
+
+.period-info-calendar strong {
+color: var(--text-sub);
+}
+
+@keyframes periodSettingsDrop {
+from {
+opacity: 0;
+transform: translateY(-5px) scale(0.98);
+}
+to {
+opacity: 1;
+transform: translateY(0) scale(1);
+}
+}
+
+@media (max-width: 420px) {
+.period-settings-trigger {
+height: 28px;
+padding: 0 7px;
+font-size: 0.61rem;
+}
+
+.period-settings-dropdown {
+width: 260px;
+right: 0;
+}
+
+.period-setting-row {
+padding: 7px;
+gap: 7px;
+}
+
+.period-setting-row-label > span {
+font-size: 0.69rem;
+}
+
+.period-setting-row-label > small {
+font-size: 0.56rem;
+}
+
+.period-info-line {
+align-items: flex-start;
+flex-direction: column;
+gap: 1px;
+}
+
+.period-info-line strong {
+text-align: left;
+}
+}
+
 </style>
 </head>
 <body class="easysal-loading">
@@ -3212,14 +3455,46 @@ clear: both;
 <span class="main-section-chevron" id="main-section-chevron-1"></span>
 <span id="txt_sec1">1. เงินเดือน &amp; รายรับอื่นๆ</span>
 </div>
-<div class="period-setting period-setting-compact" id="period-setting-compact" title="กำหนดวันตัดรอบเงินเดือน/OT" style="display:none;">
-<span class="cutoff-label-wrap" id="lbl_cutoff_day">ตัดรอบ</span>
-<div class="cutoff-control" aria-label="ปรับวันตัดรอบ">
-<button type="button" class="cutoff-step-btn" onclick="adjustPeriodCutoff(-1)" title="ลดวันตัดรอบ" aria-label="ลดวันตัดรอบ">−</button>
-<input type="number" id="period-cutoff-day" min="1" max="31" value="25" onchange="onPeriodCutoffChange()" aria-label="วันตัดรอบ">
-<button type="button" class="cutoff-step-btn" onclick="adjustPeriodCutoff(1)" title="เพิ่มวันตัดรอบ" aria-label="เพิ่มวันตัดรอบ">+</button>
+<div class="period-setting period-setting-compact period-settings-menu"
+     id="period-setting-compact"
+     style="display:none;"
+     onclick="event.stopPropagation()">
+<button type="button"
+        class="period-settings-trigger"
+        id="btn_period_settings"
+        onclick="togglePeriodSettings(event)"
+        aria-expanded="false"
+        aria-controls="period-settings-dropdown">
+<span>⚙️</span>
+<span id="lbl_period_settings">ตั้งค่า</span>
+<span class="period-settings-chevron">⌄</span>
+</button>
+
+<div class="period-settings-dropdown" id="period-settings-dropdown">
+<div class="period-setting-row">
+<div class="period-setting-row-label">
+<span id="lbl_cutoff_day">ตัดวัน</span>
+<small id="lbl_cutoff_hint">OT / ค่าเดินทาง</small>
 </div>
-<span id="lbl_cutoff_suffix" class="cutoff-suffix-compact">วัน</span>
+<div class="cutoff-control" aria-label="ปรับวันตัด OT">
+<button type="button" class="cutoff-step-btn" onclick="adjustPeriodCutoff(-1)" aria-label="ลดวันตัดรอบ">−</button>
+<input type="number" id="period-cutoff-day" min="1" max="31" value="25" onchange="onPeriodCutoffChange()" aria-label="วันตัด OT">
+<button type="button" class="cutoff-step-btn" onclick="adjustPeriodCutoff(1)" aria-label="เพิ่มวันตัดรอบ">+</button>
+</div>
+</div>
+
+<div class="period-setting-row">
+<div class="period-setting-row-label">
+<span id="lbl_payday_day">วันเงินเดือนออก</span>
+<small id="lbl_payday_hint">รายรับ / รายจ่าย / เงินเก็บ</small>
+</div>
+<div class="cutoff-control" aria-label="ปรับวันเงินเดือนออก">
+<button type="button" class="cutoff-step-btn" onclick="adjustSalaryPayday(-1)" aria-label="ลดวันเงินเดือนออก">−</button>
+<input type="number" id="salary-payday-day" min="1" max="31" value="5" onchange="onSalaryPaydayChange()" aria-label="วันเงินเดือนออก">
+<button type="button" class="cutoff-step-btn" onclick="adjustSalaryPayday(1)" aria-label="เพิ่มวันเงินเดือนออก">+</button>
+</div>
+</div>
+</div>
 </div>
 </div>
 <div class="main-section-content" id="main-section-content-1">
@@ -3623,10 +3898,14 @@ function dateKey(d) {
 return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
 }
 
-// รอบคำนวณเงินเดือน/โอทีแบบกำหนดวันตัดรอบเอง
-// เช่น ตัดรอบวันที่ 25 => 25 เดือนก่อนหน้า ถึง 24 เดือนปัจจุบัน
-// เปลี่ยนวันตัดรอบแล้วข้อมูลรายวันเดิมจะไม่ถูกลบ
+// ============================================================
+// Dual period model
+// 1) OT / Travel: cutoff day in previous month -> day before cutoff in selected month
+// 2) Spending: salary payday in selected month -> next salary payday
+// Calendar displays the full range that covers BOTH periods.
+// ============================================================
 const PERIOD_CUTOFF_KEY = 'salary_ot_period_cutoff_v1';
+const SALARY_PAYDAY_KEY = 'salary_payday_day_v1';
 const DAILY_GLOBAL_KEY = 'salary_ot_daily_global_v1';
 
 function getPeriodCutoffDay() {
@@ -3635,14 +3914,35 @@ if (isNaN(saved)) return 25;
 return Math.min(31, Math.max(1, saved));
 }
 
+function getSalaryPaydayDay() {
+const saved = parseInt(localStorage.getItem(SALARY_PAYDAY_KEY));
+if (isNaN(saved)) return 5;
+return Math.min(31, Math.max(1, saved));
+}
+
 function savePeriodCutoffDay() {
 const input = document.getElementById('period-cutoff-day');
 if (!input) return getPeriodCutoffDay();
+
 let value = parseInt(input.value);
 if (isNaN(value)) value = 25;
+
 value = Math.min(31, Math.max(1, value));
 input.value = value;
 localStorage.setItem(PERIOD_CUTOFF_KEY, String(value));
+return value;
+}
+
+function saveSalaryPaydayDay() {
+const input = document.getElementById('salary-payday-day');
+if (!input) return getSalaryPaydayDay();
+
+let value = parseInt(input.value);
+if (isNaN(value)) value = 5;
+
+value = Math.min(31, Math.max(1, value));
+input.value = value;
+localStorage.setItem(SALARY_PAYDAY_KEY, String(value));
 return value;
 }
 
@@ -3650,43 +3950,189 @@ function daysInMonth(year, month) {
 return new Date(year, month + 1, 0).getDate();
 }
 
-function getPeriodDates(year, month) {
-const cutoff = getPeriodCutoffDay();
-const startDay = Math.min(cutoff, daysInMonth(year, month - 1));
-const start = new Date(year, month - 1, startDay);
-const endDay = cutoff - 1;
-const end = new Date(year, month, endDay);
+function makeClampedDate(year, month, day) {
+const actualDay = Math.min(
+Math.max(1, parseInt(day) || 1),
+daysInMonth(year, month)
+);
+return new Date(year, month, actualDay);
+}
+
+function enumerateDates(start, endInclusive) {
 const dates = [];
-let cur = new Date(start);
+const cur = new Date(start.getFullYear(), start.getMonth(), start.getDate());
+const end = new Date(endInclusive.getFullYear(), endInclusive.getMonth(), endInclusive.getDate());
+
 while (cur <= end) {
 dates.push(new Date(cur));
 cur.setDate(cur.getDate() + 1);
 }
+
 return dates;
+}
+
+function getOtPeriodBounds(year, month) {
+const cutoff = getPeriodCutoffDay();
+
+const start = makeClampedDate(year, month - 1, cutoff);
+const currentCutoff = makeClampedDate(year, month, cutoff);
+const end = new Date(currentCutoff);
+end.setDate(end.getDate() - 1);
+
+return { start, end };
+}
+
+function getOtPeriodDates(year, month) {
+const bounds = getOtPeriodBounds(year, month);
+return enumerateDates(bounds.start, bounds.end);
+}
+
+function getSpendingPeriodBounds(year, month) {
+const payday = getSalaryPaydayDay();
+const start = makeClampedDate(year, month, payday);
+const nextPayday = makeClampedDate(year, month + 1, payday);
+
+return {
+start,
+endBoundary: nextPayday
+};
+}
+
+// รอบคำนวณเงินจริงใช้ [วันเงินเดือนออก, วันเงินเดือนออกครั้งถัดไป)
+// เพื่อไม่ให้วันเงินเดือนออกครั้งถัดไปถูกนับซ้ำ 2 รอบ
+function getSpendingPeriodDates(year, month) {
+const bounds = getSpendingPeriodBounds(year, month);
+const dates = [];
+const cur = new Date(bounds.start);
+
+while (cur < bounds.endBoundary) {
+dates.push(new Date(cur));
+cur.setDate(cur.getDate() + 1);
+}
+
+return dates;
+}
+
+function getCalendarDates(year, month) {
+const ot = getOtPeriodBounds(year, month);
+const spend = getSpendingPeriodBounds(year, month);
+
+const start = ot.start < spend.start ? ot.start : spend.start;
+const end = ot.end > spend.endBoundary ? ot.end : spend.endBoundary;
+
+return enumerateDates(start, end);
+}
+
+// Legacy name retained for older code paths.
+// It now means the full calendar range, not the accounting range.
+function getPeriodDates(year, month) {
+return getCalendarDates(year, month);
+}
+
+function getDailyDataForDates(dates) {
+const result = {};
+dates.forEach(d => {
+const key = dateKey(d);
+if (dailyDataMap[key]) result[key] = dailyDataMap[key];
+});
+return result;
+}
+
+function getDailyDataForOtPeriod(year = null, month = null) {
+if (year === null) year = parseInt(document.getElementById('year-select').value);
+if (month === null) month = parseInt(document.getElementById('month-select').value);
+return getDailyDataForDates(getOtPeriodDates(year, month));
+}
+
+function getDailyDataForSpendingPeriod(year = null, month = null) {
+if (year === null) year = parseInt(document.getElementById('year-select').value);
+if (month === null) month = parseInt(document.getElementById('month-select').value);
+return getDailyDataForDates(getSpendingPeriodDates(year, month));
+}
+
+function getDailyDataForCalendarRange(year = null, month = null) {
+if (year === null) year = parseInt(document.getElementById('year-select').value);
+if (month === null) month = parseInt(document.getElementById('month-select').value);
+return getDailyDataForDates(getCalendarDates(year, month));
 }
 
 function adjustPeriodCutoff(delta) {
 const input = document.getElementById('period-cutoff-day');
 if (!input) return;
+
 let value = parseInt(input.value);
 if (isNaN(value)) value = getPeriodCutoffDay();
+
 value = Math.min(31, Math.max(1, value + delta));
 input.value = value;
 onPeriodCutoffChange();
 }
 
-function onPeriodCutoffChange() {
+function adjustSalaryPayday(delta) {
+const input = document.getElementById('salary-payday-day');
+if (!input) return;
+
+let value = parseInt(input.value);
+if (isNaN(value)) value = getSalaryPaydayDay();
+
+value = Math.min(31, Math.max(1, value + delta));
+input.value = value;
+onSalaryPaydayChange();
+}
+
+function refreshDualPeriodsAfterSettingChange() {
 selectedDayKey = null;
-savePeriodCutoffDay();
-// โหลดข้อมูลเดิมทั้งหมดกลับมา แล้วเปลี่ยนเฉพาะช่วงวันที่ที่แสดง
 dailyDataMap = getAllStoredDailyData();
+
 renderCalendar();
 updatePeriodInfoBar();
-if (!isCalendarCollapsed) recalculateMonthlyFromDaily();
+
+if (!isCalendarCollapsed) {
+recalculateMonthlyFromDaily();
+}
+
 saveCurrentMonthData();
 calculate();
 calculateYearlySummary();
 }
+
+function onPeriodCutoffChange() {
+savePeriodCutoffDay();
+refreshDualPeriodsAfterSettingChange();
+}
+
+function onSalaryPaydayChange() {
+saveSalaryPaydayDay();
+refreshDualPeriodsAfterSettingChange();
+}
+
+function togglePeriodSettings(event) {
+if (event) event.stopPropagation();
+
+const menu = document.getElementById('period-setting-compact');
+const dropdown = document.getElementById('period-settings-dropdown');
+const button = document.getElementById('btn_period_settings');
+
+if (!menu || !dropdown || !button) return;
+
+const willOpen = !menu.classList.contains('settings-open');
+menu.classList.toggle('settings-open', willOpen);
+button.setAttribute('aria-expanded', willOpen ? 'true' : 'false');
+}
+
+function closePeriodSettings() {
+const menu = document.getElementById('period-setting-compact');
+const button = document.getElementById('btn_period_settings');
+
+if (menu) menu.classList.remove('settings-open');
+if (button) button.setAttribute('aria-expanded', 'false');
+}
+
+document.addEventListener('click', (event) => {
+const menu = document.getElementById('period-setting-compact');
+if (!menu || !menu.classList.contains('settings-open')) return;
+if (!menu.contains(event.target)) closePeriodSettings();
+});
 
 function goToPrevMonth() {
 const yearSelect = document.getElementById('year-select');
@@ -3740,13 +4186,6 @@ yearSelect.insertBefore(opt, yearSelect.options[idx]);
 }
 }
 
-// เดือนที่จะ "ใช้" เงินก้อนนี้ คือเดือนถัดไปจากเดือนที่เลือก (label)
-function getSpendMonthLabel(year, month) {
-let sm = month + 1, sy = year;
-if (sm > 11) { sm = 0; sy += 1; }
-return { year: sy, month: sm };
-}
-
 function formatPeriodDate(d, lang) {
 const y = lang === 'th' ? d.getFullYear() + 543 : d.getFullYear();
 return `${d.getDate()} ${monthNames[lang][d.getMonth()]} ${y}`;
@@ -3755,25 +4194,35 @@ return `${d.getDate()} ${monthNames[lang][d.getMonth()]} ${y}`;
 function updatePeriodInfoBar(lang = currentLang) {
 const yearEl = document.getElementById('year-select');
 const monthEl = document.getElementById('month-select');
+
 if (!yearEl || !monthEl || !yearEl.value || monthEl.value === '') return;
 
 const activeLang = translations[lang] ? lang : 'th';
 const t = translations[activeLang];
 const year = parseInt(yearEl.value);
 const month = parseInt(monthEl.value);
-const dates = getPeriodDates(year, month);
-if (!dates.length) return;
 
-const start = dates[0];
-const end = dates[dates.length - 1];
-const spend = getSpendMonthLabel(year, month);
-const spendYearDisplay = activeLang === 'th' ? spend.year + 543 : spend.year;
+const ot = getOtPeriodBounds(year, month);
+const spend = getSpendingPeriodBounds(year, month);
+const calendarDates = getCalendarDates(year, month);
+
 const el = document.getElementById('lbl_period_range');
-if (!el) return;
+if (!el || !calendarDates.length) return;
 
-el.innerText =
-`📆 ${t.period_title}: ${formatPeriodDate(start, activeLang)} - ${formatPeriodDate(end, activeLang)} ` +
-`(${t.period_cutoff} ${getPeriodCutoffDay()}) ➜ ${t.period_spending} ${monthFullNames[activeLang][spend.month]} ${spendYearDisplay}`;
+el.innerHTML = `
+<div class="period-info-line period-info-ot">
+<span>${t.ot_period_label}</span>
+<strong>${formatPeriodDate(ot.start, activeLang)} – ${formatPeriodDate(ot.end, activeLang)}</strong>
+</div>
+<div class="period-info-line period-info-spend">
+<span>${t.spending_period_label}</span>
+<strong>${formatPeriodDate(spend.start, activeLang)} – ${formatPeriodDate(spend.endBoundary, activeLang)}</strong>
+</div>
+<div class="period-info-line period-info-calendar">
+<span>${t.calendar_period_label}</span>
+<strong>${formatPeriodDate(calendarDates[0], activeLang)} – ${formatPeriodDate(calendarDates[calendarDates.length - 1], activeLang)}</strong>
+</div>
+`;
 }
 
 function initTheme() {
@@ -3812,7 +4261,7 @@ sec_breakdown: "2. เพิ่มเติม รายรับ / รายจ
 sec3: "3. เงินสำหรับใช้จ่ายประจำเดือน",
 sec4: "4. สรุปภาพรวมรายปี",
 net_block_title: "💳 เงินสำหรับใช้จ่ายเดือนนี้",
-net_previous_income: "รายได้สุทธิจากรอบเดือนที่แล้ว",
+net_previous_income: "รายได้สุทธิของรอบนี้",
 net_current_expense: "ค่าใช้จ่ายของเดือนนี้",
 net_spending_balance: "เงินคงเหลือสำหรับใช้เดือนนี้",
 group_base: "💼 เงินเดือนพื้นฐาน",
@@ -3847,7 +4296,7 @@ sum_ss: "หัก ประกันสังคม (5%)",
 sum_expense: "รวมค่าใช้จ่ายทั้งหมด",
 sum_total_deduct: "รวมยอดหักทั้งหมด",
 sum_savings: "เงินที่แยกเก็บทั้งหมด",
-net_gross_inc: "รายได้สุทธิจากรอบเดือนที่แล้ว",
+net_gross_inc: "รายได้สุทธิของรอบนี้",
 net_total_deduct: "ค่าใช้จ่ายของเดือนนี้",
 net_savings: "เงินเก็บของเดือนนี้",
 net_final_rem: "เงินคงเหลือสำหรับใช้เดือนนี้",
@@ -3878,11 +4327,14 @@ lbl_m_add_inc_title: "💰 รายรับเพิ่มเติม",
 btn_save_day: "บันทึกข้อมูล",
 autosave_note: "✓ บันทึกอัตโนมัติ",
 btn_clear_day: "🗑️ ล้างข้อมูล",
-lbl_cutoff_day: "ตัดรอบ",
-lbl_cutoff_suffix: "วัน",
-period_title: "รอบคำนวณเงินเดือน/โอที",
-period_cutoff: "ตัดรอบวันที่",
-period_spending: "ใช้จ่ายเดือน",
+lbl_cutoff_day: "ตัดวัน",
+lbl_cutoff_hint: "OT / ค่าเดินทาง",
+lbl_payday_day: "วันเงินเดือนออก",
+lbl_payday_hint: "รายรับ / รายจ่าย / เงินเก็บ",
+period_settings: "ตั้งค่า",
+ot_period_label: "⏱️ OT / ค่าเดินทาง",
+spending_period_label: "💳 เงินใช้จ่าย",
+calendar_period_label: "📅 ช่วงปฏิทิน",
 toggle_cal_text: "เปิด",
 toggle_cal_off: "ปิด",
 txt_bd_exp_title: "💸 รายจ่าย (รวม)",
@@ -3918,7 +4370,7 @@ sec_breakdown: "2. Additional Income / Expenses / Savings",
 sec3: "3. Period Summary",
 sec4: "4. Yearly Overview",
 net_block_title: "💳 Money Available for This Month",
-net_previous_income: "Net income from previous pay period",
+net_previous_income: "Net income for this cycle",
 net_current_expense: "Expenses for this month",
 net_spending_balance: "Money remaining for this month",
 group_base: "💼 Base Salary",
@@ -3953,7 +4405,7 @@ sum_ss: "Social Security (5%)",
 sum_expense: "Total Expenses",
 sum_total_deduct: "Total Deductions",
 sum_savings: "Total money set aside",
-net_gross_inc: "Total Gross Income",
+net_gross_inc: "Net income for this cycle",
 net_total_deduct: "Expenses for this month",
 net_savings: "Savings for this month",
 net_final_rem: "Money remaining for this month",
@@ -3984,11 +4436,14 @@ lbl_m_add_inc_title: "💰 Extra Incomes",
 btn_save_day: "Save Data",
 autosave_note: "✓ Auto-saved",
 btn_clear_day: "🗑️ Clear Data",
-lbl_cutoff_day: "Cut-off",
-lbl_cutoff_suffix: "day",
-period_title: "Salary / OT Pay Period",
-period_cutoff: "Cut-off day",
-period_spending: "Spending money for",
+lbl_cutoff_day: "Cut-off day",
+lbl_cutoff_hint: "OT / Travel",
+lbl_payday_day: "Salary payday",
+lbl_payday_hint: "Income / Expenses / Savings",
+period_settings: "Settings",
+ot_period_label: "⏱️ OT / Travel",
+spending_period_label: "💳 Spending period",
+calendar_period_label: "📅 Calendar range",
 toggle_cal_text: "On",
 toggle_cal_off: "Off",
 txt_bd_exp_title: "💸 Expenses (Total)",
@@ -4019,6 +4474,9 @@ confirm_toggle_off: "Turning off log mode will clear all log records and related
 function initYearMonthDropdowns() {
 const cutoffInput = document.getElementById('period-cutoff-day');
 if (cutoffInput) cutoffInput.value = getPeriodCutoffDay();
+
+const paydayInput = document.getElementById('salary-payday-day');
+if (paydayInput) paydayInput.value = getSalaryPaydayDay();
 
 const yearSelect = document.getElementById('year-select');
 const now = new Date();
@@ -4097,7 +4555,10 @@ clearDayBtn.title = t.btn_clear_day;
 clearDayBtn.setAttribute('aria-label', t.btn_clear_day);
 }
 document.getElementById('lbl_cutoff_day').innerText = t.lbl_cutoff_day;
-document.getElementById('lbl_cutoff_suffix').innerText = t.lbl_cutoff_suffix;
+document.getElementById('lbl_cutoff_hint').innerText = t.lbl_cutoff_hint;
+document.getElementById('lbl_payday_day').innerText = t.lbl_payday_day;
+document.getElementById('lbl_payday_hint').innerText = t.lbl_payday_hint;
+document.getElementById('lbl_period_settings').innerText = t.period_settings;
 
 document.getElementById('txt_toggle_cal').innerText = isCalendarCollapsed ? t.toggle_cal_off : t.toggle_cal_text;
 
@@ -4142,11 +4603,16 @@ document.getElementById('txt_net_total_deduct').innerText = t.net_total_deduct;
 document.getElementById('txt_net_savings').innerText = t.net_savings;
 document.getElementById('txt_net_final_rem').innerText = t.net_final_rem;
 
-document.getElementById('lbl_y_income').innerText = t.lbl_y_income;
-document.getElementById('lbl_y_ss').innerText = t.lbl_y_ss;
-document.getElementById('lbl_y_expense').innerText = t.lbl_y_expense;
-document.getElementById('lbl_y_savings').innerText = t.lbl_y_savings;
-document.getElementById('lbl_y_net').innerText = t.lbl_y_net;
+const lbl_y_incomeEl = document.getElementById('lbl_y_income');
+if (lbl_y_incomeEl) lbl_y_incomeEl.innerText = t.lbl_y_income;
+const lbl_y_ssEl = document.getElementById('lbl_y_ss');
+if (lbl_y_ssEl) lbl_y_ssEl.innerText = t.lbl_y_ss;
+const lbl_y_expenseEl = document.getElementById('lbl_y_expense');
+if (lbl_y_expenseEl) lbl_y_expenseEl.innerText = t.lbl_y_expense;
+const lbl_y_savingsEl = document.getElementById('lbl_y_savings');
+if (lbl_y_savingsEl) lbl_y_savingsEl.innerText = t.lbl_y_savings;
+const lbl_y_netEl = document.getElementById('lbl_y_net');
+if (lbl_y_netEl) lbl_y_netEl.innerText = t.lbl_y_net;
 
 document.getElementById('txt_chart_title').innerText = t.chart_title;
 const yearlyMonthlyLabel = document.getElementById('txt_yearly_monthly_label');
@@ -4174,6 +4640,9 @@ opt.textContent = lang === 'th' ? `ปี ${y + 543}` : `Year ${y}`;
 
 const cutoffInput = document.getElementById('period-cutoff-day');
 if (cutoffInput) cutoffInput.value = getPeriodCutoffDay();
+
+const paydayInputLang = document.getElementById('salary-payday-day');
+if (paydayInputLang) paydayInputLang.value = getSalaryPaydayDay();
 
 // รีเฟรชข้อความรอบคำนวณทันทีด้วยภาษาที่เลือก
 updatePeriodInfoBar(lang);
@@ -4231,7 +4700,7 @@ listView.innerHTML = '';
 
 const year = parseInt(document.getElementById('year-select').value);
 const month = parseInt(document.getElementById('month-select').value);
-const periodDates = getPeriodDates(year, month);
+const periodDates = getCalendarDates(year, month);
 
 if (calendarViewMode === 'grid') {
 grid.style.display = 'grid';
@@ -4381,7 +4850,7 @@ const t = translations[currentLang];
 
 if (!isCalendarCollapsed) {
 if (confirm(t.confirm_toggle_off)) {
-dailyDataMap = {};
+clearDailyFieldsForSelectedCycles();
 clearCalendarCalculatedInputs();
 toggleCalendarUI(true);
 }
@@ -4410,6 +4879,10 @@ section1Header.getAttribute('aria-expanded') === 'true';
 
 const shouldShow = !isCalendarCollapsed && section1Open;
 cutoffSetting.style.display = shouldShow ? 'flex' : 'none';
+
+if (!shouldShow) {
+closePeriodSettings();
+}
 }
 
 function toggleCalendarUI(collapse, options = {}) {
@@ -4478,21 +4951,82 @@ saveAndCalculate();
 }
 }
 
-function confirmClearCalendar() {
-const t = translations[currentLang];
-if (confirm(t.confirm_clear_cal)) {
-const periodKeys = new Set(getPeriodDates(
-parseInt(document.getElementById('year-select').value),
-parseInt(document.getElementById('month-select').value)
-).map(dateKey));
+function cleanupDailyRecordIfEmpty(record) {
+if (!record || typeof record !== 'object') return true;
+
+const primitiveKeys = [
+'work', 'night', 'ot1', 'ot15', 'ot2', 'ot3',
+'expFood', 'expCommute'
+];
+
+const hasPrimitive = primitiveKeys.some(key => {
+const value = record[key];
+if (typeof value === 'boolean') return value;
+return parseFloat(value) > 0;
+});
+
+const hasExpenses =
+Array.isArray(record.extraExpenses) &&
+record.extraExpenses.some(x => (parseFloat(x && x.amount) || 0) > 0);
+
+const hasIncomes =
+Array.isArray(record.extraIncomes) &&
+record.extraIncomes.some(x => (parseFloat(x && x.amount) || 0) > 0);
+
+return !hasPrimitive && !hasExpenses && !hasIncomes;
+}
+
+function clearDailyFieldsForSelectedCycles() {
+const year = parseInt(document.getElementById('year-select').value);
+const month = parseInt(document.getElementById('month-select').value);
 const allDaily = getAllStoredDailyData();
-periodKeys.forEach(k => delete allDaily[k]);
+
+const otKeys = new Set(getOtPeriodDates(year, month).map(dateKey));
+const spendingKeys = new Set(getSpendingPeriodDates(year, month).map(dateKey));
+const touchedKeys = new Set([...otKeys, ...spendingKeys]);
+
+touchedKeys.forEach(key => {
+const d = allDaily[key];
+if (!d) return;
+
+// เฉพาะ OT / ค่าเดินทาง
+if (otKeys.has(key)) {
+d.work = false;
+d.ot1 = '';
+d.ot15 = '';
+d.ot2 = '';
+d.ot3 = '';
+}
+
+// รายรับ/รายจ่าย/กะ = รอบวันเงินเดือนออก
+if (spendingKeys.has(key)) {
+d.night = false;
+d.expFood = '';
+d.expCommute = '';
+d.extraExpenses = [];
+d.extraIncomes = [];
+}
+
+if (cleanupDailyRecordIfEmpty(d)) {
+delete allDaily[key];
+}
+});
+
 dailyDataMap = allDaily;
 saveAllStoredDailyData();
+}
+
+function confirmClearCalendar() {
+const t = translations[currentLang];
+
+if (confirm(t.confirm_clear_cal)) {
+clearDailyFieldsForSelectedCycles();
 clearCalendarCalculatedInputs();
+
 if (!isCalendarCollapsed) {
 recalculateMonthlyFromDaily();
 }
+
 saveAndCalculate();
 }
 }
@@ -4517,7 +5051,7 @@ const t = translations[currentLang];
 const keysToRemove = [];
 for (let i = 0; i < localStorage.length; i++) {
 const key = localStorage.key(i);
-if (key && (key.startsWith(STORAGE_KEY_PREFIX) || key === DAILY_GLOBAL_KEY || key === PERIOD_CUTOFF_KEY)) {
+if (key && (key.startsWith(STORAGE_KEY_PREFIX) || key === DAILY_GLOBAL_KEY || key === PERIOD_CUTOFF_KEY || key === SALARY_PAYDAY_KEY)) {
 keysToRemove.push(key);
 }
 }
@@ -4531,6 +5065,8 @@ calendarViewMode = 'grid';
 document.getElementById(id).value = '';
 });
 document.getElementById('period-cutoff-day').value = 25;
+const paydayInputClear = document.getElementById('salary-payday-day');
+if (paydayInputClear) paydayInputClear.value = 5;
 
 document.getElementById('month_exp_list').innerHTML = '';
 document.getElementById('month_inc_list').innerHTML = '';
@@ -4807,12 +5343,15 @@ function recalculateMonthlyFromDaily() {
 let travelDays = 0;
 let nightDays = 0;
 let sumOt1 = 0, sumOt15 = 0, sumOt2 = 0, sumOt3 = 0;
-const periodData = getDailyDataForCurrentPeriod();
 
-Object.keys(periodData).forEach(key => {
-const d = periodData[key];
-if (d.night) nightDays++;
+const year = parseInt(document.getElementById('year-select').value);
+const month = parseInt(document.getElementById('month-select').value);
 
+const otPeriodData = getDailyDataForOtPeriod(year, month);
+const spendingPeriodData = getDailyDataForSpendingPeriod(year, month);
+
+// OT และจำนวนวันค่าเดินทาง = รอบตัด OT
+Object.values(otPeriodData).forEach(d => {
 const o1 = parseFloat(d.ot1) || 0;
 const o15 = parseFloat(d.ot15) || 0;
 const o2 = parseFloat(d.ot2) || 0;
@@ -4823,9 +5362,13 @@ sumOt15 += o15;
 sumOt2 += o2;
 sumOt3 += o3;
 
-if (d.work) {
-travelDays++;
-}
+if (d.work) travelDays++;
+});
+
+// กะกลางคืนเป็นรายรับที่ไม่ใช่ OT/ค่าเดินทาง
+// จึงคิดตามรอบวันเงินเดือนออก
+Object.values(spendingPeriodData).forEach(d => {
+if (d.night) nightDays++;
 });
 
 document.getElementById('work_days').value = travelDays;
@@ -4875,16 +5418,9 @@ localStorage.setItem(DAILY_GLOBAL_KEY, JSON.stringify(dailyDataMap || {}));
 }
 
 function getDailyDataForCurrentPeriod() {
-const periodDates = getPeriodDates(
-parseInt(document.getElementById('year-select').value),
-parseInt(document.getElementById('month-select').value)
-);
-const result = {};
-periodDates.forEach(d => {
-const key = dateKey(d);
-if (dailyDataMap[key]) result[key] = dailyDataMap[key];
-});
-return result;
+// ใช้สำหรับ snapshot/compatibility เท่านั้น
+// เก็บข้อมูลที่มองเห็นทั้งหมดในปฏิทินของรอบนี้
+return getDailyDataForCalendarRange();
 }
 
 let isChangingMonthOrYear = false;
@@ -4965,6 +5501,9 @@ saveAllStoredDailyData();
 function loadCurrentMonthData() {
 const cutoffInput = document.getElementById('period-cutoff-day');
 if (cutoffInput) cutoffInput.value = getPeriodCutoffDay();
+
+const paydayInputLoad = document.getElementById('salary-payday-day');
+if (paydayInputLoad) paydayInputLoad.value = getSalaryPaydayDay();
 
 const year = document.getElementById('year-select').value;
 const month = document.getElementById('month-select').value;
@@ -5048,12 +5587,9 @@ const year = document.getElementById('year-select').value;
 const month = document.getElementById('month-select').value;
 const key = getStorageKey(year, month);
 
-// ล้างข้อมูลเฉพาะรอบปัจจุบัน โดยไม่กระทบข้อมูลวันที่อยู่นอกช่วง
-const periodKeys = new Set(getPeriodDates(parseInt(year), parseInt(month)).map(dateKey));
-const allDaily = getAllStoredDailyData();
-periodKeys.forEach(k => delete allDaily[k]);
-dailyDataMap = allDaily;
-saveAllStoredDailyData();
+// ล้างเฉพาะ field ที่เป็นของ 2 รอบนี้
+// เพื่อไม่ลบข้อมูลที่วันที่เดียวกันอาจถูกใช้อีกหมวดในรอบข้างเคียง
+clearDailyFieldsForSelectedCycles();
 localStorage.removeItem(key);
 
 ['salary', 'hours', 'ot1', 'ot15', 'ot2', 'ot3', 'work_days', 'travel', 'lang_allowance', 'night_days'].forEach(id => {
@@ -5086,78 +5622,158 @@ return num.toLocaleString('th-TH', { minimumFractionDigits: 2, maximumFractionDi
 function calculateMonthDataFromObj(data, year = null, month = null, dailySourceMap = null) {
 const salary = parseFloat(data.salary) || 0;
 const hoursPerDay = parseFloat(data.hours) || 0;
-const workDays = parseFloat(data.work_days) || 0;
 const travelPerDay = parseFloat(data.travel) || 0;
-const totalTravel = workDays * travelPerDay;
-
-const nightDays = parseFloat(data.night_days) || 0;
 const langAllowance = parseFloat(data.lang_allowance) || 0;
-const totalNight = nightDays * 50;
 
-const ot1 = parseFloat(data.ot1) || 0;
-const ot15 = parseFloat(data.ot15) || 0;
-const ot2 = parseFloat(data.ot2) || 0;
-const ot3 = parseFloat(data.ot3) || 0;
-
-let totalOt = 0;
-if (salary > 0 && hoursPerDay > 0) {
-const hourlyRate = salary / 30 / hoursPerDay;
-totalOt = (hourlyRate * ot1 * 1.0) + (hourlyRate * ot15 * 1.5) + (hourlyRate * ot2 * 2.0) + (hourlyRate * ot3 * 3.0);
-}
+let workDays = parseFloat(data.work_days) || 0;
+let nightDays = parseFloat(data.night_days) || 0;
+let ot1 = parseFloat(data.ot1) || 0;
+let ot15 = parseFloat(data.ot15) || 0;
+let ot2 = parseFloat(data.ot2) || 0;
+let ot3 = parseFloat(data.ot3) || 0;
 
 let totalExpense = 0;
 let totalExtraInc = 0;
 let totalSavings = 0;
 
-// สำคัญ: ค่าใช้จ่าย/รายรับรายวันต้องคิดเฉพาะวันที่ในรอบของเดือนนั้น
-// เวอร์ชันเก่าเคยบันทึก dailyDataMap ทั้งปีซ้ำในทุก storage key ทำให้สรุปรายปี
-// นำค่าใช้จ่ายชุดเดียวกันไปบวกในหลายเดือน
-let dailyEntries = [];
-if (year !== null && month !== null) {
-const source = (dailySourceMap && typeof dailySourceMap === 'object')
+const calendarEnabled = data.isCalendarCollapsed === false;
+const source =
+(dailySourceMap && typeof dailySourceMap === 'object')
 ? dailySourceMap
 : ((data.dailyDataMap && typeof data.dailyDataMap === 'object') ? data.dailyDataMap : {});
-const periodKeys = new Set(getPeriodDates(parseInt(year), parseInt(month)).map(dateKey));
-Object.keys(source).forEach(key => {
-if (periodKeys.has(key) && source[key]) dailyEntries.push(source[key]);
+
+if (year !== null && month !== null && calendarEnabled) {
+const y = parseInt(year);
+const m = parseInt(month);
+
+// OT / Travel รอบตัดวัน
+workDays = 0;
+ot1 = 0;
+ot15 = 0;
+ot2 = 0;
+ot3 = 0;
+
+getOtPeriodDates(y, m).forEach(date => {
+const d = source[dateKey(date)];
+if (!d) return;
+
+if (d.work) workDays++;
+ot1 += parseFloat(d.ot1) || 0;
+ot15 += parseFloat(d.ot15) || 0;
+ot2 += parseFloat(d.ot2) || 0;
+ot3 += parseFloat(d.ot3) || 0;
 });
-} else if (data.dailyDataMap && typeof data.dailyDataMap === 'object') {
-dailyEntries = Object.values(data.dailyDataMap);
+
+// รายรับ/รายจ่าย/กะ รอบวันเงินเดือนออก
+nightDays = 0;
+
+getSpendingPeriodDates(y, m).forEach(date => {
+const d = source[dateKey(date)];
+if (!d) return;
+
+if (d.night) nightDays++;
+
+totalExpense +=
+(parseFloat(d.expFood) || 0) +
+(parseFloat(d.expCommute) || 0);
+
+if (Array.isArray(d.extraExpenses)) {
+d.extraExpenses.forEach(x => {
+totalExpense += parseFloat(x && x.amount) || 0;
+});
 }
 
-dailyEntries.forEach(d => {
-totalExpense += (parseFloat(d.expFood) || 0) + (parseFloat(d.expCommute) || 0);
-if (d.extraExpenses && Array.isArray(d.extraExpenses)) {
-d.extraExpenses.forEach(x => totalExpense += (parseFloat(x.amount) || 0));
-}
-if (d.extraIncomes && Array.isArray(d.extraIncomes)) {
-d.extraIncomes.forEach(x => totalExtraInc += (parseFloat(x.amount) || 0));
+if (Array.isArray(d.extraIncomes)) {
+d.extraIncomes.forEach(x => {
+totalExtraInc += parseFloat(x && x.amount) || 0;
+});
 }
 });
+} else if (year === null && month === null && data.dailyDataMap && typeof data.dailyDataMap === 'object') {
+// fallback สำหรับข้อมูลเก่าที่ไม่มี year/month
+Object.values(data.dailyDataMap).forEach(d => {
+totalExpense +=
+(parseFloat(d.expFood) || 0) +
+(parseFloat(d.expCommute) || 0);
 
-if (data.monthExtraExp && Array.isArray(data.monthExtraExp)) {
-data.monthExtraExp.forEach(x => totalExpense += (parseFloat(x.amount) || 0));
+if (Array.isArray(d.extraExpenses)) {
+d.extraExpenses.forEach(x => totalExpense += parseFloat(x && x.amount) || 0);
 }
 
-if (data.monthExtraInc && Array.isArray(data.monthExtraInc)) {
-data.monthExtraInc.forEach(x => totalExtraInc += (parseFloat(x.amount) || 0));
+if (Array.isArray(d.extraIncomes)) {
+d.extraIncomes.forEach(x => totalExtraInc += parseFloat(x && x.amount) || 0);
+}
+});
 }
 
-if (data.monthSavingsAmount !== undefined && data.monthSavingsAmount !== null && data.monthSavingsAmount !== '') {
+if (Array.isArray(data.monthExtraExp)) {
+data.monthExtraExp.forEach(x => {
+totalExpense += parseFloat(x && x.amount) || 0;
+});
+}
+
+if (Array.isArray(data.monthExtraInc)) {
+data.monthExtraInc.forEach(x => {
+totalExtraInc += parseFloat(x && x.amount) || 0;
+});
+}
+
+if (
+data.monthSavingsAmount !== undefined &&
+data.monthSavingsAmount !== null &&
+data.monthSavingsAmount !== ''
+) {
 totalSavings = Math.max(0, parseFloat(data.monthSavingsAmount) || 0);
-} else if (data.monthSavings && Array.isArray(data.monthSavings)) {
-data.monthSavings.forEach(x => totalSavings += Math.max(0, parseFloat(x && x.amount) || 0));
+} else if (Array.isArray(data.monthSavings)) {
+data.monthSavings.forEach(x => {
+totalSavings += Math.max(0, parseFloat(x && x.amount) || 0);
+});
 }
 
-if (salary <= 0 || hoursPerDay <= 0) {
-return { income: totalExtraInc, ss: 0, expense: totalExpense, savings: totalSavings, net: totalExtraInc - totalExpense - totalSavings };
+const totalTravel = workDays * travelPerDay;
+const totalNight = nightDays * 50;
+
+let totalOt = 0;
+
+if (salary > 0 && hoursPerDay > 0) {
+const hourlyRate = salary / 30 / hoursPerDay;
+
+totalOt =
+(hourlyRate * ot1 * 1.0) +
+(hourlyRate * ot15 * 1.5) +
+(hourlyRate * ot2 * 2.0) +
+(hourlyRate * ot3 * 3.0);
 }
 
-const socialSecurity = Math.min(salary * 0.05, 875.0);
-const totalIncome = salary + totalOt + totalTravel + totalNight + langAllowance + totalExtraInc;
-const net = totalIncome - socialSecurity - totalExpense - totalSavings;
+const socialSecurity = salary > 0
+? Math.min(salary * 0.05, 875.0)
+: 0;
 
-return { income: totalIncome, ss: socialSecurity, expense: totalExpense, savings: totalSavings, net: net };
+const totalIncome =
+salary +
+totalOt +
+totalTravel +
+totalNight +
+langAllowance +
+totalExtraInc;
+
+const net =
+totalIncome -
+socialSecurity -
+totalExpense -
+totalSavings;
+
+return {
+income: totalIncome,
+ss: socialSecurity,
+expense: totalExpense,
+savings: totalSavings,
+net,
+ot: totalOt,
+travel: totalTravel,
+night: totalNight,
+extraIncome: totalExtraInc
+};
 }
 
 function renderBreakdowns() {
@@ -5168,7 +5784,7 @@ const incCategoryMap = {};
 let sumFood = 0;
 let sumCommute = 0;
 
-Object.values(getDailyDataForCurrentPeriod()).forEach(d => {
+Object.values(getDailyDataForSpendingPeriod()).forEach(d => {
 sumFood += (parseFloat(d.expFood) || 0);
 sumCommute += (parseFloat(d.expCommute) || 0);
 
@@ -5314,25 +5930,32 @@ document.getElementById('lbl_travel_preview').innerText = `${t.total_prefix}${fo
 document.getElementById('lbl_extra_preview').innerText = `${t.total_prefix}${formatNum(totalExtraCombined)}${t.currency}`;
 
 /*
- * IMPORTANT:
- * หัวข้อ 3 ใช้เงินที่ได้รับจากรอบเดือนที่แล้วเป็นเงินตั้งต้น
- * เพราะเงินเดือนของรอบปัจจุบันจะถูกนำไปใช้ในเดือนถัดไป
- *
- * ตัวอย่าง:
- * เลือก ส.ค. -> ใช้รายได้จากรอบ ก.ค. เป็นเงินสำหรับใช้จ่ายใน ส.ค.
+ * รอบเงินใช้จ่ายใหม่:
+ * - เงินเดือน / ค่าภาษา / กะ / รายรับ / รายจ่าย / เงินเก็บ = วันเงินเดือนออก -> วันเงินเดือนออกครั้งถัดไป
+ * - OT / ค่าเดินทาง = รอบตัด OT
+ * ทั้งหมดถูกรวมเป็นรอบเดียวของเดือนที่เลือก
  */
-const currentYear = parseInt(document.getElementById('year-select').value);
-const currentMonth = parseInt(document.getElementById('month-select').value);
-const previous = getPreviousMonthLabel(currentYear, currentMonth);
-const previousKey = getStorageKey(previous.year, previous.month);
-const previousData = JSON.parse(localStorage.getItem(previousKey) || '{}');
-const allDailyForPrevious = getAllStoredDailyData();
-const previousResult = calculateMonthDataFromObj(previousData, previous.year, previous.month, allDailyForPrevious);
+const socialSecurityForCycle =
+salary > 0
+? Math.min(salary * 0.05, 875.0)
+: 0;
 
-// เงินที่ได้รับจริงจากรอบก่อน = รายได้ทั้งหมดของรอบก่อน - ประกันสังคม
-// ไม่หักค่าใช้จ่ายของรอบก่อน เพราะค่าใช้จ่ายเหล่านั้นเป็นของเดือนก่อน
-const previousNetIncome = previousResult.income - previousResult.ss;
-const spendingBalance = previousNetIncome - totalExpense - totalSavings;
+const currentGrossIncome =
+salary +
+totalOt +
+totalTravel +
+totalNight +
+langAllowance +
+totalExtraInc;
+
+const currentNetIncome =
+currentGrossIncome -
+socialSecurityForCycle;
+
+const spendingBalance =
+currentNetIncome -
+totalExpense -
+totalSavings;
 
 // ส่วนรายละเอียดด้านบนยังคงแสดงข้อมูลของรอบที่กำลังเลือก
 if (salary > 0 && hoursPerDay > 0) {
@@ -5362,7 +5985,7 @@ document.getElementById('lbl_ss').innerText = '-' + formatNum(socialSecurity);
 document.getElementById('lbl_total_deduct').innerText = '-' + formatNum(totalDeduct);
 document.getElementById('lbl_savings').innerText = formatNum(totalSavings) + t.currency;
 } else {
-// ไม่มีข้อมูลรายได้ของรอบปัจจุบัน แต่ยังสามารถคำนวณเงินใช้จ่ายจากรอบก่อนหน้าได้
+// ไม่มีเงินเดือน/ชั่วโมงทำงาน แต่รายรับหรือรายจ่ายอื่นของรอบนี้ยังคำนวณต่อได้
 document.getElementById('lbl_salary').innerText = '-';
 document.getElementById('lbl_lang').innerText = '-';
 document.getElementById('lbl_ot').innerText = '-';
@@ -5378,8 +6001,8 @@ document.getElementById('lbl_total_deduct').innerText = '-';
 document.getElementById('lbl_savings').innerText = formatNum(totalSavings) + t.currency;
 }
 
-// หัวข้อ 3: ใช้รายได้จากรอบเดือนที่แล้ว
-document.getElementById('lbl_card_net_inc').innerText = formatNum(previousNetIncome) + t.currency;
+// หัวข้อ 3: ใช้รายได้สุทธิของรอบวันเงินเดือนออกที่กำลังเลือก
+document.getElementById('lbl_card_net_inc').innerText = formatNum(currentNetIncome) + t.currency;
 document.getElementById('lbl_card_net_deduct').innerText = '-' + formatNum(totalExpense) + t.currency;
 document.getElementById('lbl_card_net_savings').innerText = '-' + formatNum(totalSavings) + t.currency;
 
@@ -5405,80 +6028,76 @@ const year = parseInt(document.getElementById('year-select').value);
 const tbody = document.getElementById('yearly-table-body');
 tbody.innerHTML = '';
 
-/*
- * หัวข้อ 4 ต้องใช้หลักเดียวกับหัวข้อ 3
- * เดือนที่แสดง = เดือนที่นำเงินมาใช้
- * รายรับของเดือนนั้น = รายรับจากรอบเดือนก่อนหน้า
- * ประกันสังคม = ประกันสังคมของรอบเดือนก่อนหน้า
- * รายจ่าย = รายจ่ายของเดือนที่แสดง
- * คงเหลือ = รายรับรอบก่อน - ประกันสังคมรอบก่อน - รายจ่ายเดือนนี้
- */
-let yearIncome = 0, yearSs = 0, yearExpense = 0, yearSavings = 0, yearNet = 0;
+let yearIncome = 0;
+let yearSs = 0;
+let yearExpense = 0;
+let yearSavings = 0;
+let yearNet = 0;
+
 const chartData = [];
 const allDaily = getAllStoredDailyData();
 
 monthNames[currentLang].forEach((mName, mIdx) => {
-// ค่าใช้จ่ายของเดือนที่กำลังสรุป
-const currentKey = getStorageKey(year, mIdx);
-const currentData = JSON.parse(localStorage.getItem(currentKey) || '{}');
-const currentResult = calculateMonthDataFromObj(currentData, year, mIdx, allDaily);
+const key = getStorageKey(year, mIdx);
+const data = JSON.parse(localStorage.getItem(key) || '{}');
 
-// รายได้ที่นำมาใช้ในเดือนนี้ ต้องมาจากรอบเดือนก่อนหน้า
-const previous = getPreviousMonthLabel(year, mIdx);
-const previousKey = getStorageKey(previous.year, previous.month);
-const previousData = JSON.parse(localStorage.getItem(previousKey) || '{}');
-const previousResult = calculateMonthDataFromObj(previousData, previous.year, previous.month, allDaily);
+const result = calculateMonthDataFromObj(
+data,
+year,
+mIdx,
+allDaily
+);
 
-const receivedGross = previousResult.income;
-const receivedSs = previousResult.ss;
-const currentExpense = currentResult.expense;
-const currentSavings = currentResult.savings || 0;
-const spendingNet = receivedGross - receivedSs - currentExpense - currentSavings;
-
-yearIncome += receivedGross;
-yearSs += receivedSs;
-yearExpense += currentExpense;
-yearSavings += currentSavings;
-yearNet += spendingNet;
+yearIncome += result.income;
+yearSs += result.ss;
+yearExpense += result.expense;
+yearSavings += result.savings;
+yearNet += result.net;
 
 chartData.push({
 month: mName,
-income: receivedGross,
-expense: currentExpense + receivedSs,
-savings: currentSavings,
-net: spendingNet
+income: result.income,
+expense: result.expense + result.ss,
+savings: result.savings,
+net: result.net
 });
 
 const tr = document.createElement('tr');
 tr.innerHTML = `
 <td><strong>${mName}</strong></td>
-<td>${formatNum(receivedGross)}</td>
-<td style="color:var(--danger-color);">${receivedSs > 0 ? formatNum(receivedSs) : '0.00'}</td>
-<td style="color:var(--danger-color);">${currentExpense > 0 ? formatNum(currentExpense) : '0.00'}</td>
-<td class="savings-value">${currentSavings > 0 ? formatNum(currentSavings) : '0.00'}</td>
-<td style="font-weight:700; color:${spendingNet >= 0 ? 'var(--success-color)' : 'var(--danger-color)'};">${formatNum(spendingNet)}</td>
+<td>${formatNum(result.income)}</td>
+<td style="color:var(--danger-color);">${formatNum(result.ss)}</td>
+<td style="color:var(--danger-color);">${formatNum(result.expense)}</td>
+<td class="savings-value">${formatNum(result.savings)}</td>
+<td style="font-weight:700; color:${result.net >= 0 ? 'var(--success-color)' : 'var(--danger-color)'};">${formatNum(result.net)}</td>
 `;
+
 tbody.appendChild(tr);
 });
 
-// แถวรวมทั้งปีท้ายตารางรายเดือน
 const totalTr = document.createElement('tr');
 totalTr.className = 'yearly-total-row';
 totalTr.innerHTML = `
 <td>${currentLang === 'th' ? 'รวมทั้งปี' : 'Year Total'}</td>
 <td>${formatNum(yearIncome)}</td>
-<td style="color:var(--danger-color);">${yearSs > 0 ? formatNum(yearSs) : '0.00'}</td>
-<td style="color:var(--danger-color);">${yearExpense > 0 ? formatNum(yearExpense) : '0.00'}</td>
-<td class="savings-value">${yearSavings > 0 ? formatNum(yearSavings) : '0.00'}</td>
+<td style="color:var(--danger-color);">${formatNum(yearSs)}</td>
+<td style="color:var(--danger-color);">${formatNum(yearExpense)}</td>
+<td class="savings-value">${formatNum(yearSavings)}</td>
 <td style="color:${yearNet >= 0 ? 'var(--success-color)' : 'var(--danger-color)'};">${formatNum(yearNet)}</td>
 `;
 tbody.appendChild(totalTr);
 
-// กล่องสรุป 5 กล่องถูกนำออกแล้ว
-// จึงอัปเดตเฉพาะปี + ตาราง + กราฟ
-const yearLabel = currentLang === 'th' ? `ปี ${year + 543}` : `Year ${year}`;
-const yearlyTitleYear = document.getElementById('lbl_yearly_title_year');
-if (yearlyTitleYear) yearlyTitleYear.innerText = `(${yearLabel})`;
+const yearLabel =
+currentLang === 'th'
+? `ปี ${year + 543}`
+: `Year ${year}`;
+
+const yearlyTitleYear =
+document.getElementById('lbl_yearly_title_year');
+
+if (yearlyTitleYear) {
+yearlyTitleYear.innerText = `(${yearLabel})`;
+}
 
 renderYearlyChart(chartData);
 }
