@@ -3387,13 +3387,51 @@ font-weight:800;
 white-space:nowrap;
 }
 .savings-goal-formula {
-margin:-1px 0 7px;
-padding:7px 9px;
-border-radius:8px;
+margin:-1px 0 8px;
+padding:10px 11px;
+border-radius:10px;
 background:color-mix(in srgb, var(--saving-color) 9%, var(--ui-surface));
 font-size:.67rem;
 line-height:1.4;
 color:var(--text-sub);
+}
+.savings-goal-formula-title {
+margin-bottom:6px;
+font-weight:850;
+color:var(--saving-color);
+}
+.savings-goal-formula-list {
+display:flex;
+flex-direction:column;
+gap:4px;
+}
+.savings-goal-formula-row {
+display:flex;
+align-items:flex-start;
+justify-content:space-between;
+gap:10px;
+}
+.savings-goal-formula-row .k {
+color:var(--text-sub);
+}
+.savings-goal-formula-row .v {
+color:var(--text-main);
+font-weight:800;
+white-space:nowrap;
+text-align:right;
+}
+.savings-goal-formula-row.minus .v {
+color:var(--danger-color);
+}
+.savings-goal-formula-row.result {
+margin-top:2px;
+padding-top:6px;
+border-top:1px dashed color-mix(in srgb, var(--saving-color) 24%, var(--ui-line));
+}
+.savings-goal-formula-row.result .k,
+.savings-goal-formula-row.result .v {
+color:var(--saving-color);
+font-weight:900;
 }
 .savings-goal-formula strong {
 color:var(--saving-color);
@@ -7413,6 +7451,8 @@ savings_goal_budget: "เงินเก็บตามงบ",
 savings_budget_formula_label: "วิธีคิด",
 savings_budget_formula_money: "เงินใช้ทั้งหมด",
 savings_budget_formula_budget: "งบรายจ่ายรวม",
+savings_budget_formula_result: "ควรเก็บอย่างน้อย",
+savings_actual_saved: "เก็บได้จริง",
 expense_preset_select: "เลือก Preset",
 expense_preset_apply: "ใช้",
 expense_preset_save: "บันทึกรายการปัจจุบันเป็น Preset",
@@ -7576,6 +7616,8 @@ savings_goal_budget: "Savings by budget",
 savings_budget_formula_label: "Formula",
 savings_budget_formula_money: "Available money",
 savings_budget_formula_budget: "Total expense budget",
+savings_budget_formula_result: "Target savings",
+savings_actual_saved: "Actual savings",
 expense_preset_select: "Select preset",
 expense_preset_apply: "Apply",
 expense_preset_save: "Save current items as preset",
@@ -8757,24 +8799,44 @@ if (goalFormulaEl) {
 if (savingsBudgetMode) {
 const effectiveBudgetTotal = explicitBudgetTotal > 0 ? explicitBudgetTotal : Math.max(0, totalExpense);
 goalFormulaEl.classList.remove('is-hidden');
-goalFormulaEl.innerHTML = `<strong>${t.savings_budget_formula_label || (currentLang === 'th' ? 'วิธีคิด' : 'Formula')}:</strong> ${t.savings_budget_formula_money || (currentLang === 'th' ? 'เงินใช้ทั้งหมด' : 'Available money')} ${formatNum(moneyAvailable)} - ${t.savings_budget_formula_budget || (currentLang === 'th' ? 'งบรายจ่ายรวม' : 'Total expense budget')} ${formatNum(effectiveBudgetTotal)} = <strong>${formatNum(goalAmount)}${t.currency}</strong>`;
+goalFormulaEl.innerHTML = `
+<div class="savings-goal-formula-title">${t.savings_budget_formula_label || (currentLang === 'th' ? 'วิธีคิด' : 'Formula')}</div>
+<div class="savings-goal-formula-list">
+  <div class="savings-goal-formula-row">
+    <span class="k">${t.savings_budget_formula_money || (currentLang === 'th' ? 'เงินใช้ทั้งหมด' : 'Available money')}</span>
+    <span class="v">${formatNum(moneyAvailable)}${t.currency}</span>
+  </div>
+  <div class="savings-goal-formula-row minus">
+    <span class="k">- ${t.savings_budget_formula_budget || (currentLang === 'th' ? 'งบรายจ่ายรวม' : 'Total expense budget')}</span>
+    <span class="v">${formatNum(effectiveBudgetTotal)}${t.currency}</span>
+  </div>
+  <div class="savings-goal-formula-row result">
+    <span class="k">${t.savings_budget_formula_result || (currentLang === 'th' ? 'ควรเก็บอย่างน้อย' : 'Target savings')}</span>
+    <span class="v">${formatNum(goalAmount)}${t.currency}</span>
+  </div>
+</div>`;
 } else {
 goalFormulaEl.classList.add('is-hidden');
 goalFormulaEl.innerHTML = '';
 }
 }
-progressTextEl.innerText=`${formatNum(actualSavings)} / ${formatNum(goalAmount)} (${formatNum(Math.max(0,progressPercent))}%)`;
+progressTextEl.innerText = savingsBudgetMode
+? `${t.savings_actual_saved || (currentLang === 'th' ? 'เก็บได้จริง' : 'Actual savings')} ${formatNum(actualSavings)}${t.currency} (${formatNum(Math.max(0,progressPercent))}%)`
+: `${formatNum(actualSavings)} / ${formatNum(goalAmount)} (${formatNum(Math.max(0,progressPercent))}%)`;
 progressFillEl.style.width=visualPercent+'%';
 if(progressWrapEl)progressWrapEl.classList.toggle('is-negative',actualSavings<0);
 if(canSpendEl){
 const isNegative = canSpend < 0;
 canSpendEl.classList.toggle('over-target',isNegative);
-const overText = savingsBudgetMode
-? (t.savings_over_budget || (currentLang === 'th' ? 'เกินงบ' : 'Over budget'))
-: (t.savings_over_goal || (currentLang === 'th' ? 'เกินเป้าหมาย' : 'Over goal'));
-canSpendEl.innerText=isNegative
-? `${overText} ${formatNum(Math.abs(canSpend))}${t.currency}`
+if (savingsBudgetMode) {
+canSpendEl.innerText = isNegative
+? `${t.savings_over_budget || (currentLang === 'th' ? 'เกินงบ' : 'Over budget')} ${formatNum(Math.abs(canSpend))}${t.currency}`
 : `${t.savings_can_spend} ${formatNum(canSpend)}${t.currency}`;
+} else {
+canSpendEl.innerText = isNegative
+? `${t.savings_over_goal || (currentLang === 'th' ? 'เกินเป้าหมาย' : 'Over goal')} ${formatNum(Math.abs(canSpend))}${t.currency}`
+: `${t.savings_can_spend} ${formatNum(canSpend)}${t.currency}`;
+}
 }
 }
 
