@@ -10611,12 +10611,115 @@ value;
 }
 }
 
+
+function getStableExpenseBudgetKey(
+sourceType,
+name,
+specialType = ''
+) {
+if (specialType === 'food') {
+return 'calendar:food';
+}
+
+if (specialType === 'commute') {
+return 'calendar:commute';
+}
+
+if (sourceType === 'calendar') {
+return `calendar:custom:${getBudgetCategoryKey(name)}`;
+}
+
+return '';
+}
+
+function getLegacyTranslatedBudgetKeys(
+specialType
+) {
+const keys = [];
+
+if (specialType === 'food') {
+Object.values(translations).forEach(langObj => {
+if (langObj && langObj.food_default) {
+keys.push(
+`calendar:${getBudgetCategoryKey(langObj.food_default)}`
+);
+}
+});
+}
+
+if (specialType === 'commute') {
+Object.values(translations).forEach(langObj => {
+if (langObj && langObj.commute_default) {
+keys.push(
+`calendar:${getBudgetCategoryKey(langObj.commute_default)}`
+);
+}
+});
+}
+
+return [...new Set(keys)];
+}
+
+function migrateStableCalendarBudget(
+budgets,
+stableKey,
+specialType
+) {
+if (
+!budgets ||
+typeof budgets !== 'object' ||
+!stableKey
+) {
+return;
+}
+
+if (
+Object.prototype.hasOwnProperty.call(
+budgets,
+stableKey
+)
+) {
+return;
+}
+
+const legacyKeys =
+getLegacyTranslatedBudgetKeys(
+specialType
+);
+
+for (const legacyKey of legacyKeys) {
+if (
+Object.prototype.hasOwnProperty.call(
+budgets,
+legacyKey
+)
+) {
+budgets[stableKey] =
+budgets[legacyKey];
+
+break;
+}
+}
+}
+
 function getExpenseBudgetInfo(
 budgetKey,
 legacyName,
 spent,
-budgets
+budgets,
+specialType = ''
 ) {
+if (
+specialType &&
+budgetKey
+) {
+migrateStableCalendarBudget(
+budgets,
+budgetKey,
+specialType
+);
+}
+
 let hasExplicit =
 Object.prototype.hasOwnProperty.call(
 budgets,
@@ -10628,7 +10731,7 @@ hasExplicit
 ? budgets[budgetKey]
 : undefined;
 
-// migrate older category-name budget
+// legacy migration by visible category name
 if (!hasExplicit && legacyName) {
 const legacyKey =
 getBudgetCategoryKey(
@@ -10675,6 +10778,28 @@ explicitValid
 parseFloat(spent) || 0
 )
 };
+}
+
+
+function persistMigratedExpenseBudgets() {
+const yearEl =
+document.getElementById(
+'year-select'
+);
+
+const monthEl =
+document.getElementById(
+'month-select'
+);
+
+if (!yearEl || !monthEl) return;
+
+const budgets =
+getCurrentExpenseBudgets();
+
+saveCurrentExpenseBudgets(
+budgets
+);
 }
 
 function saveExpenseBudgetByKey(
@@ -11744,7 +11869,8 @@ name,
 parseFloat(
 item.amount
 ) || 0,
-budgets
+budgets,
+item.specialType || ''
 );
 
 return {
@@ -12074,6 +12200,18 @@ Object.entries(
 calendarExpenseMap
 ).forEach(
 ([name, amount]) => {
+let specialType = '';
+
+if (
+name === t.food_default
+) {
+specialType = 'food';
+} else if (
+name === t.commute_default
+) {
+specialType = 'commute';
+}
+
 expenseItems.push({
 source: 'calendar',
 rowId: '',
@@ -12084,8 +12222,18 @@ String(amount),
 updatedAt:
 calendarExpenseUpdatedMap[name] ||
 0,
+specialType,
 budgetKey:
-`calendar:${getBudgetCategoryKey(name)}`
+specialType
+? getStableExpenseBudgetKey(
+'calendar',
+name,
+specialType
+)
+: getStableExpenseBudgetKey(
+'calendar',
+name
+)
 });
 }
 );
@@ -12830,7 +12978,8 @@ getExpenseBudgetInfo(
 item.budgetKey,
 name,
 amount,
-budgets
+budgets,
+item.specialType || ''
 );
 
 totalExpSum +=
@@ -13072,7 +13221,8 @@ getExpenseBudgetInfo(
 item.budgetKey,
 name,
 amount,
-budgets
+budgets,
+item.specialType || ''
 );
 
 const hasVisibleBudget =
@@ -13494,7 +13644,34 @@ calendarExpenseMap[name] = (calendarExpenseMap[name] || 0) + amount;
 
 const items = [];
 Object.entries(calendarExpenseMap).forEach(([name, amount]) => {
-items.push({ name, amount, budgetKey: `calendar:${getBudgetCategoryKey(name)}` });
+let specialType = '';
+
+if (
+name === langText.food_default
+) {
+specialType = 'food';
+} else if (
+name === langText.commute_default
+) {
+specialType = 'commute';
+}
+
+items.push({
+name,
+amount,
+specialType,
+budgetKey:
+specialType
+? getStableExpenseBudgetKey(
+'calendar',
+name,
+specialType
+)
+: getStableExpenseBudgetKey(
+'calendar',
+name
+)
+});
 });
 
 if (Array.isArray(data.monthExtraExp)) {
@@ -13510,7 +13687,13 @@ budgetKey: `monthly:${(x && x.id) || ('legacy-' + idx)}`
 const budgets = (data.expenseBudgets && typeof data.expenseBudgets === 'object') ? { ...data.expenseBudgets } : {};
 let explicitBudgetTotal = 0;
 items.forEach(item => {
-const info = getExpenseBudgetInfo(item.budgetKey, item.name, item.amount, budgets);
+const info = getExpenseBudgetInfo(
+item.budgetKey,
+item.name,
+item.amount,
+budgets,
+item.specialType || ''
+);
 if (info.hasExplicit) explicitBudgetTotal += info.budget;
 });
 
