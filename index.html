@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-<title>EasySal 1.2</title>
+<title>EasySal 1.3</title>
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -1145,6 +1145,219 @@ contain:layout paint;
 .section-month-picker-box{margin-bottom:12px;}
 }
 
+
+/* EasySal 1.3 */
+.calendar-footer-tools{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+.calendar-footer-actions{display:flex;align-items:center;gap:6px;margin-left:auto;}
+.salary-payday-control{display:flex;align-items:center;gap:6px;min-width:0;}
+.salary-payday-label{font-size:.67rem;font-weight:800;color:var(--text-sub);white-space:nowrap;}
+.salary-payday-stepper{display:grid;grid-template-columns:25px 30px 25px;height:30px;border:1px solid var(--border-color);border-radius:9px;overflow:hidden;background:var(--card-bg);}
+.salary-payday-stepper button{border:0;background:transparent;color:var(--primary-color);font-weight:900;font-size:.9rem;cursor:pointer;}
+.salary-payday-stepper button:active{background:var(--primary-light);}
+.salary-payday-stepper span{display:grid;place-items:center;border-left:1px solid var(--border-color);border-right:1px solid var(--border-color);font-size:.72rem;font-weight:900;color:var(--text-main);background:var(--input-bg);}
+.backup-transfer-card{margin:14px 0 12px;padding:13px;background:var(--card-sub-bg);border:1px solid var(--border-color);border-radius:14px;box-shadow:0 4px 14px rgba(15,23,42,.05);}
+.backup-transfer-head{display:flex;align-items:flex-start;justify-content:space-between;gap:10px;margin-bottom:12px;}
+.backup-transfer-title{font-size:.88rem;font-weight:850;color:var(--text-main);}
+.backup-transfer-sub{font-size:.62rem;line-height:1.45;color:var(--text-sub);margin-top:3px;}
+.backup-schema-chip{flex:0 0 auto;padding:4px 7px;border-radius:999px;background:var(--primary-light);border:1px solid color-mix(in srgb,var(--primary-color) 25%,var(--border-color));color:var(--primary-color);font-size:.58rem;font-weight:900;}
+.backup-block{display:flex;flex-direction:column;gap:8px;}
+.backup-block-title{font-size:.72rem;font-weight:850;color:var(--text-sub);}
+.backup-actions{display:flex;gap:6px;flex-wrap:wrap;}
+.backup-btn{height:32px;padding:0 10px;border:1px solid var(--border-color);border-radius:9px;background:var(--card-bg);color:var(--text-main);font-size:.66rem;font-weight:800;cursor:pointer;}
+.backup-btn.primary{background:var(--primary-color);border-color:var(--primary-color);color:#fff;}
+.backup-btn:active{transform:scale(.98);}
+.backup-code-box{width:100%;min-height:76px;max-height:160px;resize:vertical;padding:9px 10px;border:1px solid var(--border-color);border-radius:10px;background:var(--input-bg);color:var(--text-main);font-family:ui-monospace,SFMono-Regular,Consolas,monospace;font-size:.62rem;line-height:1.45;outline:none;word-break:break-all;}
+.backup-code-box:focus{border-color:var(--primary-color);box-shadow:0 0 0 3px color-mix(in srgb,var(--primary-color) 10%,transparent);}
+.backup-divider{height:1px;background:var(--border-color);margin:12px 0;opacity:.7;}
+.backup-status{min-height:16px;font-size:.62rem;font-weight:700;color:var(--text-sub);line-height:1.4;}
+.backup-status.ok{color:var(--success-color);}.backup-status.error{color:var(--danger-color);}
+#btn_clear_month{font-size:1.18rem;font-weight:900;color:var(--text-sub);}
+#btn_clear_month:hover{color:var(--primary-color);background:var(--primary-light);border-color:var(--primary-color);}
+@media(max-width:520px){
+  .top-tools{position:static;display:flex;justify-content:flex-end;margin:-2px 0 8px;}
+  .app-title-row{padding-right:0 !important;gap:7px !important;margin-top:0;justify-content:space-between;min-width:0;}
+  .app-brand{gap:7px;min-width:0;}
+  .app-title-row h1{font-size:1.42rem !important;}
+  .app-download-row{margin-left:auto;min-width:0;}
+  .apk-download-btn{height:29px;padding:0 8px;font-size:.61rem;gap:5px;}
+  .apk-download-icon{width:17px;height:17px;}
+  .calendar-footer-tools{align-items:flex-end;}
+  .salary-payday-control{flex:1 1 150px;}
+  .calendar-footer-actions{flex:0 0 auto;}
+}
+@media(max-width:360px){
+  .app-logo{width:31px;height:31px;flex-basis:31px;}
+  .app-title-row h1{font-size:1.28rem !important;}
+  .apk-download-btn{padding:0 6px;font-size:.57rem;}
+  .calendar-footer-tools{flex-direction:column;align-items:stretch;}
+  .calendar-footer-actions{justify-content:flex-end;}
+}
+
+
+/* EasySal 1.3 UI refinement */
+.top-tools{height:32px;align-items:center;}
+.icon-tool-btn{width:32px;height:32px;min-width:32px;min-height:32px;padding:0;display:inline-flex;align-items:center;justify-content:center;line-height:1;border-radius:999px;}
+.lang-switch{height:32px;min-height:32px;padding:2px;display:inline-flex;align-items:center;gap:1px;border-radius:999px;}
+.lang-btn{height:26px;min-width:30px;padding:0 7px;display:inline-flex;align-items:center;justify-content:center;line-height:1;border-radius:999px;}
+@media(max-width:520px){
+  .top-tools{height:32px;align-items:center;margin:0 0 10px;}
+  .icon-tool-btn,.lang-switch{align-self:center;}
+}
+
+.backup-accordion-header{margin-top:16px !important;margin-bottom:0 !important;}
+.backup-accordion-header .backup-schema-chip{margin-left:auto;}
+.backup-accordion-content{height:0;overflow:hidden;opacity:0;padding-top:0;transition:height .34s cubic-bezier(.2,.8,.2,1),opacity .22s ease,padding-top .25s ease;will-change:height;}
+.backup-accordion-content.is-open{opacity:1;padding-top:10px;}
+.backup-accordion-content .backup-transfer-card{margin:0;}
+.backup-transfer-card{box-shadow:none;}
+.backup-transfer-intro{font-size:.64rem;line-height:1.5;color:var(--text-sub);padding:0 1px 10px;}
+.backup-danger-zone{margin-top:14px;padding-top:12px;border-top:1px solid var(--border-color);}
+.backup-danger-zone .btn-danger-full{margin:0;}
+
+.cal-payday-marker{position:absolute;top:4px;right:4px;width:18px;height:18px;display:grid;place-items:center;border-radius:999px;background:color-mix(in srgb,#f59e0b 18%,var(--card-bg));border:1px solid color-mix(in srgb,#f59e0b 48%,var(--border-color));font-size:.64rem;line-height:1;box-shadow:0 2px 5px rgba(15,23,42,.10);z-index:2;}
+.list-chip.payday{background:color-mix(in srgb,#f59e0b 14%,var(--card-bg));color:#b45309;border:1px solid color-mix(in srgb,#f59e0b 35%,var(--border-color));font-weight:800;}
+[data-theme="dark"] .list-chip.payday{color:#fbbf24;}
+
+.easy-dialog-overlay{position:fixed;inset:0;z-index:9999;display:flex;align-items:center;justify-content:center;padding:18px;background:rgba(2,6,23,.48);backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px);opacity:0;pointer-events:none;transition:opacity .18s ease;}
+.easy-dialog-overlay.show{opacity:1;pointer-events:auto;}
+.easy-dialog-card{width:min(100%,420px);background:var(--ui-surface);border:1px solid var(--ui-line);border-radius:20px;padding:18px;box-shadow:0 24px 70px rgba(15,23,42,.24);transform:translateY(10px) scale(.985);transition:transform .22s cubic-bezier(.2,.8,.2,1);}
+.easy-dialog-overlay.show .easy-dialog-card{transform:translateY(0) scale(1);}
+.easy-dialog-top{display:flex;gap:12px;align-items:flex-start;}
+.easy-dialog-icon{width:38px;height:38px;flex:0 0 38px;border-radius:12px;display:grid;place-items:center;font-size:1.05rem;background:var(--primary-light);color:var(--primary-color);border:1px solid color-mix(in srgb,var(--primary-color) 22%,var(--ui-line));}
+.easy-dialog-card.warning .easy-dialog-icon{background:color-mix(in srgb,#f59e0b 12%,var(--ui-surface));color:#d97706;border-color:color-mix(in srgb,#f59e0b 30%,var(--ui-line));}
+.easy-dialog-card.danger .easy-dialog-icon{background:var(--danger-bg);color:var(--danger-color);border-color:color-mix(in srgb,var(--danger-color) 28%,var(--ui-line));}
+.easy-dialog-card.success .easy-dialog-icon{background:var(--success-bg);color:var(--success-color);border-color:color-mix(in srgb,var(--success-color) 28%,var(--ui-line));}
+.easy-dialog-copy{min-width:0;flex:1;}
+.easy-dialog-title{font-size:.98rem;font-weight:850;color:var(--text-main);line-height:1.35;margin:1px 0 5px;}
+.easy-dialog-message{font-size:.75rem;line-height:1.6;color:var(--text-sub);white-space:pre-line;}
+.easy-dialog-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px;}
+.easy-dialog-btn{min-height:38px;padding:0 14px;border-radius:11px;border:1px solid var(--ui-line);background:var(--ui-soft);color:var(--text-main);font-size:.74rem;font-weight:800;cursor:pointer;}
+.easy-dialog-btn.primary{background:var(--primary-color);border-color:var(--primary-color);color:#fff;}
+.easy-dialog-card.danger .easy-dialog-btn.primary{background:var(--danger-color);border-color:var(--danger-color);}
+.easy-dialog-btn:active{transform:scale(.98);}
+@media(max-width:420px){.easy-dialog-card{padding:15px;border-radius:17px}.easy-dialog-actions{display:grid;grid-template-columns:1fr 1fr}.easy-dialog-actions.single{grid-template-columns:1fr}.easy-dialog-btn{width:100%;}}
+@media(prefers-reduced-motion:reduce){.easy-dialog-overlay,.easy-dialog-card,.backup-accordion-content{transition:none !important;}}
+
+
+/* Header controls size/alignment fix */
+.app-title-row{display:flex;align-items:center;gap:12px;justify-content:flex-start;min-height:48px;padding-right:152px;margin:4px 0 18px;}
+.app-brand{display:flex;align-items:center;gap:10px;min-width:0;flex:0 1 auto;}
+.app-logo{width:42px;height:42px;flex:0 0 42px;border-radius:13px;display:block;}
+.app-logo-line{left:7px;height:5px;}
+.app-logo-line.a{top:8px;width:26px;}
+.app-logo-line.b{top:18px;width:19px;}
+.app-logo-line.c{top:28px;width:27px;}
+.app-title-row h1{display:flex;align-items:center;line-height:1;font-size:1.72rem !important;font-weight:900;letter-spacing:-.04em;}
+.app-download-row{display:flex;align-items:center;flex:0 0 auto;margin-left:2px;}
+.apk-download-btn{height:40px;min-height:40px;padding:0 14px;gap:8px;border-radius:12px;font-size:.76rem;font-weight:850;}
+.apk-download-icon{width:20px;height:20px;display:grid;place-items:center;border-radius:999px;font-size:.88rem;}
+.top-tools{position:absolute;top:18px;right:18px;display:flex;align-items:center;gap:8px;height:40px;z-index:20;}
+.icon-tool-btn{width:40px;height:40px;min-width:40px;min-height:40px;border-radius:12px;font-size:1rem;}
+.lang-switch{height:40px;min-height:40px;padding:3px;border-radius:12px;display:inline-flex;align-items:center;gap:2px;}
+.lang-btn{height:32px;min-width:36px;padding:0 10px;border-radius:10px;font-size:.72rem;font-weight:800;}
+@media (max-width:700px){
+  .app-title-row{padding-right:146px;gap:10px;min-height:44px;}
+  .app-logo{width:40px;height:40px;flex-basis:40px;}
+  .app-title-row h1{font-size:1.55rem !important;}
+  .apk-download-btn{height:38px;min-height:38px;padding:0 12px;font-size:.72rem;}
+  .top-tools{top:16px;right:14px;height:38px;}
+  .icon-tool-btn{width:38px;height:38px;min-width:38px;min-height:38px;}
+  .lang-switch{height:38px;min-height:38px;}
+  .lang-btn{height:30px;min-width:34px;padding:0 9px;}
+}
+@media (max-width:520px){
+  .app-title-row{padding-right:0 !important;gap:8px !important;justify-content:space-between;flex-wrap:nowrap;}
+  .app-brand{gap:8px;min-width:0;}
+  .app-logo{width:38px;height:38px;flex-basis:38px;}
+  .app-title-row h1{font-size:1.46rem !important;}
+  .app-download-row{margin-left:auto;}
+  .apk-download-btn{height:36px;min-height:36px;padding:0 10px;font-size:.67rem;gap:6px;}
+  .top-tools{position:static;height:36px;gap:6px;margin:0 0 10px;justify-content:flex-end;}
+  .icon-tool-btn{width:36px;height:36px;min-width:36px;min-height:36px;border-radius:11px;}
+  .lang-switch{height:36px;min-height:36px;padding:2px;border-radius:11px;}
+  .lang-btn{height:30px;min-width:32px;padding:0 8px;font-size:.68rem;border-radius:9px;}
+}
+@media (max-width:380px){
+  .app-title-row h1{font-size:1.32rem !important;}
+  .apk-download-btn{padding:0 8px;font-size:.61rem;}
+  .apk-download-icon{width:18px;height:18px;font-size:.8rem;}
+}
+
+
+/* Header layout revert + lower theme/lang controls */
+.app-title-row{display:flex;align-items:center;gap:11px;margin:3px 0 17px;padding-right:102px;min-height:44px;}
+.app-brand{display:flex;align-items:center;gap:9px;min-width:0;flex:0 0 auto;}
+.app-logo{width:38px;height:38px;flex:0 0 38px;border-radius:12px;display:block;}
+.app-title-row h1{margin:0;padding:0;line-height:1;display:block;font-size:1.62rem !important;font-weight:900;letter-spacing:-.045em;}
+.app-download-row{display:flex;align-items:center;margin:0;min-width:0;flex:0 0 auto;}
+.apk-download-btn{display:inline-flex;align-items:center;gap:6px;height:30px;min-height:30px;padding:0 9px;border-radius:9px;font-size:.67rem;font-weight:800;}
+.apk-download-icon{width:18px;height:18px;border-radius:6px;display:inline-flex;align-items:center;justify-content:center;font-size:.82rem;line-height:1;}
+.top-tools{position:absolute;top:24px;right:16px;display:flex;gap:6px;align-items:center;z-index:10;height:32px;}
+.icon-tool-btn{width:32px;height:32px;min-width:32px;min-height:32px;flex:0 0 32px;border-radius:999px;padding:0;line-height:1;font-size:0.9rem;display:inline-flex;align-items:center;justify-content:center;overflow:hidden;}
+.lang-switch{display:flex;align-items:center;height:32px;min-height:32px;border-radius:20px;padding:2px;}
+.lang-btn{height:28px;min-width:30px;padding:0 10px;border-radius:16px;}
+@media (max-width:700px){
+  .top-tools{top:22px;right:14px;}
+}
+@media (max-width:520px){
+  .top-tools{position:static;display:flex;justify-content:flex-end;align-items:center;height:32px;margin:-2px 0 8px;}
+  .app-title-row{padding-right:0 !important;gap:7px !important;margin-top:0;justify-content:space-between;min-width:0;}
+  .app-brand{gap:7px;min-width:0;}
+  .app-logo{width:36px;height:36px;flex-basis:36px;}
+  .app-title-row h1{font-size:1.42rem !important;}
+  .app-download-row{margin-left:auto;min-width:0;}
+}
+@media (max-width:420px){
+  .app-title-row{gap:8px;padding-right:94px;}
+  .app-logo{width:34px;height:34px;flex-basis:34px;border-radius:11px;}
+  .app-title-row h1{font-size:1.48rem !important;}
+}
+
+
+/* EasySal header exact alignment */
+.app-title-row{
+  display:flex !important;
+  align-items:center !important;
+  gap:8px !important;
+  margin:3px 0 17px !important;
+  padding-right:0 !important;
+  min-height:40px !important;
+  flex-wrap:nowrap !important;
+}
+.app-brand,.app-download-row,.top-tools{
+  display:flex !important;
+  align-items:center !important;
+  margin:0 !important;
+  height:38px !important;
+}
+.app-brand{gap:7px !important;flex:0 0 auto !important;}
+.app-logo{width:38px !important;height:38px !important;flex:0 0 38px !important;}
+.app-title-row h1{margin:0 !important;padding:0 !important;line-height:38px !important;font-size:1.42rem !important;}
+.app-download-row{flex:0 0 auto !important;}
+.apk-download-btn{height:32px !important;min-height:32px !important;padding:0 9px !important;font-size:.64rem !important;}
+.top-tools{position:static !important;top:auto !important;right:auto !important;z-index:auto !important;gap:5px !important;margin-left:auto !important;justify-content:flex-end !important;}
+.icon-tool-btn{width:32px !important;height:32px !important;min-width:32px !important;min-height:32px !important;flex:0 0 32px !important;}
+.lang-switch{height:32px !important;min-height:32px !important;padding:2px !important;}
+.lang-btn{height:26px !important;min-width:30px !important;padding:0 7px !important;}
+@media(max-width:520px){
+  .app-title-row{gap:6px !important;margin-top:0 !important;}
+  .app-brand{gap:6px !important;}
+  .app-logo{width:34px !important;height:34px !important;flex-basis:34px !important;}
+  .app-title-row h1{line-height:34px !important;font-size:1.28rem !important;}
+  .app-brand,.app-download-row,.top-tools{height:34px !important;}
+  .apk-download-btn{height:30px !important;min-height:30px !important;padding:0 7px !important;font-size:.59rem !important;gap:5px !important;}
+  .apk-download-icon{width:17px !important;height:17px !important;}
+  .icon-tool-btn{width:30px !important;height:30px !important;min-width:30px !important;min-height:30px !important;flex-basis:30px !important;}
+  .lang-switch{height:30px !important;min-height:30px !important;}
+  .lang-btn{height:24px !important;min-width:27px !important;padding:0 6px !important;font-size:.64rem !important;}
+}
+@media(max-width:390px){
+  .app-title-row{gap:5px !important;}
+  .app-title-row h1{font-size:1.18rem !important;}
+  .apk-download-btn{padding:0 6px !important;font-size:.55rem !important;}
+  .lang-btn{min-width:25px !important;padding:0 5px !important;}
+}
+
 </style>
 </head>
 <body class="easysal-loading">
@@ -1177,14 +1390,6 @@ contain:layout paint;
 
 <div class="container">
 
-<div class="top-tools">
-<button class="icon-tool-btn" id="theme-btn" onclick="toggleTheme()" title="สลับธีม">🌙</button>
-<div class="lang-switch">
-<button class="lang-btn active" id="btn-th" onclick="setLanguage('th')">TH</button>
-<button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
-</div>
-</div>
-
 <div class="app-title-row">
 <div class="app-brand">
 <div class="app-logo" aria-hidden="true">
@@ -1199,6 +1404,13 @@ contain:layout paint;
 <span class="apk-download-icon">↓</span>
 <span id="txt_download_apk">Download APK</span>
 </a>
+</div>
+<div class="top-tools">
+<button class="icon-tool-btn" id="theme-btn" onclick="toggleTheme()" title="สลับธีม">🌙</button>
+<div class="lang-switch">
+<button class="lang-btn active" id="btn-th" onclick="setLanguage('th')">TH</button>
+<button class="lang-btn" id="btn-en" onclick="setLanguage('en')">EN</button>
+</div>
 </div>
 </div>
 
@@ -1230,7 +1442,7 @@ contain:layout paint;
 </div>
 </div>
 <button class="es-nav-btn next" type="button" onclick="goToNextMonth()" title="เดือนถัดไป" aria-label="เดือนถัดไป"><span></span></button>
-<button class="btn-clear-month" onclick="confirmClearMonthData()" id="btn_clear_month" title="ล้างข้อมูลเดือนนี้">🗑️</button>
+<button class="btn-clear-month" onclick="confirmClearMonthData()" id="btn_clear_month" title="รีเซ็ตข้อมูลเดือนนี้" aria-label="รีเซ็ตข้อมูลเดือนนี้">↻</button>
 </div>
 </div>
 
@@ -1293,8 +1505,18 @@ contain:layout paint;
 <div class="calendar-list-view" id="calendar-list-view" style="display: none;"></div>
 
 <div class="calendar-footer-tools">
+<div class="salary-payday-control" title="ตั้งวันเงินเดือนออกและแจ้งเตือนในแอป">
+<span class="salary-payday-label" id="salary_payday_label">🔔 เงินเดือนออก</span>
+<div class="salary-payday-stepper" role="group" aria-label="วันเงินเดือนออก">
+<button type="button" onclick="adjustSalaryPayday(-1)" aria-label="ลดวันเงินเดือนออก">−</button>
+<span id="salary_payday_value">5</span>
+<button type="button" onclick="adjustSalaryPayday(1)" aria-label="เพิ่มวันเงินเดือนออก">+</button>
+</div>
+</div>
+<div class="calendar-footer-actions">
 <button class="btn-cal-icon wide calendar-mode-text-btn" id="btn_switch_theme" onclick="toggleCalendarTheme()" title="สลับมุมมอง">To-do list</button>
 <button class="btn-cal-icon wide danger" id="btn_clear_cal" onclick="confirmClearCalendar()" title="ล้างข้อมูลปฏิทิน"><span id="txt_btn_clear_cal">ล้าง</span></button>
+</div>
 </div>
 </div>
 </div>
@@ -1760,7 +1982,68 @@ contain:layout paint;
 </div>
 </div>
 
+<div class="section-title main-section-header backup-accordion-header"
+     id="backup-section-header"
+     role="button"
+     tabindex="0"
+     aria-expanded="false"
+     aria-controls="backup-section-content"
+     onclick="toggleBackupSection(event)"
+     onkeydown="handleBackupSectionKeydown(event)">
+<div class="main-section-heading">
+<span class="main-section-chevron" id="backup-section-chevron"></span>
+<span id="backup_title">🔐 สำรอง & ย้ายข้อมูล</span>
+</div>
+<span class="backup-schema-chip">ESB1</span>
+</div>
+<div class="backup-accordion-content" id="backup-section-content">
+<div class="backup-transfer-card" id="backup_transfer_card">
+<div class="backup-transfer-intro" id="backup_subtitle">ย้ายข้อมูล EasySal ไปเครื่องอื่นด้วยโค้ดหรือไฟล์ • รองรับการอัปเกรดเวอร์ชันในอนาคต</div>
+
+<div class="backup-block">
+<div class="backup-block-title" id="backup_export_title">ส่งออกข้อมูล</div>
+<div class="backup-actions">
+<button type="button" class="backup-btn primary" onclick="generateEasySalBackupCode()" id="backup_generate_btn">สร้าง Backup Code</button>
+<button type="button" class="backup-btn" onclick="copyEasySalBackupCode()" id="backup_copy_btn">คัดลอก</button>
+<button type="button" class="backup-btn" onclick="downloadEasySalBackupFile()" id="backup_download_btn">ดาวน์โหลดไฟล์</button>
+</div>
+<textarea id="backup_code_output" class="backup-code-box" readonly placeholder="กด ‘สร้าง Backup Code’ เพื่อสร้างโค้ดสำรอง"></textarea>
+</div>
+
+<div class="backup-divider"></div>
+
+<div class="backup-block">
+<div class="backup-block-title" id="backup_import_title">นำเข้าข้อมูล</div>
+<textarea id="backup_code_input" class="backup-code-box" placeholder="วาง Backup Code ที่นี่"></textarea>
+<div class="backup-actions">
+<button type="button" class="backup-btn primary" onclick="importEasySalBackupCode()" id="backup_import_btn">นำเข้าโค้ด</button>
+<button type="button" class="backup-btn" onclick="document.getElementById('backup_file_input').click()" id="backup_file_btn">เลือกไฟล์สำรอง</button>
+<input id="backup_file_input" type="file" accept=".easysal,.json,text/plain,application/json" hidden onchange="importEasySalBackupFile(event)">
+</div>
+<div class="backup-status" id="backup_status"></div>
+</div>
+
+<div class="backup-danger-zone">
 <button class="btn-danger-full" onclick="confirmClearAllData()" id="btn_clear_all">🗑️ ล้างข้อมูลทั้งหมด</button>
+</div>
+</div>
+</div>
+</div>
+
+<div class="easy-dialog-overlay" id="easy-dialog-overlay" aria-hidden="true">
+<div class="easy-dialog-card" id="easy-dialog-card" role="dialog" aria-modal="true" aria-labelledby="easy-dialog-title" aria-describedby="easy-dialog-message">
+<div class="easy-dialog-top">
+<div class="easy-dialog-icon" id="easy-dialog-icon">!</div>
+<div class="easy-dialog-copy">
+<div class="easy-dialog-title" id="easy-dialog-title">ยืนยัน</div>
+<div class="easy-dialog-message" id="easy-dialog-message"></div>
+</div>
+</div>
+<div class="easy-dialog-actions" id="easy-dialog-actions">
+<button type="button" class="easy-dialog-btn" id="easy-dialog-cancel">ยกเลิก</button>
+<button type="button" class="easy-dialog-btn primary" id="easy-dialog-confirm">ยืนยัน</button>
+</div>
+</div>
 </div>
 
 <div id="day-editor-home" style="display: none;">
@@ -1973,6 +2256,7 @@ return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
 }
 
 const PERIOD_CUTOFF_KEY = 'salary_ot_period_cutoff_v1';
+const SALARY_PAYDAY_KEY = 'salary_payday_day_v1';
 const DAILY_GLOBAL_KEY = 'salary_ot_daily_global_v1';
 
 function getPeriodCutoffDay() {
@@ -2119,6 +2403,473 @@ if (!el) return;
 el.innerText =
 `📆 ${t.period_title}: ${formatPeriodDate(start, activeLang)} - ${formatPeriodDate(end, activeLang)} ` +
 `(${t.period_cutoff} ${getPeriodCutoffDay()}) ➜ ${t.period_spending} ${monthFullNames[activeLang][spend.month]} ${spendYearDisplay}`;
+}
+
+
+function getSalaryPayday() {
+const saved = parseInt(localStorage.getItem(SALARY_PAYDAY_KEY));
+if (isNaN(saved)) return 5;
+return Math.min(31, Math.max(1, saved));
+}
+
+function renderSalaryPayday() {
+const valueEl = document.getElementById('salary_payday_value');
+if (valueEl) valueEl.textContent = String(getSalaryPayday());
+}
+
+function adjustSalaryPayday(delta) {
+let value = getSalaryPayday() + delta;
+if (value < 1) value = 31;
+if (value > 31) value = 1;
+localStorage.setItem(SALARY_PAYDAY_KEY, String(value));
+renderSalaryPayday();
+renderCalendar();
+syncNativeSalaryNotification();
+}
+
+function syncNativeSalaryNotification() {
+try {
+const cap = window.Capacitor;
+const plugin = cap && cap.Plugins && cap.Plugins.EasySalWidget;
+if (!plugin || typeof plugin.scheduleSalaryNotification !== 'function') return;
+const day = getSalaryPayday();
+const title = currentLang === 'th' ? 'วันนี้เงินเดือนออก 💰' : 'It’s salary day 💰';
+const body = currentLang === 'th'
+? `ถึงวันเงินเดือนออกที่ตั้งไว้แล้ว (วันที่ ${day}) เปิด EasySal เพื่อเช็กเงินใช้เดือนนี้และวางแผนรายจ่าย`
+: `Your saved salary day is here (${day}). Open EasySal to review this month’s spending money and plan expenses.`;
+plugin.scheduleSalaryNotification({ day, hour: 8, minute: 0, title, body }).catch(() => {});
+} catch (e) {}
+}
+
+
+const BACKUP_SECTION_STATE_KEY = 'easysal_backup_section_open_v1';
+let easyDialogResolver = null;
+
+function isSalaryPaydayDate(date) {
+if (!(date instanceof Date) || Number.isNaN(date.getTime())) return false;
+const configured = getSalaryPayday();
+const lastDay = new Date(date.getFullYear(), date.getMonth() + 1, 0).getDate();
+return date.getDate() === Math.min(configured, lastDay);
+}
+
+function syncBackupSectionHeight() {
+const content = document.getElementById('backup-section-content');
+if (!content || !content.classList.contains('is-open')) return;
+content.style.height = content.scrollHeight + 'px';
+requestAnimationFrame(() => {
+  if (content.classList.contains('is-open')) content.style.height = 'auto';
+});
+}
+
+function setBackupSectionOpen(open, save = true) {
+const header = document.getElementById('backup-section-header');
+const content = document.getElementById('backup-section-content');
+if (!header || !content) return;
+header.classList.toggle('is-open', open);
+header.setAttribute('aria-expanded', open ? 'true' : 'false');
+if (open) {
+  content.classList.add('is-open');
+  content.style.height = content.scrollHeight + 'px';
+  requestAnimationFrame(() => {
+    if (content.classList.contains('is-open')) content.style.height = 'auto';
+  });
+} else {
+  if (content.style.height === 'auto') content.style.height = content.scrollHeight + 'px';
+  requestAnimationFrame(() => {
+    content.style.height = '0px';
+    content.classList.remove('is-open');
+  });
+}
+if (save) localStorage.setItem(BACKUP_SECTION_STATE_KEY, open ? '1' : '0');
+}
+
+function toggleBackupSection(event) {
+if (event && event.target && event.target.closest('button,input,textarea,a')) return;
+const header = document.getElementById('backup-section-header');
+setBackupSectionOpen(!(header && header.classList.contains('is-open')));
+}
+
+function handleBackupSectionKeydown(event) {
+if (!event || (event.key !== 'Enter' && event.key !== ' ')) return;
+event.preventDefault();
+toggleBackupSection();
+}
+
+function initBackupSection() {
+setBackupSectionOpen(localStorage.getItem(BACKUP_SECTION_STATE_KEY) === '1', false);
+}
+
+function closeEasyDialog(result) {
+const overlay = document.getElementById('easy-dialog-overlay');
+if (!overlay) return;
+overlay.classList.remove('show');
+overlay.setAttribute('aria-hidden', 'true');
+const resolver = easyDialogResolver;
+easyDialogResolver = null;
+setTimeout(() => {
+  if (resolver) resolver(!!result);
+}, 120);
+}
+
+function showEasyDialog(options = {}) {
+const overlay = document.getElementById('easy-dialog-overlay');
+const card = document.getElementById('easy-dialog-card');
+const icon = document.getElementById('easy-dialog-icon');
+const title = document.getElementById('easy-dialog-title');
+const message = document.getElementById('easy-dialog-message');
+const actions = document.getElementById('easy-dialog-actions');
+const cancelBtn = document.getElementById('easy-dialog-cancel');
+const confirmBtn = document.getElementById('easy-dialog-confirm');
+if (!overlay || !card || !title || !message || !cancelBtn || !confirmBtn) return Promise.resolve(false);
+if (easyDialogResolver) closeEasyDialog(false);
+const type = options.type || 'info';
+card.className = `easy-dialog-card ${type}`;
+icon.textContent = options.icon || (type === 'danger' ? '!' : type === 'warning' ? '!' : type === 'success' ? '✓' : 'i');
+title.textContent = options.title || (currentLang === 'th' ? 'แจ้งเตือน' : 'Notice');
+message.textContent = options.message || '';
+confirmBtn.textContent = options.confirmText || (currentLang === 'th' ? 'ยืนยัน' : 'Confirm');
+cancelBtn.textContent = options.cancelText || (currentLang === 'th' ? 'ยกเลิก' : 'Cancel');
+const showCancel = options.showCancel !== false;
+cancelBtn.style.display = showCancel ? '' : 'none';
+if (actions) actions.classList.toggle('single', !showCancel);
+overlay.classList.add('show');
+overlay.setAttribute('aria-hidden', 'false');
+return new Promise(resolve => {
+  easyDialogResolver = resolve;
+  confirmBtn.onclick = () => closeEasyDialog(true);
+  cancelBtn.onclick = () => closeEasyDialog(false);
+  overlay.onclick = e => { if (e.target === overlay && showCancel) closeEasyDialog(false); };
+  requestAnimationFrame(() => confirmBtn.focus());
+});
+}
+
+function getEasyDialogCopy(key, extra = {}) {
+const th = currentLang === 'th';
+const copies = {
+openDaily: th ? {
+  title:'เปิดบันทึกรายวัน?',
+  message:'หลังเปิด ระบบจะคำนวณ OT วันทำงาน และกะกลางคืนจากข้อมูลที่บันทึกในปฏิทินแทนค่าที่กรอกเองของรอบนี้',
+  confirmText:'เปิดบันทึกรายวัน', cancelText:'ยกเลิก', type:'warning', icon:'📅'
+} : {
+  title:'Enable daily log?',
+  message:'OT, work days, and night shifts for this period will be calculated from calendar entries instead of the manually entered values.',
+  confirmText:'Enable daily log', cancelText:'Cancel', type:'warning', icon:'📅'
+},
+closeDaily: th ? {
+  title:'ปิดบันทึกรายวัน?',
+  message:'ข้อมูลรายวันที่บันทึกไว้จะถูกล้าง และช่อง OT วันทำงาน และกะกลางคืนจะกลับมากรอกเอง',
+  confirmText:'ปิดและล้างบันทึก', cancelText:'ยกเลิก', type:'danger', icon:'🗑️'
+} : {
+  title:'Disable daily log?',
+  message:'Saved daily entries will be cleared, and OT, work days, and night shifts will return to manual entry.',
+  confirmText:'Disable & clear', cancelText:'Cancel', type:'danger', icon:'🗑️'
+},
+clearCalendar: th ? {
+  title:'ล้างบันทึกรายวันของรอบนี้?',
+  message:'จะลบเฉพาะข้อมูลรายวันที่อยู่ในรอบที่เลือก รวม OT รายรับ และรายจ่ายที่บันทึกไว้ในปฏิทิน',
+  confirmText:'ล้างบันทึกรอบนี้', cancelText:'ยกเลิก', type:'danger', icon:'🗑️'
+} : {
+  title:'Clear daily records for this period?',
+  message:'Only daily entries in the selected period will be removed, including OT, income, and expenses recorded in the calendar.',
+  confirmText:'Clear this period', cancelText:'Cancel', type:'danger', icon:'🗑️'
+},
+clearMonth: th ? {
+  title:'ล้างข้อมูลของรอบนี้?',
+  message:'เงินเดือน OT รายรับ รายจ่าย งบ และข้อมูลรายวันของรอบที่เลือกจะถูกล้าง โดยข้อมูลเดือนอื่นยังอยู่เหมือนเดิม',
+  confirmText:'ล้างข้อมูลรอบนี้', cancelText:'ยกเลิก', type:'danger', icon:'↻'
+} : {
+  title:'Clear this period?',
+  message:'Salary, OT, income, expenses, budgets, and daily records for the selected period will be removed. Other months will stay unchanged.',
+  confirmText:'Clear this period', cancelText:'Cancel', type:'danger', icon:'↻'
+},
+clearAll: th ? {
+  title:'ล้างข้อมูล EasySal ทั้งหมด?',
+  message:'จะลบข้อมูลทุกเดือนและทุกปี รวมข้อมูลรายวัน Preset งบ และการตั้งค่าที่เกี่ยวข้องในเครื่องนี้ การลบนี้ย้อนกลับไม่ได้',
+  confirmText:'ล้างข้อมูลทั้งหมด', cancelText:'ยกเลิก', type:'danger', icon:'⚠️'
+} : {
+  title:'Clear all EasySal data?',
+  message:'All months and years will be removed, including daily records, presets, budgets, and related saved settings on this device. This cannot be undone.',
+  confirmText:'Clear all data', cancelText:'Cancel', type:'danger', icon:'⚠️'
+},
+clearDay: th ? {
+  title:`ล้างข้อมูล${extra.dayLabel ? ` ${extra.dayLabel}` : 'วันนี้'}?`,
+  message:'ข้อมูล OT รายรับ รายจ่าย และสถานะการทำงานที่บันทึกไว้ในวันนี้จะถูกล้าง',
+  confirmText:'ล้างข้อมูลวันนี้', cancelText:'ยกเลิก', type:'danger', icon:'🗓️'
+} : {
+  title:`Clear ${extra.dayLabel || 'this day'}?`,
+  message:'OT, income, expenses, and work status saved for this day will be removed.',
+  confirmText:'Clear this day', cancelText:'Cancel', type:'danger', icon:'🗓️'
+},
+importBackup: th ? {
+  title:'นำเข้าข้อมูลสำรอง?',
+  message:`พบ Backup EasySal ${extra.version || '?'}\n${extra.summary || ''}\n\nข้อมูล EasySal ที่มีอยู่ในเครื่องนี้จะถูกแทนที่ด้วยข้อมูลจาก Backup`,
+  confirmText:'นำเข้าและแทนที่', cancelText:'ยกเลิก', type:'warning', icon:'📥'
+} : {
+  title:'Import backup?',
+  message:`EasySal ${extra.version || '?'} backup found\n${extra.summary || ''}\n\nExisting EasySal data on this device will be replaced by the backup.`,
+  confirmText:'Import & replace', cancelText:'Cancel', type:'warning', icon:'📥'
+},
+importDone: th ? {
+  title:'นำเข้าข้อมูลสำเร็จ', message:'EasySal จะโหลดใหม่เพื่อใช้ข้อมูลที่นำเข้า', confirmText:'โหลดใหม่', type:'success', icon:'✓'
+} : {
+  title:'Import complete', message:'EasySal will reload to apply the imported data.', confirmText:'Reload', type:'success', icon:'✓'
+},
+clearMonthDone: th ? {
+  title:'ล้างข้อมูลรอบนี้แล้ว', message:'ข้อมูลของรอบที่เลือกถูกล้างเรียบร้อยแล้ว', confirmText:'ตกลง', type:'success', icon:'✓'
+} : {
+  title:'Period cleared', message:'The selected period has been cleared.', confirmText:'OK', type:'success', icon:'✓'
+},
+clearAllDone: th ? {
+  title:'ล้างข้อมูลเรียบร้อยแล้ว', message:'ข้อมูล EasySal ที่บันทึกไว้ในเครื่องนี้ถูกล้างแล้ว', confirmText:'ตกลง', type:'success', icon:'✓'
+} : {
+  title:'Data cleared', message:'Saved EasySal data on this device has been cleared.', confirmText:'OK', type:'success', icon:'✓'
+}
+};
+return copies[key] || {};
+}
+
+function showEasyNotice(key, extra = {}) {
+return showEasyDialog({ ...getEasyDialogCopy(key, extra), showCancel:false });
+}
+
+const EASYSAL_BACKUP_SCHEMA = 'easysal-backup';
+const EASYSAL_BACKUP_SCHEMA_VERSION = 1;
+const EASYSAL_APP_VERSION = '1.3';
+const EASYSAL_BACKUP_PREFIX = 'ESB1.';
+
+function isEasySalStorageKey(key) {
+return typeof key === 'string' && (
+key.startsWith('salary_') ||
+key.startsWith('calc_data_v7_') ||
+key.startsWith('easysal_')
+);
+}
+
+function collectEasySalStorageEntries() {
+const entries = {};
+for (let i = 0; i < localStorage.length; i++) {
+const key = localStorage.key(i);
+if (!isEasySalStorageKey(key) || key === 'easysal_last_import_rollback_v1') continue;
+entries[key] = localStorage.getItem(key);
+}
+return entries;
+}
+
+function buildEasySalBackupEnvelope() {
+if (typeof flushScheduledSave === 'function') flushScheduledSave();
+try { if (typeof saveCurrentMonthData === 'function') saveCurrentMonthData(); } catch (e) {}
+return {
+schema: EASYSAL_BACKUP_SCHEMA,
+schemaVersion: EASYSAL_BACKUP_SCHEMA_VERSION,
+sourceAppVersion: EASYSAL_APP_VERSION,
+exportedAt: new Date().toISOString(),
+encoding: 'utf8-base64url',
+entries: collectEasySalStorageEntries()
+};
+}
+
+function utf8ToBase64Url(text) {
+const bytes = new TextEncoder().encode(text);
+let binary = '';
+const chunk = 0x8000;
+for (let i = 0; i < bytes.length; i += chunk) {
+binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
+}
+return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
+}
+
+function base64UrlToUtf8(value) {
+let base64 = String(value || '').replace(/-/g, '+').replace(/_/g, '/');
+while (base64.length % 4) base64 += '=';
+const binary = atob(base64);
+const bytes = new Uint8Array(binary.length);
+for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
+return new TextDecoder().decode(bytes);
+}
+
+function migrateEasySalBackupEnvelope(envelope) {
+if (!envelope || envelope.schema !== EASYSAL_BACKUP_SCHEMA) throw new Error('ไม่ใช่ไฟล์สำรอง EasySal');
+const version = parseInt(envelope.schemaVersion || 0);
+if (version === 1) return envelope;
+if (version > EASYSAL_BACKUP_SCHEMA_VERSION) {
+throw new Error(`Backup นี้ใช้ schema ${version} ซึ่งใหม่กว่า EasySal ${EASYSAL_APP_VERSION}`);
+}
+throw new Error('Backup schema รุ่นนี้ไม่รองรับ');
+}
+
+function encodeEasySalBackup(envelope) {
+return EASYSAL_BACKUP_PREFIX + utf8ToBase64Url(JSON.stringify(envelope));
+}
+
+function decodeEasySalBackup(raw) {
+const text = String(raw || '').trim();
+if (!text) throw new Error('ยังไม่มี Backup Code');
+let envelope;
+if (text.startsWith(EASYSAL_BACKUP_PREFIX)) {
+envelope = JSON.parse(base64UrlToUtf8(text.slice(EASYSAL_BACKUP_PREFIX.length)));
+} else if (text.startsWith('{')) {
+envelope = JSON.parse(text);
+} else {
+throw new Error('รูปแบบ Backup Code ไม่ถูกต้อง');
+}
+return migrateEasySalBackupEnvelope(envelope);
+}
+
+function setBackupStatus(message, type = '') {
+const el = document.getElementById('backup_status');
+if (!el) return;
+el.textContent = message || '';
+el.className = 'backup-status' + (type ? ` ${type}` : '');
+}
+
+function getBackupSummary(envelope) {
+const entries = envelope && envelope.entries && typeof envelope.entries === 'object' ? envelope.entries : {};
+const keys = Object.keys(entries);
+const monthCount = keys.filter(k => k.startsWith(STORAGE_KEY_PREFIX)).length;
+let dailyCount = 0;
+try { dailyCount = Object.keys(JSON.parse(entries[DAILY_GLOBAL_KEY] || '{}')).length; } catch (e) {}
+let presetCount = 0;
+try {
+const p = JSON.parse(entries[EXPENSE_PRESET_KEY] || '[]');
+presetCount = Array.isArray(p) ? p.length : 0;
+} catch (e) {}
+return { keyCount: keys.length, monthCount, dailyCount, presetCount };
+}
+
+function generateEasySalBackupCode() {
+try {
+const envelope = buildEasySalBackupEnvelope();
+const code = encodeEasySalBackup(envelope);
+const out = document.getElementById('backup_code_output');
+if (out) out.value = code;
+const s = getBackupSummary(envelope);
+setBackupStatus(`สร้างแล้ว • ${s.monthCount} เดือน • ${s.dailyCount} วัน • ${s.presetCount} Preset`, 'ok');
+return code;
+} catch (e) {
+setBackupStatus(e.message || 'สร้าง Backup Code ไม่สำเร็จ', 'error');
+return '';
+}
+}
+
+async function copyEasySalBackupCode() {
+let code = (document.getElementById('backup_code_output')?.value || '').trim();
+if (!code) code = generateEasySalBackupCode();
+if (!code) return;
+try {
+await navigator.clipboard.writeText(code);
+setBackupStatus('คัดลอก Backup Code แล้ว', 'ok');
+} catch (e) {
+const out = document.getElementById('backup_code_output');
+if (out) { out.focus(); out.select(); }
+setBackupStatus('เลือกโค้ดให้แล้ว • กด Copy จากเมนูของเครื่องได้เลย');
+}
+}
+
+function downloadEasySalBackupFile() {
+try {
+const envelope = buildEasySalBackupEnvelope();
+const blob = new Blob([JSON.stringify(envelope, null, 2)], { type: 'application/json;charset=utf-8' });
+const url = URL.createObjectURL(blob);
+const a = document.createElement('a');
+const stamp = new Date().toISOString().slice(0, 10);
+a.href = url;
+a.download = `EasySal-${EASYSAL_APP_VERSION}-backup-${stamp}.easysal`;
+document.body.appendChild(a);
+a.click();
+a.remove();
+setTimeout(() => URL.revokeObjectURL(url), 1000);
+setBackupStatus('ดาวน์โหลดไฟล์สำรองแล้ว', 'ok');
+} catch (e) {
+setBackupStatus(e.message || 'ดาวน์โหลดไฟล์สำรองไม่สำเร็จ', 'error');
+}
+}
+
+function applyEasySalBackupEnvelope(envelope) {
+const entries = envelope.entries && typeof envelope.entries === 'object' ? envelope.entries : {};
+const current = collectEasySalStorageEntries();
+const rollback = {
+schema: EASYSAL_BACKUP_SCHEMA,
+schemaVersion: 1,
+sourceAppVersion: EASYSAL_APP_VERSION,
+exportedAt: new Date().toISOString(),
+entries: current
+};
+const keysToDelete = [];
+for (let i = 0; i < localStorage.length; i++) {
+const key = localStorage.key(i);
+if (isEasySalStorageKey(key)) keysToDelete.push(key);
+}
+keysToDelete.forEach(key => localStorage.removeItem(key));
+Object.entries(entries).forEach(([key, value]) => {
+if (isEasySalStorageKey(key) && value !== null && value !== undefined) {
+localStorage.setItem(key, String(value));
+}
+});
+localStorage.setItem('easysal_last_import_rollback_v1', JSON.stringify(rollback));
+}
+
+async function confirmAndApplyEasySalBackup(envelope) {
+const s = getBackupSummary(envelope);
+const sourceVersion = envelope.sourceAppVersion || '?';
+const summary = currentLang === 'th'
+? `${s.monthCount} เดือน • ${s.dailyCount} วัน • ${s.presetCount} Preset`
+: `${s.monthCount} months • ${s.dailyCount} days • ${s.presetCount} presets`;
+const ok = await showEasyDialog(getEasyDialogCopy('importBackup', { version: sourceVersion, summary }));
+if (!ok) return false;
+applyEasySalBackupEnvelope(envelope);
+await showEasyNotice('importDone');
+location.reload();
+return true;
+}
+
+async function importEasySalBackupCode() {
+try {
+const raw = document.getElementById('backup_code_input')?.value || '';
+const envelope = decodeEasySalBackup(raw);
+await confirmAndApplyEasySalBackup(envelope);
+} catch (e) {
+setBackupStatus(e.message || (currentLang === 'th' ? 'นำเข้า Backup Code ไม่สำเร็จ' : 'Could not import backup code'), 'error');
+}
+}
+
+function importEasySalBackupFile(event) {
+const input = event && event.target;
+const file = input && input.files && input.files[0];
+if (!file) return;
+const reader = new FileReader();
+reader.onload = async () => {
+try {
+const envelope = decodeEasySalBackup(String(reader.result || ''));
+await confirmAndApplyEasySalBackup(envelope);
+} catch (e) {
+setBackupStatus(e.message || (currentLang === 'th' ? 'อ่านไฟล์สำรองไม่สำเร็จ' : 'Could not read backup file'), 'error');
+} finally {
+input.value = '';
+}
+};
+reader.onerror = () => setBackupStatus(currentLang === 'th' ? 'อ่านไฟล์สำรองไม่สำเร็จ' : 'Could not read backup file', 'error');
+reader.readAsText(file);
+}
+
+function syncEasySal13Texts() {
+const th = currentLang === 'th';
+const map = {
+salary_payday_label: th ? '🔔 เงินเดือนออก' : '🔔 Salary day',
+backup_title: th ? '🔐 สำรอง & ย้ายข้อมูล' : '🔐 Backup & transfer',
+backup_subtitle: th ? 'ย้ายข้อมูล EasySal ไปเครื่องอื่นด้วยโค้ดหรือไฟล์ • รองรับการอัปเกรดเวอร์ชันในอนาคต' : 'Move EasySal data using a code or file • versioned for future upgrades',
+backup_export_title: th ? 'ส่งออกข้อมูล' : 'Export data',
+backup_import_title: th ? 'นำเข้าข้อมูล' : 'Import data',
+backup_generate_btn: th ? 'สร้าง Backup Code' : 'Generate Backup Code',
+backup_copy_btn: th ? 'คัดลอก' : 'Copy',
+backup_download_btn: th ? 'ดาวน์โหลดไฟล์' : 'Download file',
+backup_import_btn: th ? 'นำเข้าโค้ด' : 'Import code',
+backup_file_btn: th ? 'เลือกไฟล์สำรอง' : 'Choose backup file'
+};
+Object.entries(map).forEach(([id, text]) => { const el = document.getElementById(id); if (el) el.textContent = text; });
+const out = document.getElementById('backup_code_output');
+const inp = document.getElementById('backup_code_input');
+if (out) out.placeholder = th ? 'กด “สร้าง Backup Code” เพื่อสร้างโค้ดสำรอง' : 'Press “Generate Backup Code” to create a backup';
+if (inp) inp.placeholder = th ? 'วาง Backup Code ที่นี่' : 'Paste Backup Code here';
 }
 
 function initTheme() {
@@ -2305,10 +3056,10 @@ btn_clear_cal: "ล้าง",
 nav_prev: "เดือนก่อนหน้า",
 nav_next: "เดือนถัดไป",
 btn_clear_all: "🗑️ ล้างข้อมูลทั้งหมด",
-confirm_clear_month: "คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลทั้งหมดในรอบนี้?",
-confirm_clear_day: "คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลของวันนี้?",
-confirm_clear_cal: "คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลในบันทึกทั้งหมดของรอบนี้?",
-confirm_clear_all: "⚠️ คุณแน่ใจหรือไม่ว่าต้องการล้างข้อมูลทั้งหมดของทุกเดือนทุกปี? การกระทำนี้ไม่สามารถย้อนกลับได้",
+confirm_clear_month: "ล้างข้อมูลของรอบที่เลือก รวมเงินเดือน OT รายรับ รายจ่าย งบ และข้อมูลรายวัน โดยไม่กระทบเดือนอื่น",
+confirm_clear_day: "ล้าง OT รายรับ รายจ่าย และสถานะการทำงานที่บันทึกไว้ในวันนี้",
+confirm_clear_cal: "ล้างข้อมูลรายวันที่อยู่ในรอบที่เลือก รวม OT รายรับ และรายจ่ายในปฏิทิน",
+confirm_clear_all: "ล้างข้อมูล EasySal ทุกเดือนทุกปี รวมข้อมูลรายวัน Preset งบ และการตั้งค่าที่เกี่ยวข้อง การลบนี้ย้อนกลับไม่ได้",
 confirm_open_cal: "⚠️ คำเตือน: การเปิดใช้งานโหมดบันทึกรายวันจะทำให้ข้อมูลชั่วโมง OT, วันทำงาน และกะกลางคืนที่กรอกไว้เดิมถูกล้างและแทนที่ด้วยข้อมูลรายวัน คุณต้องการเปิดหรือไม่?",
 confirm_toggle_off: "เมื่อปิดโหมดนี้ ระบบจะล้างค่าบันทึกรายวันและค่าที่เกี่ยวข้องออกทั้งหมด ยืนยันปิดหรือไม่?"
 },
@@ -2470,10 +3221,10 @@ btn_clear_cal: "Clear",
 nav_prev: "Previous Month",
 nav_next: "Next Month",
 btn_clear_all: "🗑️ Clear All Data",
-confirm_clear_month: "Are you sure you want to clear all data for this period?",
-confirm_clear_day: "Are you sure you want to clear all data for this day?",
-confirm_clear_cal: "Are you sure you want to clear all log records for this period?",
-confirm_clear_all: "⚠️ Are you sure you want to clear ALL data for every month and year? This cannot be undone.",
+confirm_clear_month: "Clear salary, OT, income, expenses, budgets, and daily records for the selected period without affecting other months.",
+confirm_clear_day: "Clear OT, income, expenses, and work status saved for this day.",
+confirm_clear_cal: "Clear daily calendar records in the selected period, including OT, income, and expenses.",
+confirm_clear_all: "Clear all EasySal months and years, including daily records, presets, budgets, and related settings. This cannot be undone.",
 confirm_open_cal: "⚠️ Warning: Turning on daily log mode will clear existing manual OT and work day inputs and replace them with log records. Turn on?",
 confirm_toggle_off: "Turning off log mode will clear all log records and related inputs. Turn off?"
 }
@@ -2770,6 +3521,9 @@ loadCurrentMonthData();
 updatePeriodInfoBar(lang);
 renderCalendar();
 calculateYearlySummary();
+syncEasySal13Texts();
+renderSalaryPayday();
+syncNativeSalaryNotification();
 }
 
 const STORAGE_KEY_PREFIX = 'calc_data_v7_';
@@ -3724,8 +4478,12 @@ const dayLabelHtml = isOutsidePeriodMonth
 ? `${date.getDate()}<small style="font-size:0.5rem; opacity:0.65; margin-left:2px;">${monthNames[currentLang][date.getMonth()]}</small>`
 : `${date.getDate()}`;
 
+const paydayMarker = isSalaryPaydayDate(date)
+? `<span class="cal-payday-marker" title="${currentLang === 'th' ? 'วันเงินเดือนออก' : 'Salary day'}" aria-label="${currentLang === 'th' ? 'วันเงินเดือนออก' : 'Salary day'}">💰</span>`
+: '';
 cell.innerHTML = `
 <span class="cal-day-num">${dayLabelHtml}</span>
+${paydayMarker}
 <div class="cal-badges">${badgesHtml}</div>
 `;
 grid.appendChild(cell);
@@ -3785,8 +4543,9 @@ otChip = `<span class="list-chip ot">⏱️ ${textStr.join(' / ')}</span>`;
 }
 }
 
-const hasAnyInfo = incChip !== '' || expChip !== '' || otChip !== '';
-const rowDataHtml = hasAnyInfo ? `${incChip}${expChip}${otChip}` : `<span class="list-chip empty-data">-</span>`;
+const paydayChip = isSalaryPaydayDate(date) ? `<span class="list-chip payday">💰 ${currentLang === 'th' ? 'เงินเดือนออก' : 'Salary day'}</span>` : '';
+const hasAnyInfo = incChip !== '' || expChip !== '' || otChip !== '' || paydayChip !== '';
+const rowDataHtml = hasAnyInfo ? `${paydayChip}${incChip}${expChip}${otChip}` : `<span class="list-chip empty-data">-</span>`;
 
 item.innerHTML = `
 <span class="cal-list-date">${date.getDate()} ${monthNames[currentLang][date.getMonth()]} (${dayOfWeek})</span>
@@ -3806,19 +4565,17 @@ function hasOt(d) {
 return (parseFloat(d.ot1)||0) > 0 || (parseFloat(d.ot15)||0) > 0 || (parseFloat(d.ot2)||0) > 0 || (parseFloat(d.ot3)||0) > 0;
 }
 
-function confirmToggleCalendar() {
-const t = translations[currentLang];
-
+async function confirmToggleCalendar() {
 if (!isCalendarCollapsed) {
-if (confirm(t.confirm_toggle_off)) {
+const ok = await showEasyDialog(getEasyDialogCopy('closeDaily'));
+if (ok) {
 dailyDataMap = {};
 clearCalendarCalculatedInputs();
 toggleCalendarUI(true);
 }
 } else {
-if (confirm(t.confirm_open_cal)) {
-toggleCalendarUI(false);
-}
+const ok = await showEasyDialog(getEasyDialogCopy('openDaily'));
+if (ok) toggleCalendarUI(false);
 }
 }
 
@@ -3903,9 +4660,9 @@ saveAndCalculate();
 }
 }
 
-function confirmClearCalendar() {
-const t = translations[currentLang];
-if (confirm(t.confirm_clear_cal)) {
+async function confirmClearCalendar() {
+const ok = await showEasyDialog(getEasyDialogCopy('clearCalendar'));
+if (ok) {
 const periodKeys = new Set(getPeriodDates(
 parseInt(document.getElementById('year-select').value),
 parseInt(document.getElementById('month-select').value)
@@ -3922,18 +4679,14 @@ saveAndCalculate();
 }
 }
 
-function confirmClearMonthData() {
-const t = translations[currentLang];
-if (confirm(t.confirm_clear_month)) {
-clearCurrentMonthData();
-}
+async function confirmClearMonthData() {
+const ok = await showEasyDialog(getEasyDialogCopy('clearMonth'));
+if (ok) clearCurrentMonthData();
 }
 
-function confirmClearAllData() {
-const t = translations[currentLang];
-if (confirm(t.confirm_clear_all)) {
-clearAllData();
-}
+async function confirmClearAllData() {
+const ok = await showEasyDialog(getEasyDialogCopy('clearAll'));
+if (ok) clearAllData();
 }
 
 function clearAllData() {
@@ -3941,16 +4694,16 @@ const t=translations[currentLang];
 const keysToRemove=[];
 for(let i=0;i<localStorage.length;i++){
 const key=localStorage.key(i);
-if(key&&(key.startsWith(STORAGE_KEY_PREFIX)||key===DAILY_GLOBAL_KEY||key===PERIOD_CUTOFF_KEY||key===EXPENSE_PRESET_KEY||key===YEARLY_CHART_METRIC_KEY||key===SAVINGS_GOAL_PERCENT_KEY||key===SAVINGS_MODE_KEY))keysToRemove.push(key);
+if(key&&isEasySalStorageKey(key))keysToRemove.push(key);
 }
 keysToRemove.forEach(k=>localStorage.removeItem(k));
 dailyDataMap={}; isCalendarCollapsed=true; calendarViewMode='grid'; financePresetOriginalSnapshot=null; activeFinancePresetId=''; yearlyChartMetric='income';
 ['salary','hours','ot1','ot15','ot2','ot3','work_days','travel','lang_allowance','night_days'].forEach(id=>document.getElementById(id).value='');
 document.getElementById('period-cutoff-day').value=25;
-const goalInput=document.getElementById('savings_goal_percent'); if(goalInput)goalInput.value=50;
+const goalInput=document.getElementById('savings_goal_percent'); if(goalInput)goalInput.value=50; renderSalaryPayday(); syncNativeSalaryNotification();
 document.getElementById('month_exp_list').innerHTML=''; document.getElementById('month_inc_list').innerHTML='';
 const budgetList=document.getElementById('expense_budget_list'); if(budgetList)budgetList.innerHTML='';
-refreshFinancePresetSelect('__original__'); closeFinancePresetDropdown(); toggleCalendarUI(true); renderCalendar(); calculate(); calculateYearlySummary(); updatePeriodInfoBar(); alert(t.msg_cleared_all);
+refreshFinancePresetSelect('__original__'); closeFinancePresetDropdown(); toggleCalendarUI(true); renderCalendar(); calculate(); calculateYearlySummary(); updatePeriodInfoBar(); showEasyNotice('clearAllDone');
 }
 
 function openDayModal(date) {
@@ -4182,11 +4935,11 @@ div
 return div;
 }
 
-function clearDayModalData() {
+async function clearDayModalData() {
 if (!selectedDayKey) return;
-
-const t = translations[currentLang];
-if (!confirm(t.confirm_clear_day)) return;
+const dayLabel = document.getElementById('modal-date-title')?.textContent || '';
+const ok = await showEasyDialog(getEasyDialogCopy('clearDay', { dayLabel }));
+if (!ok) return;
 
 if (dayAutoSaveTimer) { clearTimeout(dayAutoSaveTimer); dayAutoSaveTimer = null; }
 delete dailyDataMap[selectedDayKey];
@@ -4568,7 +5321,7 @@ syncFinanceSortControl();
 function clearCurrentMonthData() {
 const t=translations[currentLang]; const year=document.getElementById('year-select').value; const month=document.getElementById('month-select').value; const key=getStorageKey(year,month); const periodKeys=new Set(getPeriodDates(parseInt(year),parseInt(month)).map(dateKey)); const allDaily=getAllStoredDailyData(); periodKeys.forEach(k=>delete allDaily[k]); dailyDataMap=allDaily; saveAllStoredDailyData(); localStorage.removeItem(key);
 localStorage.removeItem(getExpenseBudgetStorageKey(parseInt(year), parseInt(month)));
-['salary','hours','ot1','ot15','ot2','ot3','work_days','travel','lang_allowance','night_days'].forEach(id=>document.getElementById(id).value=''); document.getElementById('month_exp_list').innerHTML=''; document.getElementById('month_inc_list').innerHTML=''; const budgetListClear=document.getElementById('expense_budget_list'); if(budgetListClear) budgetListClear.innerHTML=''; recalculateMonthlyFromDaily(); renderCalendar(); calculate(); calculateYearlySummary(); alert(t.msg_cleared);
+['salary','hours','ot1','ot15','ot2','ot3','work_days','travel','lang_allowance','night_days'].forEach(id=>document.getElementById(id).value=''); document.getElementById('month_exp_list').innerHTML=''; document.getElementById('month_inc_list').innerHTML=''; const budgetListClear=document.getElementById('expense_budget_list'); if(budgetListClear) budgetListClear.innerHTML=''; recalculateMonthlyFromDaily(); renderCalendar(); calculate(); calculateYearlySummary(); showEasyNotice('clearMonthDone');
 }
 
 function getNum(id) {
@@ -8136,56 +8889,42 @@ budgets
 function buildAndroidWidgetCalendarPayload() {
 const yearEl = document.getElementById('year-select');
 const monthEl = document.getElementById('month-select');
-if (!yearEl || !monthEl) return { monthLabel: '', cells: [] };
+if (!yearEl || !monthEl) return { monthLabel: '', selectedYear: 0, selectedMonth: 0, cutoffDay: getPeriodCutoffDay(), markerMap: {} };
 
 const year = parseInt(yearEl.value);
 const month = parseInt(monthEl.value);
 const displayYear = currentLang === 'th' ? year + 543 : year;
 const monthLabel = `${monthFullNames[currentLang][month]} ${displayYear}`;
-const firstDay = new Date(year, month, 1);
-const startDate = new Date(year, month, 1 - firstDay.getDay());
-const cells = [];
+const markerMap = {};
 
-for (let i = 0; i < 42; i++) {
-const date = new Date(startDate);
-date.setDate(startDate.getDate() + i);
-const key = dateKey(date);
-const data = dailyDataMap[key] || {};
-let marker = '';
-
+Object.entries(dailyDataMap || {}).forEach(([key, data]) => {
+if (!data || typeof data !== 'object') return;
 const otHours =
 (parseFloat(data.ot1) || 0) +
 (parseFloat(data.ot15) || 0) +
 (parseFloat(data.ot2) || 0) +
 (parseFloat(data.ot3) || 0);
-
-let expense =
-(parseFloat(data.expFood) || 0) +
-(parseFloat(data.expCommute) || 0);
-
-if (Array.isArray(data.extraExpenses)) {
-data.extraExpenses.forEach(item => expense += parseFloat(item.amount) || 0);
-}
-
+let expense = (parseFloat(data.expFood) || 0) + (parseFloat(data.expCommute) || 0);
+if (Array.isArray(data.extraExpenses)) data.extraExpenses.forEach(item => expense += parseFloat(item.amount) || 0);
 let income = 0;
-if (Array.isArray(data.extraIncomes)) {
-data.extraIncomes.forEach(item => income += parseFloat(item.amount) || 0);
-}
-
-if (otHours > 0) marker = 'OT';
-else if (expense > 0) marker = '−';
-else if (income > 0) marker = '+';
-else if (data.night) marker = '●';
-else if (data.work) marker = '•';
-
-cells.push({
-  day: date.getDate(),
-  inMonth: date.getMonth() === month,
-  marker
+if (Array.isArray(data.extraIncomes)) data.extraIncomes.forEach(item => income += parseFloat(item.amount) || 0);
+let label = '';
+let type = '';
+if (otHours > 0) { label = 'OT'; type = 'ot'; }
+else if (data.work) { label = currentLang === 'th' ? 'ทำงาน' : 'Work'; type = 'work'; }
+else if (data.night) { label = '🌙'; type = 'night'; }
+else if (expense > 0) { label = `-${Math.round(expense)}`; type = 'expense'; }
+else if (income > 0) { label = `+${Math.round(income)}`; type = 'income'; }
+if (label) markerMap[key] = { label, type };
 });
-}
 
-return { monthLabel, cells };
+return {
+monthLabel,
+selectedYear: year,
+selectedMonth: month,
+cutoffDay: getPeriodCutoffDay(),
+markerMap
+};
 }
 
 function isRunningInsideNativeApp() {
@@ -8227,7 +8966,11 @@ plugin.updateWidget({
   availableText: `${formatNum(available)}${currency}`,
   expenseText: `${formatNum(expense)}${currency}`,
   remainingText: `${formatNum(remaining)}${currency}`,
-  calendarJson: JSON.stringify(calendar.cells)
+  selectedYear: calendar.selectedYear,
+  selectedMonth: calendar.selectedMonth,
+  cutoffDay: calendar.cutoffDay,
+  markerMapJson: JSON.stringify(calendar.markerMap),
+  language: currentLang
 }).catch(() => {});
 } catch (e) {
 // Browser/PWA mode: native widget plugin is not present.
@@ -9337,9 +10080,17 @@ intro.parentNode.removeChild(intro);
 }, visibleTime);
 }
 
+document.addEventListener('keydown', (event) => {
+if (event.key === 'Escape' && document.getElementById('easy-dialog-overlay')?.classList.contains('show')) closeEasyDialog(false);
+});
+
 initYearMonthDropdowns();
+initBackupSection();
 updateCalendarModeButton();
 syncApkDownloadVisibility();
+syncEasySal13Texts();
+renderSalaryPayday();
+syncNativeSalaryNotification();
 initEasySalIntro();
 loadCurrentMonthData();
 initMainSections();
