@@ -1358,6 +1358,11 @@ contain:layout paint;
   .lang-btn{min-width:25px !important;padding:0 5px !important;}
 }
 
+
+.backup-copy-toast{position:fixed;left:50%;bottom:22px;z-index:10050;max-width:calc(100vw - 32px);padding:10px 14px;border-radius:12px;background:var(--text-main);color:var(--card-bg);font-size:.74rem;font-weight:850;box-shadow:0 12px 32px rgba(15,23,42,.24);opacity:0;pointer-events:none;transform:translate(-50%,12px) scale(.98);transition:opacity .18s ease,transform .2s ease;white-space:nowrap;}
+.backup-copy-toast.show{opacity:1;transform:translate(-50%,0) scale(1);}
+[data-theme="dark"] .backup-copy-toast{background:#f8fafc;color:#0f172a;}
+
 </style>
 </head>
 <body class="easysal-loading">
@@ -1994,18 +1999,17 @@ contain:layout paint;
 <span class="main-section-chevron" id="backup-section-chevron"></span>
 <span id="backup_title">🔐 สำรอง & ย้ายข้อมูล</span>
 </div>
-<span class="backup-schema-chip">ESB1</span>
+<span class="backup-schema-chip">ESB1Z</span>
 </div>
 <div class="backup-accordion-content" id="backup-section-content">
 <div class="backup-transfer-card" id="backup_transfer_card">
-<div class="backup-transfer-intro" id="backup_subtitle">ย้ายข้อมูล EasySal ไปเครื่องอื่นด้วยโค้ดหรือไฟล์ • รองรับการอัปเกรดเวอร์ชันในอนาคต</div>
+<div class="backup-transfer-intro" id="backup_subtitle">ย้ายข้อมูล EasySal ไปเครื่องอื่นด้วย Backup Code • โค้ดใหม่ถูกบีบอัดให้สั้นลงและยังรองรับโค้ดรุ่นเก่า</div>
 
 <div class="backup-block">
 <div class="backup-block-title" id="backup_export_title">ส่งออกข้อมูล</div>
 <div class="backup-actions">
 <button type="button" class="backup-btn primary" onclick="generateEasySalBackupCode()" id="backup_generate_btn">สร้าง Backup Code</button>
 <button type="button" class="backup-btn" onclick="copyEasySalBackupCode()" id="backup_copy_btn">คัดลอก</button>
-<button type="button" class="backup-btn" onclick="downloadEasySalBackupFile()" id="backup_download_btn">ดาวน์โหลดไฟล์</button>
 </div>
 <textarea id="backup_code_output" class="backup-code-box" readonly placeholder="กด ‘สร้าง Backup Code’ เพื่อสร้างโค้ดสำรอง"></textarea>
 </div>
@@ -2017,8 +2021,6 @@ contain:layout paint;
 <textarea id="backup_code_input" class="backup-code-box" placeholder="วาง Backup Code ที่นี่"></textarea>
 <div class="backup-actions">
 <button type="button" class="backup-btn primary" onclick="importEasySalBackupCode()" id="backup_import_btn">นำเข้าโค้ด</button>
-<button type="button" class="backup-btn" onclick="document.getElementById('backup_file_input').click()" id="backup_file_btn">เลือกไฟล์สำรอง</button>
-<input id="backup_file_input" type="file" accept=".easysal,.json,text/plain,application/json" hidden onchange="importEasySalBackupFile(event)">
 </div>
 <div class="backup-status" id="backup_status"></div>
 </div>
@@ -2029,6 +2031,8 @@ contain:layout paint;
 </div>
 </div>
 </div>
+
+<div class="backup-copy-toast" id="backup-copy-toast" role="status" aria-live="polite">✓ ก๊อปไปยังคลิปบอร์ดแล้ว</div>
 
 <div class="easy-dialog-overlay" id="easy-dialog-overlay" aria-hidden="true">
 <div class="easy-dialog-card" id="easy-dialog-card" role="dialog" aria-modal="true" aria-labelledby="easy-dialog-title" aria-describedby="easy-dialog-message">
@@ -2635,7 +2639,8 @@ return showEasyDialog({ ...getEasyDialogCopy(key, extra), showCancel:false });
 const EASYSAL_BACKUP_SCHEMA = 'easysal-backup';
 const EASYSAL_BACKUP_SCHEMA_VERSION = 1;
 const EASYSAL_APP_VERSION = '1.3';
-const EASYSAL_BACKUP_PREFIX = 'ESB1.';
+const EASYSAL_BACKUP_PREFIX = 'ESB1.';       // legacy Base64URL
+const EASYSAL_BACKUP_COMPRESSED_PREFIX = 'ESB1Z.'; // gzip + Base64URL
 
 function isEasySalStorageKey(key) {
 return typeof key === 'string' && (
@@ -2663,13 +2668,12 @@ schema: EASYSAL_BACKUP_SCHEMA,
 schemaVersion: EASYSAL_BACKUP_SCHEMA_VERSION,
 sourceAppVersion: EASYSAL_APP_VERSION,
 exportedAt: new Date().toISOString(),
-encoding: 'utf8-base64url',
+encoding: 'gzip-base64url',
 entries: collectEasySalStorageEntries()
 };
 }
 
-function utf8ToBase64Url(text) {
-const bytes = new TextEncoder().encode(text);
+function bytesToBase64Url(bytes) {
 let binary = '';
 const chunk = 0x8000;
 for (let i = 0; i < bytes.length; i += chunk) {
@@ -2678,39 +2682,71 @@ binary += String.fromCharCode.apply(null, bytes.subarray(i, i + chunk));
 return btoa(binary).replace(/\+/g, '-').replace(/\//g, '_').replace(/=+$/g, '');
 }
 
-function base64UrlToUtf8(value) {
+function base64UrlToBytes(value) {
 let base64 = String(value || '').replace(/-/g, '+').replace(/_/g, '/');
 while (base64.length % 4) base64 += '=';
 const binary = atob(base64);
 const bytes = new Uint8Array(binary.length);
 for (let i = 0; i < binary.length; i++) bytes[i] = binary.charCodeAt(i);
-return new TextDecoder().decode(bytes);
+return bytes;
+}
+
+function utf8ToBase64Url(text) {
+return bytesToBase64Url(new TextEncoder().encode(text));
+}
+
+function base64UrlToUtf8(value) {
+return new TextDecoder().decode(base64UrlToBytes(value));
+}
+
+async function compressUtf8ToBase64Url(text) {
+if (typeof CompressionStream !== 'function') return null;
+const input = new Blob([new TextEncoder().encode(text)]).stream();
+const compressed = input.pipeThrough(new CompressionStream('gzip'));
+const buffer = await new Response(compressed).arrayBuffer();
+return bytesToBase64Url(new Uint8Array(buffer));
+}
+
+async function decompressBase64UrlToUtf8(value) {
+if (typeof DecompressionStream !== 'function') throw new Error(currentLang === 'th' ? 'อุปกรณ์นี้ยังไม่รองรับการเปิด Backup Code แบบบีบอัด' : 'This device cannot decompress this Backup Code yet');
+const bytes = base64UrlToBytes(value);
+const stream = new Blob([bytes]).stream().pipeThrough(new DecompressionStream('gzip'));
+const buffer = await new Response(stream).arrayBuffer();
+return new TextDecoder().decode(buffer);
 }
 
 function migrateEasySalBackupEnvelope(envelope) {
-if (!envelope || envelope.schema !== EASYSAL_BACKUP_SCHEMA) throw new Error('ไม่ใช่ไฟล์สำรอง EasySal');
+if (!envelope || envelope.schema !== EASYSAL_BACKUP_SCHEMA) throw new Error(currentLang === 'th' ? 'โค้ดนี้ไม่ใช่ Backup ของ EasySal' : 'This is not an EasySal backup');
 const version = parseInt(envelope.schemaVersion || 0);
 if (version === 1) return envelope;
 if (version > EASYSAL_BACKUP_SCHEMA_VERSION) {
-throw new Error(`Backup นี้ใช้ schema ${version} ซึ่งใหม่กว่า EasySal ${EASYSAL_APP_VERSION}`);
+throw new Error(currentLang === 'th' ? `Backup นี้สร้างด้วยรูปแบบข้อมูลรุ่นใหม่กว่า (${version})` : `This backup uses a newer schema (${version})`);
 }
-throw new Error('Backup schema รุ่นนี้ไม่รองรับ');
-}
-
-function encodeEasySalBackup(envelope) {
-return EASYSAL_BACKUP_PREFIX + utf8ToBase64Url(JSON.stringify(envelope));
+throw new Error(currentLang === 'th' ? 'Backup รุ่นนี้ยังไม่รองรับ' : 'This backup schema is not supported');
 }
 
-function decodeEasySalBackup(raw) {
+async function encodeEasySalBackup(envelope) {
+const json = JSON.stringify(envelope);
+try {
+const packed = await compressUtf8ToBase64Url(json);
+if (packed) return EASYSAL_BACKUP_COMPRESSED_PREFIX + packed;
+} catch (e) {}
+return EASYSAL_BACKUP_PREFIX + utf8ToBase64Url(json);
+}
+
+async function decodeEasySalBackup(raw) {
 const text = String(raw || '').trim();
-if (!text) throw new Error('ยังไม่มี Backup Code');
+if (!text) throw new Error(currentLang === 'th' ? 'กรุณาวาง Backup Code ก่อน' : 'Paste a Backup Code first');
 let envelope;
-if (text.startsWith(EASYSAL_BACKUP_PREFIX)) {
+if (text.startsWith(EASYSAL_BACKUP_COMPRESSED_PREFIX)) {
+const json = await decompressBase64UrlToUtf8(text.slice(EASYSAL_BACKUP_COMPRESSED_PREFIX.length));
+envelope = JSON.parse(json);
+} else if (text.startsWith(EASYSAL_BACKUP_PREFIX)) {
 envelope = JSON.parse(base64UrlToUtf8(text.slice(EASYSAL_BACKUP_PREFIX.length)));
 } else if (text.startsWith('{')) {
 envelope = JSON.parse(text);
 } else {
-throw new Error('รูปแบบ Backup Code ไม่ถูกต้อง');
+throw new Error(currentLang === 'th' ? 'รูปแบบ Backup Code ไม่ถูกต้อง' : 'Invalid Backup Code');
 }
 return migrateEasySalBackupEnvelope(envelope);
 }
@@ -2720,6 +2756,16 @@ const el = document.getElementById('backup_status');
 if (!el) return;
 el.textContent = message || '';
 el.className = 'backup-status' + (type ? ` ${type}` : '');
+}
+
+let backupCopyToastTimer = null;
+function showBackupCopyToast() {
+const toast = document.getElementById('backup-copy-toast');
+if (!toast) return;
+toast.textContent = currentLang === 'th' ? '✓ ก๊อปไปยังคลิปบอร์ดแล้ว' : '✓ Copied to clipboard';
+toast.classList.add('show');
+clearTimeout(backupCopyToastTimer);
+backupCopyToastTimer = setTimeout(() => toast.classList.remove('show'), 1800);
 }
 
 function getBackupSummary(envelope) {
@@ -2736,51 +2782,55 @@ presetCount = Array.isArray(p) ? p.length : 0;
 return { keyCount: keys.length, monthCount, dailyCount, presetCount };
 }
 
-function generateEasySalBackupCode() {
+async function generateEasySalBackupCode() {
 try {
 const envelope = buildEasySalBackupEnvelope();
-const code = encodeEasySalBackup(envelope);
+const rawJson = JSON.stringify(envelope);
+const legacyLength = EASYSAL_BACKUP_PREFIX.length + utf8ToBase64Url(rawJson).length;
+const code = await encodeEasySalBackup(envelope);
 const out = document.getElementById('backup_code_output');
 if (out) out.value = code;
 const s = getBackupSummary(envelope);
-setBackupStatus(`สร้างแล้ว • ${s.monthCount} เดือน • ${s.dailyCount} วัน • ${s.presetCount} Preset`, 'ok');
+const savedPercent = legacyLength > 0 ? Math.max(0, Math.round((1 - code.length / legacyLength) * 100)) : 0;
+const detail = currentLang === 'th'
+? `สร้างแล้ว • ${code.length.toLocaleString()} ตัวอักษร • สั้นลงประมาณ ${savedPercent}% • ${s.monthCount} เดือน • ${s.dailyCount} วัน`
+: `Created • ${code.length.toLocaleString()} chars • about ${savedPercent}% shorter • ${s.monthCount} months • ${s.dailyCount} days`;
+setBackupStatus(detail, 'ok');
 return code;
 } catch (e) {
-setBackupStatus(e.message || 'สร้าง Backup Code ไม่สำเร็จ', 'error');
+setBackupStatus(e.message || (currentLang === 'th' ? 'สร้าง Backup Code ไม่สำเร็จ' : 'Could not create Backup Code'), 'error');
 return '';
 }
 }
 
 async function copyEasySalBackupCode() {
 let code = (document.getElementById('backup_code_output')?.value || '').trim();
-if (!code) code = generateEasySalBackupCode();
+if (!code) code = await generateEasySalBackupCode();
 if (!code) return;
 try {
+if (navigator.clipboard && typeof navigator.clipboard.writeText === 'function') {
 await navigator.clipboard.writeText(code);
-setBackupStatus('คัดลอก Backup Code แล้ว', 'ok');
+} else {
+throw new Error('clipboard unavailable');
+}
+setBackupStatus(currentLang === 'th' ? 'ก๊อป Backup Code ไปยังคลิปบอร์ดแล้ว' : 'Backup Code copied to clipboard', 'ok');
+showBackupCopyToast();
 } catch (e) {
 const out = document.getElementById('backup_code_output');
-if (out) { out.focus(); out.select(); }
-setBackupStatus('เลือกโค้ดให้แล้ว • กด Copy จากเมนูของเครื่องได้เลย');
+if (out) {
+out.focus();
+out.select();
+out.setSelectionRange(0, out.value.length);
 }
-}
-
-function downloadEasySalBackupFile() {
 try {
-const envelope = buildEasySalBackupEnvelope();
-const blob = new Blob([JSON.stringify(envelope, null, 2)], { type: 'application/json;charset=utf-8' });
-const url = URL.createObjectURL(blob);
-const a = document.createElement('a');
-const stamp = new Date().toISOString().slice(0, 10);
-a.href = url;
-a.download = `EasySal-${EASYSAL_APP_VERSION}-backup-${stamp}.easysal`;
-document.body.appendChild(a);
-a.click();
-a.remove();
-setTimeout(() => URL.revokeObjectURL(url), 1000);
-setBackupStatus('ดาวน์โหลดไฟล์สำรองแล้ว', 'ok');
-} catch (e) {
-setBackupStatus(e.message || 'ดาวน์โหลดไฟล์สำรองไม่สำเร็จ', 'error');
+const copied = document.execCommand && document.execCommand('copy');
+if (copied) {
+setBackupStatus(currentLang === 'th' ? 'ก๊อป Backup Code ไปยังคลิปบอร์ดแล้ว' : 'Backup Code copied to clipboard', 'ok');
+showBackupCopyToast();
+return;
+}
+} catch (ignored) {}
+setBackupStatus(currentLang === 'th' ? 'เลือก Backup Code ให้แล้ว • แตะ “คัดลอก” จากเมนูของโทรศัพท์' : 'Backup Code selected • use your device Copy action');
 }
 }
 
@@ -2825,45 +2875,25 @@ return true;
 async function importEasySalBackupCode() {
 try {
 const raw = document.getElementById('backup_code_input')?.value || '';
-const envelope = decodeEasySalBackup(raw);
+const envelope = await decodeEasySalBackup(raw);
 await confirmAndApplyEasySalBackup(envelope);
 } catch (e) {
 setBackupStatus(e.message || (currentLang === 'th' ? 'นำเข้า Backup Code ไม่สำเร็จ' : 'Could not import backup code'), 'error');
 }
 }
 
-function importEasySalBackupFile(event) {
-const input = event && event.target;
-const file = input && input.files && input.files[0];
-if (!file) return;
-const reader = new FileReader();
-reader.onload = async () => {
-try {
-const envelope = decodeEasySalBackup(String(reader.result || ''));
-await confirmAndApplyEasySalBackup(envelope);
-} catch (e) {
-setBackupStatus(e.message || (currentLang === 'th' ? 'อ่านไฟล์สำรองไม่สำเร็จ' : 'Could not read backup file'), 'error');
-} finally {
-input.value = '';
-}
-};
-reader.onerror = () => setBackupStatus(currentLang === 'th' ? 'อ่านไฟล์สำรองไม่สำเร็จ' : 'Could not read backup file', 'error');
-reader.readAsText(file);
-}
 
 function syncEasySal13Texts() {
 const th = currentLang === 'th';
 const map = {
 salary_payday_label: th ? '🔔 เงินเดือนออก' : '🔔 Salary day',
 backup_title: th ? '🔐 สำรอง & ย้ายข้อมูล' : '🔐 Backup & transfer',
-backup_subtitle: th ? 'ย้ายข้อมูล EasySal ไปเครื่องอื่นด้วยโค้ดหรือไฟล์ • รองรับการอัปเกรดเวอร์ชันในอนาคต' : 'Move EasySal data using a code or file • versioned for future upgrades',
+backup_subtitle: th ? 'ย้ายข้อมูล EasySal ไปเครื่องอื่นด้วย Backup Code • โค้ดใหม่ถูกบีบอัดและยังอ่านโค้ดรุ่นเก่าได้' : 'Move EasySal data with a Backup Code • compressed and backward compatible',
 backup_export_title: th ? 'ส่งออกข้อมูล' : 'Export data',
 backup_import_title: th ? 'นำเข้าข้อมูล' : 'Import data',
 backup_generate_btn: th ? 'สร้าง Backup Code' : 'Generate Backup Code',
 backup_copy_btn: th ? 'คัดลอก' : 'Copy',
-backup_download_btn: th ? 'ดาวน์โหลดไฟล์' : 'Download file',
-backup_import_btn: th ? 'นำเข้าโค้ด' : 'Import code',
-backup_file_btn: th ? 'เลือกไฟล์สำรอง' : 'Choose backup file'
+backup_import_btn: th ? 'นำเข้าโค้ด' : 'Import code'
 };
 Object.entries(map).forEach(([id, text]) => { const el = document.getElementById(id); if (el) el.textContent = text; });
 const out = document.getElementById('backup_code_output');
@@ -2892,6 +2922,7 @@ document.getElementById('theme-btn').innerText = '🌙';
 document.documentElement.setAttribute('data-theme', 'dark');
 document.getElementById('theme-btn').innerText = '☀️';
 }
+if (typeof scheduleCalculate === 'function') scheduleCalculate();
 calculateYearlySummary();
 }
 
@@ -8970,7 +9001,8 @@ plugin.updateWidget({
   selectedMonth: calendar.selectedMonth,
   cutoffDay: calendar.cutoffDay,
   markerMapJson: JSON.stringify(calendar.markerMap),
-  language: currentLang
+  language: currentLang,
+  theme: document.documentElement.getAttribute('data-theme') || 'light'
 }).catch(() => {});
 } catch (e) {
 // Browser/PWA mode: native widget plugin is not present.
